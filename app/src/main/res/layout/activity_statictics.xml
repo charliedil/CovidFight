@@ -11,13 +11,13 @@
         android:layout_height="200dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:id="@+id/vcuStat"
+        android:id="@+id/vcuImageView"
         android:src="@drawable/vcu" />
     <ImageView
         android:layout_width="300dp"
         android:layout_height="150dp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/vcuStat"
+        android:layout_below="@+id/vcuImageView"
         android:id="@+id/richmondStat"
         android:src="@drawable/richmond"/>
 

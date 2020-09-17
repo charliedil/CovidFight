@@ -3,7 +3,9 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
-
+    dependencies{
+        implementation 'com.google.maps.android:android-maps-utils:2.0.3'
+    }
     defaultConfig {
         applicationId "com.example.covidfight"
         minSdkVersion 16

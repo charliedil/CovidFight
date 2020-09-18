@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,69 +8,213 @@
 
 
     <androidx.cardview.widget.CardView
-        android:layout_width="400dp"
+        android:id="@+id/ActiveCaseCardView"
+        android:layout_width="match_parent"
         android:layout_height="140dp"
+        app:cardBackgroundColor="#F6DF56"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        android:background="#EFEBAB">
+        app:layout_constraintTop_toTopOf="parent">
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="140dp">
 
-        <TextView
-            android:id="@+id/ActiveCases"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:text="Actice Case"
-            android:textAlignment="center"
-            android:textSize="20dp"
-            android:textColor="#000"
-            android:textStyle="bold"
-            android:background="#F1AA41"
-            android:padding="10dp"
-            android:gravity="center_horizontal" />
+            <TextView
+                android:id="@+id/ActiveCases"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="#F1AA41"
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:text="Actice Case"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/ActiveStudentCases"
-            android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            android:text="Active Student Case:     "
-            android:layout_below="@id/ActiveCases"
-            android:paddingTop="10dp"
-            android:textSize="15dp"/>
-             <TextView
-                 android:id="@+id/ActiveStudentCaseNumber"
+            <TextView
+                android:id="@+id/ActiveStudentCases"
                 android:layout_width="wrap_content"
                 android:layout_height="45dp"
-                 android:layout_toRightOf="@id/ActiveStudentCases"
-                 android:layout_below="@+id/ActiveCases"
-                android:text="  20"
+                android:layout_below="@id/ActiveCases"
                 android:paddingTop="10dp"
-                android:textSize="15dp"/>
+                android:text="  Active Student Case:     "
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/ActiveStudentCaseNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_below="@+id/ActiveCases"
+                android:layout_toRightOf="@id/ActiveStudentCases"
+                android:paddingTop="10dp"
+                android:text="  20"
+                android:textColor="#111"
+                android:textSize="15dp" />
+
             <TextView
                 android:id="@+id/ActiveEmpoyeeCases"
                 android:layout_width="wrap_content"
                 android:layout_height="45dp"
-                android:text="Active Employee Case:     "
                 android:layout_below="@id/ActiveStudentCases"
                 android:paddingTop="10dp"
-                android:textSize="15dp"/>
+                android:text="  Active Employee Case:     "
+                android:textSize="15dp" />
+
             <TextView
                 android:id="@+id/ActiveEmployeeCaseNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="45dp"
-                android:layout_toRightOf="@id/ActiveEmpoyeeCases"
                 android:layout_below="@+id/ActiveStudentCaseNumber"
-                android:text="  20"
+                android:layout_toRightOf="@id/ActiveEmpoyeeCases"
                 android:paddingTop="10dp"
-                android:textSize="15dp"/>
-
-
+                android:text="  20"
+                android:textColor="#111"
+                android:textSize="15dp" />
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/IsolationAndQuarentineCardView"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        app:cardBackgroundColor="#F6DF56"
+        android:layout_below="@+id/ActiveCaseCardView"
+        android:layout_marginTop="20dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="140dp">
+
+            <TextView
+                android:id="@+id/IsolationAndQuarantine"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="#F1AA41"
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:text="On campus Isolation and Quarantie"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/Isolation"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_below="@id/IsolationAndQuarantine"
+                android:paddingTop="10dp"
+                android:text="  Resident students in isolation :     "
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/IsolationNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_below="@+id/IsolationAndQuarantine"
+                android:layout_toRightOf="@id/Isolation"
+                android:paddingTop="10dp"
+                android:text="  20"
+                android:textColor="#111"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/Quarantine"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_below="@id/Isolation"
+                android:paddingTop="10dp"
+                android:text="  Resident Students in quarantine:     "
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/QuarantineNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_below="@+id/IsolationNumber"
+                android:layout_toRightOf="@id/Quarantine"
+                android:paddingTop="10dp"
+                android:text="  20"
+                android:textColor="#111"
+                android:textSize="15dp" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_below="@id/IsolationAndQuarentineCardView"
+        android:layout_marginTop="20dp"
+        app:cardBackgroundColor="#F6DF56">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="140dp">
+
+            <TextView
+                android:id="@+id/EntryTestResults"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="#F1AA41"
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:text="Entry test results"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/NegativeEntryResult"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_below="@id/EntryTestResults"
+                android:paddingTop="10dp"
+                android:text="  Negavitve Entry Test Results :     "
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/NegavtiveEntryResultNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_below="@+id/EntryTestResults"
+                android:layout_toRightOf="@id/NegativeEntryResult"
+                android:paddingTop="10dp"
+                android:text="  20"
+                android:textColor="#111"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/PositiveEntryResult"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_below="@id/NegativeEntryResult"
+                android:paddingTop="10dp"
+                android:text="  Positive Entry Test Results:     "
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/PositiveEntryResultNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_below="@+id/NegativeEntryResult"
+                android:layout_toRightOf="@id/PositiveEntryResult"
+                android:paddingTop="10dp"
+                android:text="  20"
+                android:textColor="#111"
+                android:textSize="15dp" />
+
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+
+</RelativeLayout>

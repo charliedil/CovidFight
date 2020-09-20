@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">CovidFight</string>
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_stats">Stats</string>
+    <string name="title_activity_business">Business</string>
+    <string name="title_activity_info">Info</string>
+    <string name="app_logo">App Logo</string>
 </resources>

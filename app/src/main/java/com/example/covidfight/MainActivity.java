@@ -8,6 +8,7 @@ import androidx.cardview.widget.CardView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -44,8 +45,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(i);
                 break;
 
-            /*case R.id.statsCard :
-                i = new Intent(this,Statistics.class);
+            case R.id.statsCard :
+                i = new Intent(this,Statictics.class);
                 startActivity(i);
                 break;
 
@@ -54,10 +55,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(i);
                 break;
 
-            case R.id.infoCard :
-                i = new Intent(this,);
-                startActivity(i);
-                break;*/
+//            case R.id.infoCard :
+//                i = new Intent(this,);
+//                startActivity(i);
+//                break;
         }
 
 

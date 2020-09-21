@@ -19,7 +19,7 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".VcuStat"></activity>
-        <activity android:name=".Statictics">
+        <activity android:name=".Statictics"></activity>
 
         <activity android:name=".Splash">
 
@@ -31,6 +31,9 @@
         </activity>
 
         <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MapsActivity" android:label="@string/title_activity_maps">
+
+    </activity>
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -47,15 +50,7 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity
 
-            android:name=".MapsActivity"
-            android:label="@string/title_activity_maps">
-        </activity>
-        <activity
-            android:name=".MainActivity">
-
-        </activity>
 
 
     </application>

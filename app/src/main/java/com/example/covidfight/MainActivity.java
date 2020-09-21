@@ -1,6 +1,8 @@
 package com.example.covidfight;
 
+import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
+
 import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
@@ -12,10 +14,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public CardView card1, card2, card3, card4;
 
 
+
+    private Button btnLaunchBusiness;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         card1 = (CardView) findViewById(R.id.mapCard);
         card2 = (CardView) findViewById(R.id.statsCard);
@@ -54,5 +60,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;*/
         }
 
+
     }
+
+    private void launchBusiness() {
+        Intent intent = new Intent(this, BusinessActivity.class);
+        startActivity(intent);
+    }
+
 }

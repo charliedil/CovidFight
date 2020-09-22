@@ -15,8 +15,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public CardView card1, card2, card3, card4;
 
 
-
-    private Button btnLaunchBusiness;
+    //private Button btnLaunchBusiness;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.businessCard :
-                i = new Intent(this,BusinessActivity.class);
+                i = new Intent(this,Business.class);
                 startActivity(i);
                 break;
 
@@ -64,9 +63,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void launchBusiness() {
-        Intent intent = new Intent(this, BusinessActivity.class);
-        startActivity(intent);
-    }
+//    private void launchBusiness() {
+//        Intent intent = new Intent(this, BusinessActivity.class);
+//        startActivity(intent);
+//    }
 
 }

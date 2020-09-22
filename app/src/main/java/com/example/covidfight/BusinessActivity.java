@@ -4,8 +4,13 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import java.util.List;
+
 
 public class BusinessActivity extends Activity {
+
+
+    List<String> listBusinesses;
 
     private Button btnBackToMain;
 

@@ -1,19 +1,39 @@
 package com.example.covidfight;
 
-import androidx.fragment.app.FragmentActivity;
-
+import android.graphics.Color;
 import android.os.Bundle;
+
+import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.TileOverlayOptions;
+import com.google.maps.android.heatmaps.Gradient;
+import com.google.maps.android.heatmaps.HeatmapTileProvider;
+import com.google.maps.android.heatmaps.WeightedLatLng;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+
+    int[] colors = {
+            Color.GREEN,    // green(0-50)
+            Color.YELLOW,    // yellow(51-100)
+            Color.rgb(255,165,0), //Orange(101-150)
+            Color.RED,              //red(151-200)
+            Color.rgb(153,50,204), //dark orchid(201-300)
+           // Color.rgb(165,42,42) //brown(301-500)
+    };
+   float[] startpoints = new float[]{
+           .2f, .4f, .6f, .8f, 1.0f};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +58,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+        MapStyleOptions mapStyleOptions=MapStyleOptions.loadRawResourceStyle(this,R.raw.style);
+        googleMap.setMapStyle(mapStyleOptions);
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng richmond = new LatLng(37.5483, -77.4527);
+        //mMap.addMarker(new MarkerOptions().position(richmond).title("Marker in Richmond"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(richmond));
+        mMap.moveCamera(CameraUpdateFactory.zoomTo((float) 15.0));
+        Gradient gradient = new Gradient(colors,startpoints);
+        WeightedLatLng thingy = new WeightedLatLng(new LatLng(37.5483, -77.4527),2.0);
+        WeightedLatLng thingy2 = new WeightedLatLng(new LatLng(37.5493, -77.4527),5.0);
+        List<WeightedLatLng> wDat = new ArrayList<WeightedLatLng>();
+        wDat.add(thingy);
+        wDat.add(thingy2);
+        HeatmapTileProvider provider = new HeatmapTileProvider.Builder().weightedData(wDat).gradient(gradient).build();
+        mMap.addTileOverlay(new TileOverlayOptions().tileProvider(provider));
+
+
+
+
     }
 }

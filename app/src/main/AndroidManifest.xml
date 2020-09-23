@@ -18,11 +18,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".VcuStat"></activity>
+        <activity android:name=".VcuStat">
+
+        </activity>
         <activity android:name=".Statictics"></activity>
 
         <activity android:name=".Splash">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,7 +31,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity">
+
+        </activity>
         <activity android:name=".MapsActivity" android:label="@string/title_activity_maps">
 
     </activity>

@@ -3,6 +3,7 @@ package com.example.covidfight;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +11,8 @@ import android.widget.Button;
 
 
 public class Business extends AppCompatActivity {
+
+    private CardView bCardView;
 
     //List<String> listBusinesses;
     //private Button btnBackToMain;
@@ -21,8 +24,17 @@ public class Business extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_business);
 
-        //btnBackToMain = (Button) findViewById(R.id.btn_back);
+        bCardView=findViewById(R.id.bCard1);
+        bCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(Business.this, BusinessPopup.class);
+                startActivity(intent);
+            }
+        });
 
+//        btnBackToMain = (Button) findViewById(R.id.bCard1);
+//
 //        btnBackToMain.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {

@@ -2,52 +2,58 @@ package com.example.covidfight;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-//import java.util.List;
 
+import java.util.ArrayList;
+import java.util.List;
 
-public class Business extends AppCompatActivity {
-
-    private CardView bCardView;
+    //private CardView bCardView;
 
     //List<String> listBusinesses;
     //private Button btnBackToMain;
 
-    //public CardView card1, card2, card3, card4, card5, card6;
+public class Business extends AppCompatActivity {
+    private RecyclerView bRecyclerView;
+    private RecyclerView.Adapter bAdapter;
+    private RecyclerView.LayoutManager bLayoutManager;
+
+    //public CardView c1, c2, c3, c4, c5, c6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_business);
 
-        bCardView=findViewById(R.id.bCard1);
-        bCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(Business.this, BusinessPopup.class);
-                startActivity(intent);
-            }
-        });
+        //initializing test list
+        ArrayList<BusinessItem> businessList = new ArrayList<>();
+        businessList.add(new BusinessItem("Kroger", "Description", R.drawable.insert_image));
+        businessList.add(new BusinessItem("Panda Express", "Description", R.drawable.insert_image));
+        businessList.add(new BusinessItem("Chipotle", "Description", R.drawable.insert_image));
 
-//        btnBackToMain = (Button) findViewById(R.id.bCard1);
-//
-//        btnBackToMain.setOnClickListener(new View.OnClickListener() {
+        bRecyclerView = findViewById(R.id.recyclerView);
+        bRecyclerView.setHasFixedSize(true); //locks size (increases performance)
+        bLayoutManager = new LinearLayoutManager(this);
+        bAdapter = new BusinessAdapter(businessList);
+
+        bRecyclerView.setLayoutManager(bLayoutManager);
+        bRecyclerView.setAdapter(bAdapter);
+
+        //c1 = (CardView) findViewById(R.id.bCard1);
+
+//        bCardView=findViewById(R.id.bCard1);
+//        bCardView.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
-//                finish();
+//                Intent intent=new Intent(Business.this, BusinessPopup.class);
+//                startActivity(intent);
 //            }
-//        });
+//        };
 
-//        card1 = (CardView) findViewById(R.id.bcard1);
-//        card2 = (CardView) findViewById(R.id.bcard2);
-//        card3 = (CardView) findViewById(R.id.bcard3);
-//        card4 = (CardView) findViewById(R.id.bcard4);
-//        card5 = (CardView) findViewById(R.id.bcard5);
-//        card6 = (CardView) findViewById(R.id.bcard6);
+
 
 
     }

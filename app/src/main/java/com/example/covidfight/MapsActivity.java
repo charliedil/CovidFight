@@ -1,9 +1,11 @@
 package com.example.covidfight;
 
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.FragmentActivity;
+
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -16,9 +18,23 @@ import com.google.maps.android.heatmaps.Gradient;
 import com.google.maps.android.heatmaps.HeatmapTileProvider;
 import com.google.maps.android.heatmaps.WeightedLatLng;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -73,9 +89,56 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         wDat.add(thingy2);
         HeatmapTileProvider provider = new HeatmapTileProvider.Builder().weightedData(wDat).gradient(gradient).build();
         mMap.addTileOverlay(new TileOverlayOptions().tileProvider(provider));
-
+        loadData();
+        //System.exit(0);
 
 
 
     }
+    public void loadData(){
+
+        String myUrl = "https://services1.arcgis.com/0MSEUqKaxRlEPj5g/arcgis/rest/services/ncov_cas" +
+                "es_US/FeatureServer/0/query?where=1%3D1&outFields=Lat,Long_,Active&outSR=4326&f=json";
+        //String to place our result in
+        String result;
+        //Instantiate new instance of our class
+        HttpGetRequest getRequest = new HttpGetRequest();
+        //Perform the doInBackground method, passing in our url
+        try {
+            result = getRequest.execute(myUrl).get();
+            //System.exit(0);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+
+    }
 }
+class HttpGetRequest extends AsyncTask<String, Void, String> {
+
+    @Override
+    protected String doInBackground(String... params) {
+        String stringUrl = params[0];
+        String result = "";
+        try {
+            //Create a URL object holding our url
+            URL myUrl = new URL(stringUrl);
+            //Create a connection
+            InputStream thing = myUrl.openStream();
+            Scanner scan = new Scanner(thing);
+            while (scan.hasNextLine()) {
+                result += scan.nextLine();
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @Override
+    protected void onPostExecute(String result) {
+        super.onPostExecute(result);
+    }
+}}

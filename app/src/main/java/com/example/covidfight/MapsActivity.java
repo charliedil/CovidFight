@@ -18,20 +18,15 @@ import com.google.maps.android.heatmaps.Gradient;
 import com.google.maps.android.heatmaps.HeatmapTileProvider;
 import com.google.maps.android.heatmaps.WeightedLatLng;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONTokener;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
@@ -82,20 +77,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.moveCamera(CameraUpdateFactory.newLatLng(richmond));
         mMap.moveCamera(CameraUpdateFactory.zoomTo((float) 15.0));
         Gradient gradient = new Gradient(colors,startpoints);
-        WeightedLatLng thingy = new WeightedLatLng(new LatLng(37.5483, -77.4527),2.0);
-        WeightedLatLng thingy2 = new WeightedLatLng(new LatLng(37.5493, -77.4527),5.0);
-        List<WeightedLatLng> wDat = new ArrayList<WeightedLatLng>();
-        wDat.add(thingy);
-        wDat.add(thingy2);
+//        WeightedLatLng thingy = new WeightedLatLng(new LatLng(37.5483, -77.4527),2.0);
+//        WeightedLatLng thingy2 = new WeightedLatLng(new LatLng(37.5493, -77.4527),5.0);
+        List<WeightedLatLng> wDat = loadData();
+//        wDat.add(thingy);
+//        wDat.add(thingy2);
         HeatmapTileProvider provider = new HeatmapTileProvider.Builder().weightedData(wDat).gradient(gradient).build();
         mMap.addTileOverlay(new TileOverlayOptions().tileProvider(provider));
-        loadData();
+
         //System.exit(0);
 
 
 
     }
-    public void loadData(){
+    public List<WeightedLatLng> loadData(){
 
         String myUrl = "https://services1.arcgis.com/0MSEUqKaxRlEPj5g/arcgis/rest/services/ncov_cas" +
                 "es_US/FeatureServer/0/query?where=1%3D1&outFields=Lat,Long_,Active&outSR=4326&f=json";
@@ -106,14 +101,42 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //Perform the doInBackground method, passing in our url
         try {
             result = getRequest.execute(myUrl).get();
+            JSONObject obj = new JSONObject(result);
+            JSONArray two = obj.getJSONArray("features");
+            ArrayList<Double> latList = new ArrayList<Double>();
+            ArrayList<Double> longList = new ArrayList<Double>();
+            ArrayList<Integer> activeList = new ArrayList<Integer>();
+
+            for (int i =0; i<two.length(); i++) {
+                JSONObject thingy = two.getJSONObject(i);
+                JSONObject attributes = thingy.getJSONObject("attributes");
+                if(!(attributes.isNull("Lat")||attributes.isNull("Long_")||attributes.isNull("Active"))) {
+                    double lat = attributes.getDouble("Lat");
+                    double long_  = attributes.getDouble("Long_");
+                    int active = attributes.getInt("Active");
+                    latList.add(lat);
+                    longList.add(long_);
+                    activeList.add(active);
+                }
+            }
+            List<WeightedLatLng> wDat = new ArrayList<WeightedLatLng>();
+            for( int i =0;i<latList.size();i++){
+                WeightedLatLng dataPoint = new WeightedLatLng(new LatLng(latList.get(i), longList.get(i)),activeList.get(i));
+                wDat.add(dataPoint);
+            }
+            return wDat;
+
             //System.exit(0);
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
 
+    } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
-}
 class HttpGetRequest extends AsyncTask<String, Void, String> {
 
     @Override

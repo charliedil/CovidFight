@@ -32,4 +32,8 @@ class BusinessItem {
     public int getImageResource() {
         return imageResource;
     }
+
+    public void changeTitle(String text) {
+        title = text;
+    }
 }

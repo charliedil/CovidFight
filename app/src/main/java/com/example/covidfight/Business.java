@@ -1,25 +1,32 @@
 package com.example.covidfight;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import java.util.ArrayList;
-import java.util.List;
-
-    //private CardView bCardView;
-
-    //List<String> listBusinesses;
-    //private Button btnBackToMain;
 
 public class Business extends AppCompatActivity {
+    private ArrayList<BusinessItem> mBusinessList;
+
+
+
+    /**================================**/
+
+    private CardView bCardView;
+
     private RecyclerView bRecyclerView;
-    private RecyclerView.Adapter bAdapter;
+    private BusinessAdapter bAdapter;
     private RecyclerView.LayoutManager bLayoutManager;
+
+    private SearchView searchBusiness;
+
 
     //public CardView c1, c2, c3, c4, c5, c6;
 
@@ -28,34 +35,59 @@ public class Business extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_business);
 
-        //initializing test list
-        ArrayList<BusinessItem> businessList = new ArrayList<>();
-        businessList.add(new BusinessItem("Kroger", "Description", R.drawable.insert_image));
-        businessList.add(new BusinessItem("Panda Express", "Description", R.drawable.insert_image));
-        businessList.add(new BusinessItem("Chipotle", "Description", R.drawable.insert_image));
+        createBusinessList();
+        buildRecyclerView();
 
+        // Get the intent, verify the action and get the query
+        /*Intent intent = getIntent();
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            doMySearch(query);
+        }*/
+
+        /** starts BusinessPopup activity when card is selected
+        bCardView = findViewById(R.id.businessCard);
+        bCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(Business.this, BusinessPopup.class);
+                startActivity(intent);
+            }
+        });*/
+    }
+
+    public void changeItem(int position, String text) {
+        mBusinessList.get(position).changeTitle(text);
+        bAdapter.notifyItemChanged(position);
+    }
+
+    /** initialize list containing business data (for testing) */
+    public void createBusinessList() {
+        mBusinessList = new ArrayList<>();
+        mBusinessList.add(new BusinessItem("Kroger", "Description", R.drawable.insert_image));
+        mBusinessList.add(new BusinessItem("Panda Express", "Description", R.drawable.insert_image));
+        mBusinessList.add(new BusinessItem("Chipotle", "Description", R.drawable.insert_image));
+    }
+
+    public void buildRecyclerView() {
         bRecyclerView = findViewById(R.id.recyclerView);
         bRecyclerView.setHasFixedSize(true); //locks size (increases performance)
         bLayoutManager = new LinearLayoutManager(this);
-        bAdapter = new BusinessAdapter(businessList);
+        bAdapter = new BusinessAdapter(mBusinessList);
 
         bRecyclerView.setLayoutManager(bLayoutManager);
         bRecyclerView.setAdapter(bAdapter);
 
-        //c1 = (CardView) findViewById(R.id.bCard1);
+        bAdapter.setOnItemClickListener(new BusinessAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                //changeItem(position, "Clicked");
 
-//        bCardView=findViewById(R.id.bCard1);
-//        bCardView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent=new Intent(Business.this, BusinessPopup.class);
-//                startActivity(intent);
-//            }
-//        };
-
-
-
-
+                /** start popup activity */
+                Intent intent=new Intent(Business.this, BusinessPopup.class);
+                startActivity(intent);
+            }
+        });
     }
 
 }

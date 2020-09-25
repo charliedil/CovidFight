@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/title_business"
+            android:id="@+id/titleBusiness"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -26,7 +26,7 @@
             android:textSize="25sp" />
 
         <SearchView
-            android:id="@+id/search_business"
+            android:id="@+id/searchBusiness"
             android:layout_width="390dp"
             android:layout_height="50dp"
             android:layout_marginStart="10dp"

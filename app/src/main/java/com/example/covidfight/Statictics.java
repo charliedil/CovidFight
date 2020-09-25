@@ -9,7 +9,7 @@ import android.widget.ImageView;
 
 public class Statictics extends AppCompatActivity {
 
-    private ImageView VcuImageView;
+    private ImageView VcuImageView,RichmondImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +20,15 @@ public class Statictics extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(Statictics.this, VcuStat.class);
+                startActivity(intent);
+            }
+        });
+
+        RichmondImageView=findViewById(R.id.richmondStat);
+        RichmondImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(Statictics.this,RichmondStat.class);
                 startActivity(intent);
             }
         });

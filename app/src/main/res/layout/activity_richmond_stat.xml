@@ -7,10 +7,23 @@
     tools:context=".RichmondStat">
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
+        android:id="@+id/richmondTextView"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Richmond Cases and Test by Zipcode:"
+        android:textColor="#000"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:textStyle="bold"
+       android:padding="7dp"
         tools:layout_editor_absoluteX="178dp"
-        tools:layout_editor_absoluteY="136dp" />
+        android:background="#DDBCE5"
+        tools:layout_editor_absoluteY="136dp"
+        android:gravity="center_horizontal" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/richmondTextView"
+        android:id="@+id/RichmondCaseRecyclerView"/>
 </RelativeLayout>

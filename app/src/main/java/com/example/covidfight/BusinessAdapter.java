@@ -32,9 +32,9 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.Busine
 
         public BusinessViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
-            bImageView = itemView.findViewById(R.id.imageView);
-            bTextView1 = itemView.findViewById(R.id.textView);
-            bTextView2 = itemView.findViewById(R.id.textView2);
+            bImageView = itemView.findViewById(R.id.cardImage);
+            bTextView1 = itemView.findViewById(R.id.cardTitle);
+            bTextView2 = itemView.findViewById(R.id.cardDescription);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -64,8 +64,7 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.Busine
     @Override
     public void onBindViewHolder(@NonNull BusinessViewHolder holder, int position) {
         BusinessItem currentItem = mBusinessList.get(position);
-
-        // get business data from list
+        // set card info using data from list
         holder.bImageView.setImageResource(currentItem.getImageResource());
         holder.bTextView1.setText(currentItem.getTitle());
         holder.bTextView2.setText(currentItem.getInfo());
@@ -75,4 +74,5 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.Busine
     public int getItemCount() {
         return mBusinessList.size();
     }
+
 }

@@ -2,7 +2,6 @@ package com.example.covidfight;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,20 +14,13 @@ import java.util.ArrayList;
 public class Business extends AppCompatActivity {
     private ArrayList<BusinessItem> mBusinessList;
 
-
-
     /**================================**/
-
-    private CardView bCardView;
 
     private RecyclerView bRecyclerView;
     private BusinessAdapter bAdapter;
     private RecyclerView.LayoutManager bLayoutManager;
 
     private SearchView searchBusiness;
-
-
-    //public CardView c1, c2, c3, c4, c5, c6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,15 +37,6 @@ public class Business extends AppCompatActivity {
             doMySearch(query);
         }*/
 
-        /** starts BusinessPopup activity when card is selected
-        bCardView = findViewById(R.id.businessCard);
-        bCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(Business.this, BusinessPopup.class);
-                startActivity(intent);
-            }
-        });*/
     }
 
     public void changeItem(int position, String text) {
@@ -64,9 +47,12 @@ public class Business extends AppCompatActivity {
     /** initialize list containing business data (for testing) */
     public void createBusinessList() {
         mBusinessList = new ArrayList<>();
-        mBusinessList.add(new BusinessItem("Kroger", "Description", R.drawable.insert_image));
-        mBusinessList.add(new BusinessItem("Panda Express", "Description", R.drawable.insert_image));
-        mBusinessList.add(new BusinessItem("Chipotle", "Description", R.drawable.insert_image));
+        mBusinessList.add(new BusinessItem("Kroger", "Grocery Store", R.drawable.insert_image));
+        mBusinessList.add(new BusinessItem("Panda Express", "Chinese Fast Food Chain", R.drawable.insert_image));
+        mBusinessList.add(new BusinessItem("Chipotle", "Mexican Fast Food Chain", R.drawable.insert_image));
+        mBusinessList.add(new BusinessItem("Barnes & Noble", "Book Store", R.drawable.insert_image));
+        mBusinessList.add(new BusinessItem("Roots", "Food", R.drawable.insert_image));
+        mBusinessList.add(new BusinessItem("Kung Fu Tea", "Bubble Tea", R.drawable.insert_image));
     }
 
     public void buildRecyclerView() {
@@ -81,10 +67,10 @@ public class Business extends AppCompatActivity {
         bAdapter.setOnItemClickListener(new BusinessAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                //changeItem(position, "Clicked");
 
                 /** start popup activity */
-                Intent intent=new Intent(Business.this, BusinessPopup.class);
+                Intent intent = new Intent(Business.this, BusinessPopup.class);
+                intent.putExtra("BusinessItem", mBusinessList.get(position));
                 startActivity(intent);
             }
         });

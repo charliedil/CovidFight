@@ -5,10 +5,16 @@
     android:id="@+id/parent">
     
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="Zip code"
         android:id="@+id/zipcode"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_toRightOf="@id/zipcode"
+        android:id="@+id/caseNumbers"/>
 
 
 </RelativeLayout>

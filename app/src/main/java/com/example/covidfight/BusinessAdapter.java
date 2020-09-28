@@ -1,5 +1,6 @@
 package com.example.covidfight;
 
+import android.graphics.drawable.ClipDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,15 +27,20 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.Busine
     }
 
     public static class BusinessViewHolder extends RecyclerView.ViewHolder {
-        public ImageView bImageView;
         public TextView bTextView1;
         public TextView bTextView2;
+        public ImageView bImageView;
+        public ImageView bRating;
+        public ClipDrawable RatingDrawable;
 
         public BusinessViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
-            bImageView = itemView.findViewById(R.id.cardImage);
             bTextView1 = itemView.findViewById(R.id.cardTitle);
             bTextView2 = itemView.findViewById(R.id.cardDescription);
+            bImageView = itemView.findViewById(R.id.cardImage);
+            bRating = itemView.findViewById(R.id.ratingFull);
+            RatingDrawable = (ClipDrawable) bRating.getDrawable();
+            RatingDrawable.setLevel(0);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -65,9 +71,10 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.Busine
     public void onBindViewHolder(@NonNull BusinessViewHolder holder, int position) {
         BusinessItem currentItem = mBusinessList.get(position);
         // set card info using data from list
-        holder.bImageView.setImageResource(currentItem.getImageResource());
         holder.bTextView1.setText(currentItem.getTitle());
         holder.bTextView2.setText(currentItem.getInfo());
+        holder.bImageView.setImageResource(currentItem.getImageResource());
+        holder.RatingDrawable.setLevel((currentItem.getRating()));
     }
 
     @Override

@@ -47,12 +47,15 @@ public class Business extends AppCompatActivity {
     /** initialize list containing business data (for testing) */
     public void createBusinessList() {
         mBusinessList = new ArrayList<>();
-        mBusinessList.add(new BusinessItem("Kroger", "Grocery Store", R.drawable.insert_image));
-        mBusinessList.add(new BusinessItem("Panda Express", "Chinese Fast Food Chain", R.drawable.insert_image));
-        mBusinessList.add(new BusinessItem("Chipotle", "Mexican Fast Food Chain", R.drawable.insert_image));
-        mBusinessList.add(new BusinessItem("Barnes & Noble", "Book Store", R.drawable.insert_image));
-        mBusinessList.add(new BusinessItem("Roots", "Food", R.drawable.insert_image));
-        mBusinessList.add(new BusinessItem("Kung Fu Tea", "Bubble Tea", R.drawable.insert_image));
+        // rating/2000 = # of stars
+        mBusinessList.add(new BusinessItem("Kroger", "Grocery Store", R.drawable.insert_image, 4000));
+        mBusinessList.add(new BusinessItem("Panda Express", "Chinese Fast Food Chain", R.drawable.insert_image, 8000));
+        mBusinessList.add(new BusinessItem("Chipotle", "Mexican Fast Food Chain", R.drawable.insert_image, 5000));
+        mBusinessList.add(new BusinessItem("Barnes & Noble", "Book Store", R.drawable.insert_image, 7000));
+        mBusinessList.add(new BusinessItem("Roots", "Restaurant", R.drawable.insert_image, 2000));
+        mBusinessList.add(new BusinessItem("Village Cafe", "American Restaurant", R.drawable.insert_image, 6500));
+        mBusinessList.add(new BusinessItem("Kung Fu Tea", "Bubble Tea", R.drawable.insert_image, 8500));
+        mBusinessList.add(new BusinessItem("Spoon", "Asian Fusion Restaurant", R.drawable.insert_image, 9000));
     }
 
     public void buildRecyclerView() {

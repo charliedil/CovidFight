@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.drawable.ClipDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -25,18 +26,23 @@ public class BusinessPopup extends AppCompatActivity {
         Intent intent = getIntent();
         BusinessItem currentItem = intent.getParcelableExtra("BusinessItem");
 
-        int popImage = currentItem.getImageResource();
         String popTitle = currentItem.getTitle();
         String popDescription = currentItem.getInfo();
-
-        ImageView iv = findViewById(R.id.popImage);
-        iv.setImageResource(popImage);
+        int popImage = currentItem.getImageResource();
+        int popRating = currentItem.getRating();
 
         TextView tv1 = findViewById(R.id.popTitle);
         tv1.setText(popTitle);
 
         TextView tv2 = findViewById(R.id.popDescription);
         tv2.setText(popDescription);
+
+        ImageView iv = findViewById(R.id.popImage);
+        iv.setImageResource(popImage);
+
+        ImageView pRating = findViewById(R.id.pRatingFull);
+        ClipDrawable pRatingDrawable = (ClipDrawable) pRating.getDrawable();
+        pRatingDrawable.setLevel(popRating);
 
         /** layout */
         DisplayMetrics dm = new DisplayMetrics();

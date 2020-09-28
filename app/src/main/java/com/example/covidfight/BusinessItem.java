@@ -11,22 +11,25 @@ public class BusinessItem implements Parcelable {
     private String title;
     private String info;
     private int imageResource;
+    private int rating;
 
     /**
      * Constructor for the Business data model
      * @param title name of the business
      * @param info  information about the business
      */
-    public BusinessItem(String title, String info, int imageResource) {
+    public BusinessItem(String title, String info, int imageResource, int rating) {
         this.title = title;
         this.info = info;
         this.imageResource = imageResource;
+        this.rating = rating;
     }
 
     protected BusinessItem(Parcel in) {
         title = in.readString();
         info = in.readString();
         imageResource = in.readInt();
+        rating = in.readInt();
     }
 
     public static final Creator<BusinessItem> CREATOR = new Creator<BusinessItem>() {
@@ -53,6 +56,11 @@ public class BusinessItem implements Parcelable {
         return imageResource;
     }
 
+    public int getRating() {
+        return rating;
+    }
+
+
     public void changeTitle(String text) {
         title = text;
     }
@@ -67,5 +75,6 @@ public class BusinessItem implements Parcelable {
         parcel.writeString(title);
         parcel.writeString(info);
         parcel.writeInt(imageResource);
+        parcel.writeInt(rating);
     }
 }

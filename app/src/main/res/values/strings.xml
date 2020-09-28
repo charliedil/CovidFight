@@ -8,4 +8,7 @@
     <string name="app_logo">App Logo</string>
     <string name="business_name">Business 1</string>
     <string name="description">Description</string>
+    <string name="report_name">Report Name</string>
+    <string name="report_address">Report Address</string>
+    <string name="report_button">Report Button</string>
 </resources>

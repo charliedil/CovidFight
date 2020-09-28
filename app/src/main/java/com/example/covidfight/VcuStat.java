@@ -49,17 +49,17 @@ public class VcuStat extends AppCompatActivity {
 //        });
 //        valueAnimator.start();
 
-        activeEmployeeCaseNumber=findViewById(R.id.ActiveEmployeeCaseNumber);
-
-        ValueAnimator valueAnimator2 = ValueAnimator.ofInt(0, studentCase);
-        valueAnimator2.setDuration(3000);
-        valueAnimator2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                activeEmployeeCaseNumber.setText(valueAnimator.getAnimatedValue().toString());
-            }
-        });
-        valueAnimator2.start();
+//        activeEmployeeCaseNumber=findViewById(R.id.ActiveEmployeeCaseNumber);
+//
+//        ValueAnimator valueAnimator2 = ValueAnimator.ofInt(0, studentCase);
+//        valueAnimator2.setDuration(3000);
+//        valueAnimator2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//            @Override
+//            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+//                activeEmployeeCaseNumber.setText(valueAnimator.getAnimatedValue().toString());
+//            }
+//        });
+//        valueAnimator2.start();
 
         isolationNumber=findViewById(R.id.IsolationNumber);
 
@@ -130,7 +130,22 @@ public class VcuStat extends AppCompatActivity {
                Data data=vcuCase.getStudents().get(n-1);
                String x=Integer.toString(data.getValue());
                activeStudentCaseNumber.setText(x);
-               studentCase=data.getValue();
+               studentCase=(int) data.getValue();
+
+               activeEmployeeCaseNumber=findViewById(R.id.ActiveEmployeeCaseNumber);
+
+               ValueAnimator valueAnimator2 = ValueAnimator.ofInt(0, studentCase);
+               valueAnimator2.setDuration(3000);
+               valueAnimator2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                   @Override
+                   public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                       activeEmployeeCaseNumber.setText(valueAnimator.getAnimatedValue().toString());
+                   }
+               });
+               valueAnimator2.start();
+
+
+
            }
        }, new Response.ErrorListener() {
            @Override

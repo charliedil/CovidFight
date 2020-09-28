@@ -50,7 +50,7 @@
                 android:layout_below="@+id/ActiveCases"
                 android:layout_toRightOf="@id/ActiveStudentCases"
                 android:paddingTop="10dp"
-                android:text="  20"
+                android:text="  updating"
                 android:textColor="#111"
                 android:textSize="15dp" />
 
@@ -70,7 +70,7 @@
                 android:layout_below="@+id/ActiveStudentCaseNumber"
                 android:layout_toRightOf="@id/ActiveEmpoyeeCases"
                 android:paddingTop="10dp"
-                android:text="  20"
+                android:text="  updating"
                 android:textColor="#111"
                 android:textSize="15dp" />
 
@@ -147,6 +147,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/EntryTestCardView"
         android:layout_width="match_parent"
         android:layout_height="140dp"
         android:layout_below="@id/IsolationAndQuarentineCardView"
@@ -214,6 +215,89 @@
 
 
     </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/PrevalenceCardView"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_below="@id/EntryTestCardView"
+        android:layout_marginTop="20dp"
+        app:cardBackgroundColor="#F6DF56">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="140dp">
+
+            <TextView
+                android:id="@+id/prevalence"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="#F1AA41"
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:text="Prevalence"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/negativeTests"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_below="@id/prevalence"
+                android:paddingTop="10dp"
+                android:text="  Negative Tests :     "
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/negativeTestNumbers"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_below="@+id/prevalence"
+                android:layout_toRightOf="@id/negativeTests"
+                android:paddingTop="10dp"
+                android:text="  updating"
+                android:textColor="#111"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/positiveTests"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_below="@id/negativeTests"
+                android:paddingTop="10dp"
+                android:text="  Positive Tests:     "
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/positiveTestNumbers"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_below="@+id/negativeTestNumbers"
+                android:layout_toRightOf="@id/positiveTests"
+                android:paddingTop="10dp"
+                android:text="  updating"
+                android:textColor="#111"
+                android:textSize="15dp" />
+
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+   <TextView
+       android:layout_width="match_parent"
+       android:layout_height="25dp"
+       android:id="@+id/vcuStatSource"
+       android:text="Source: VCU Together Dashboard"
+       android:layout_below="@+id/PrevalenceCardView"
+       android:layout_marginTop="7dp"
+       android:padding="3dp"
+       android:background="#F8FC96"
+       android:textColor="#000"
+       android:textAlignment="center"
+       android:gravity="center_horizontal" />
 
 
 

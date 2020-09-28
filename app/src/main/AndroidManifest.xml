@@ -16,8 +16,13 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <activity android:name=".RichmondStat"></activity>
+        <activity android:name=".VcuStat"></activity>
+
         <activity android:name=".ReportActivity"></activity>
-        <activity android:name=".VcuStat" />
+
+
         <activity android:name=".Statictics" />
         <activity android:name=".Splash">
             <intent-filter>
@@ -26,6 +31,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
 
 
         <activity android:name=".MainActivity"></activity>

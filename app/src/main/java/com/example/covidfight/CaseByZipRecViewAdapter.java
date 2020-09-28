@@ -29,7 +29,8 @@ public class CaseByZipRecViewAdapter extends RecyclerView.Adapter<CaseByZipRecVi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         holder.zipCode.setText(richmondCaseItems.get(position).getZipcode());
-        holder.caseNumbers.setText(richmondCaseItems.get(position).getStringCaseNumbers());
+        holder.caseNumbers.setText(richmondCaseItems.get(position).getCaseNumbers());
+        holder.testNumbers.setText(richmondCaseItems.get(position).getTestNumbers());
     }
 
     @Override
@@ -46,11 +47,13 @@ public class CaseByZipRecViewAdapter extends RecyclerView.Adapter<CaseByZipRecVi
 
         private TextView zipCode;
         private TextView caseNumbers;
+        private TextView testNumbers;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             zipCode=itemView.findViewById(R.id.zipcode);
             caseNumbers=itemView.findViewById(R.id.caseNumbers);
+            testNumbers=itemView.findViewById(R.id.testNumbers);
         }
     }
 }

@@ -2,11 +2,13 @@ package com.example.covidfight;
 
 public class RichmondItem {
     private String zipcode;
-    private int caseNumbers;
+    private String caseNumbers;
+    private String testNumbers;
 
-    public RichmondItem(String zipcode, int caseNumbers) {
+    public RichmondItem(String zipcode, String caseNumbers, String testNumbers) {
         this.zipcode = zipcode;
         this.caseNumbers = caseNumbers;
+        this.testNumbers=testNumbers;
     }
 
     public String getZipcode() {
@@ -17,15 +19,22 @@ public class RichmondItem {
         this.zipcode = zipcode;
     }
 
-    public int getCaseNumbers() {
+    public String getCaseNumbers() {
         return caseNumbers;
     }
-    public String getStringCaseNumbers() {
-        return Integer.toString(caseNumbers);
+
+
+    public void setCaseNumbers(String caseNumbers) {
+        this.caseNumbers = caseNumbers;
     }
 
-    public void setCaseNumbers(int caseNumbers) {
-        this.caseNumbers = caseNumbers;
+    public String getTestNumbers() {
+        return testNumbers;
+    }
+
+
+    public void setTestNumbers(String testNumbers) {
+        this.testNumbers = testNumbers;
     }
 
     @Override
@@ -33,6 +42,7 @@ public class RichmondItem {
         return "RichmondItem{" +
                 "zipcode='" + zipcode + '\'' +
                 ", caseNumbers=" + caseNumbers +
+                ", testNumbers=" + testNumbers +
                 '}';
     }
 }

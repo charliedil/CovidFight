@@ -20,10 +20,19 @@
         android:background="#DDBCE5"
         tools:layout_editor_absoluteY="136dp"
         android:gravity="center_horizontal" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Zip code                        Cases                       Tests"
+        android:id="@+id/RichmondInfoType"
+        android:layout_below="@+id/richmondTextView"
+        android:textColor="#000"
+        android:textSize="17sp"
+        android:padding="7dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/richmondTextView"
+        android:layout_below="@id/RichmondInfoType"
         android:id="@+id/RichmondCaseRecyclerView"/>
 </RelativeLayout>

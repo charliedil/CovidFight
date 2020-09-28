@@ -42,13 +42,9 @@ public class RichmondStat extends AppCompatActivity {
 
                 DataRichmond[] dataRichmond=gson.fromJson(response,DataRichmond[].class);
                 ArrayList<RichmondItem> richmondItem=new ArrayList<>();
-                for(int i=10;i<26;i++){
-                    richmondItem.add(new RichmondItem(dataRichmond[i].getZip_code(),123));
+                for(int i=371;i<410;i++){
+                    richmondItem.add(new RichmondItem(dataRichmond[i].getZip_code(),dataRichmond[i].getNumber_of_cases(),dataRichmond[i].getNumber_of_pcr_testing()));
                 }
-
-                richmondItem.add(new RichmondItem("yyu",454));
-                richmondItem.add(new RichmondItem("23223",566));
-
                 CaseByZipRecViewAdapter adapter=new CaseByZipRecViewAdapter();
                 adapter.setRichmondCaseItem(richmondItem);
 

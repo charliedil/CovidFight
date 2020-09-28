@@ -75,7 +75,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng richmond = new LatLng(37.5483, -77.4527);
         //mMap.addMarker(new MarkerOptions().position(richmond).title("Marker in Richmond"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(richmond));
-        mMap.moveCamera(CameraUpdateFactory.zoomTo((float) 15.0));
+        mMap.moveCamera(CameraUpdateFactory.zoomTo((float) 5.0));
         Gradient gradient = new Gradient(colors,startpoints);
 //        WeightedLatLng thingy = new WeightedLatLng(new LatLng(37.5483, -77.4527),2.0);
 //        WeightedLatLng thingy2 = new WeightedLatLng(new LatLng(37.5493, -77.4527),5.0);

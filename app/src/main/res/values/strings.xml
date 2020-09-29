@@ -12,5 +12,7 @@
     <string name="report_button">Submit</string>
     <string name="report_post_message">Please wait! We\'re sending your message.</string>
     <string name="report_posted">Thank you! Your message has been successfully delivered.</string>
-
+    <string name="business_name">Business 1</string>
+    <string name="description">Description</string>
 </resources>
+

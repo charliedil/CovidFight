@@ -1,43 +1,82 @@
 package com.example.covidfight;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
+import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-//import java.util.List;
 
+import java.util.ArrayList;
 
 public class Business extends AppCompatActivity {
+    private ArrayList<BusinessItem> mBusinessList;
 
-    //List<String> listBusinesses;
-    //private Button btnBackToMain;
+    /**================================**/
 
-    //public CardView card1, card2, card3, card4, card5, card6;
+    private RecyclerView bRecyclerView;
+    private BusinessAdapter bAdapter;
+    private RecyclerView.LayoutManager bLayoutManager;
+
+    private SearchView searchBusiness;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_business);
 
-        //btnBackToMain = (Button) findViewById(R.id.btn_back);
+        createBusinessList();
+        buildRecyclerView();
 
-//        btnBackToMain.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                finish();
-//            }
-//        });
+        // Get the intent, verify the action and get the query
+        /*Intent intent = getIntent();
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            doMySearch(query);
+        }*/
 
-//        card1 = (CardView) findViewById(R.id.bcard1);
-//        card2 = (CardView) findViewById(R.id.bcard2);
-//        card3 = (CardView) findViewById(R.id.bcard3);
-//        card4 = (CardView) findViewById(R.id.bcard4);
-//        card5 = (CardView) findViewById(R.id.bcard5);
-//        card6 = (CardView) findViewById(R.id.bcard6);
+    }
 
+    public void changeItem(int position, String text) {
+        mBusinessList.get(position).changeTitle(text);
+        bAdapter.notifyItemChanged(position);
+    }
 
+    /** initialize list containing business data (for testing) */
+    public void createBusinessList() {
+        mBusinessList = new ArrayList<>();
+        // rating/2000 = # of stars
+        mBusinessList.add(new BusinessItem("Kroger", "Grocery Store", R.drawable.insert_image, 4000));
+        mBusinessList.add(new BusinessItem("Panda Express", "Chinese Fast Food Chain", R.drawable.insert_image, 8000));
+        mBusinessList.add(new BusinessItem("Chipotle", "Mexican Fast Food Chain", R.drawable.insert_image, 5000));
+        mBusinessList.add(new BusinessItem("Barnes & Noble", "Book Store", R.drawable.insert_image, 7000));
+        mBusinessList.add(new BusinessItem("Roots", "Restaurant", R.drawable.insert_image, 2000));
+        mBusinessList.add(new BusinessItem("Village Cafe", "American Restaurant", R.drawable.insert_image, 6500));
+        mBusinessList.add(new BusinessItem("Kung Fu Tea", "Bubble Tea", R.drawable.insert_image, 8500));
+        mBusinessList.add(new BusinessItem("Spoon", "Asian Fusion Restaurant", R.drawable.insert_image, 9000));
+    }
+
+    public void buildRecyclerView() {
+        bRecyclerView = findViewById(R.id.recyclerView);
+        bRecyclerView.setHasFixedSize(true); //locks size (increases performance)
+        bLayoutManager = new LinearLayoutManager(this);
+        bAdapter = new BusinessAdapter(mBusinessList);
+
+        bRecyclerView.setLayoutManager(bLayoutManager);
+        bRecyclerView.setAdapter(bAdapter);
+
+        bAdapter.setOnItemClickListener(new BusinessAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+
+                /** start popup activity */
+                Intent intent = new Intent(Business.this, BusinessPopup.class);
+                intent.putExtra("BusinessItem", mBusinessList.get(position));
+                startActivity(intent);
+            }
+        });
     }
 
 }

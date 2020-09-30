@@ -7,8 +7,7 @@
          location permissions for the "MyLocation" functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -18,11 +17,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <activity android:name=".RichmondStat"></activity>
         <activity android:name=".VcuStat"></activity>
-        <activity android:name=".Statictics"></activity>
 
+        <activity android:name=".ReportActivity"></activity>
+
+
+        <activity android:name=".Statictics" />
         <activity android:name=".Splash">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,11 +32,15 @@
             </intent-filter>
         </activity>
 
+
+
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".Business"></activity>
+        <activity android:name=".BusinessPopup"></activity>
         <activity android:name=".MapsActivity" android:label="@string/title_activity_maps">
 
     </activity>
+
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -50,10 +56,6 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
-
-
-
     </application>
 
 </manifest>

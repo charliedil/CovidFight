@@ -69,8 +69,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        MapStyleOptions mapStyleOptions=MapStyleOptions.loadRawResourceStyle(this,R.raw.style);
-        googleMap.setMapStyle(mapStyleOptions);
+
+       MapStyleOptions mapStyleOptions=MapStyleOptions.loadRawResourceStyle(this,R.raw.style);
+       googleMap.setMapStyle(mapStyleOptions);
+
         // Add a marker in Sydney and move the camera
         LatLng richmond = new LatLng(37.5483, -77.4527);
         //mMap.addMarker(new MarkerOptions().position(richmond).title("Marker in Richmond"));

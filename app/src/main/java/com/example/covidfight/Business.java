@@ -7,7 +7,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.util.ArrayList;
 
@@ -21,12 +28,15 @@ public class Business extends AppCompatActivity {
     private RecyclerView.LayoutManager bLayoutManager;
 
     private SearchView searchBusiness;
+    //private Object Callback;
+    //private java.lang.Object Object;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_business);
 
+        getData();
         createBusinessList();
         buildRecyclerView();
 
@@ -77,6 +87,47 @@ public class Business extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    /**public class SearchResult {
+        @SerializedName("total") int total;
+        @SerializedName("businesses") String businesses;
+        String businesses;
+
+        public Search(String terms, String businesses) {
+            this.terms = terms;
+            this.businesses = businesses;
+        }
+    }*/
+
+    public void getData() {
+        //final JSONObject json = new JSONObject();
+
+        final String TAG = "Business";
+        final String BASE_URL = "https://api.yelp.com/v3/";
+        final String API_KEY = "4cgiDC6gAIz5bZaGBCzV_ls0z6wp2O2NChwaZyuQKJMG6--0irgMX-fNXHtkE5MvxLxVNAw4xv2S5S804XIbynWvsjOos0xBSM8Qe9p5Gr0uFyuwjGw7C5Xxrc10X3Yx";
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        //Search search = new Search("delivery", "pizza");
+
+        YelpInterface yelpInt = retrofit.create(YelpInterface.class);
+        yelpInt.searchRestaurants("Bearer "+API_KEY, "deli", "New York").enqueue(new Callback<YelpSearchResult>() {
+            @Override
+            public void onResponse(Call<YelpSearchResult> call, Response<YelpSearchResult> response){
+                Log.i(TAG, "onResponse "+response);
+            }
+            @Override
+            public void onFailure(Call<YelpSearchResult> call, Throwable t) {
+                Log.i(TAG, "onFailure "+t);
+            }
+
+        });
+
+
     }
 
 }

@@ -77,9 +77,12 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.Busine
         holder.RatingDrawable.setLevel((currentItem.getRating()));
     }
 
+    /** Set Limit on # of Cards */
+    private final int limit = 10;
+
     @Override
     public int getItemCount() {
-        return mBusinessList.size();
+        return Math.min(mBusinessList.size(), limit);
     }
 
 }

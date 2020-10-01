@@ -29,10 +29,16 @@
         android:textColor="#000"
         android:textSize="17sp"
         android:padding="7dp"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/RichmondCaseSearch"
+        android:layout_below="@id/RichmondInfoType"
+        android:hint="Search by zipcode"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/RichmondInfoType"
+        android:layout_below="@id/RichmondCaseSearch"
         android:id="@+id/RichmondCaseRecyclerView"/>
 </RelativeLayout>

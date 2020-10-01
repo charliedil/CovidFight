@@ -6,6 +6,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.animation.ValueAnimator;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -20,15 +24,18 @@ import java.util.ArrayList;
 public class RichmondStat extends AppCompatActivity {
 
     private RecyclerView richmondCaseRecView;
-
+    private EditText searchBarTextView;
+    final ArrayList<RichmondItem> richmondItem=new ArrayList<>();
+    CaseByZipRecViewAdapter adapter=new CaseByZipRecViewAdapter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_richmond_stat);
 
-        richmondCaseRecView=findViewById(R.id.RichmondCaseRecyclerView);
 
+        richmondCaseRecView=findViewById(R.id.RichmondCaseRecyclerView);
+        searchBarTextView=findViewById(R.id.RichmondCaseSearch);
 
 
         final Gson gson= new Gson();
@@ -41,11 +48,11 @@ public class RichmondStat extends AppCompatActivity {
             public void onResponse(String response) {
 
                 DataRichmond[] dataRichmond=gson.fromJson(response,DataRichmond[].class);
-                ArrayList<RichmondItem> richmondItem=new ArrayList<>();
+//                ArrayList<RichmondItem> richmondItem=new ArrayList<>();
                 for(int i=371;i<410;i++){
                     richmondItem.add(new RichmondItem(dataRichmond[i].getZip_code(),dataRichmond[i].getNumber_of_cases(),dataRichmond[i].getNumber_of_pcr_testing()));
                 }
-                CaseByZipRecViewAdapter adapter=new CaseByZipRecViewAdapter();
+
                 adapter.setRichmondCaseItem(richmondItem);
 
 
@@ -63,13 +70,34 @@ public class RichmondStat extends AppCompatActivity {
         queue.start();
 
 
+        searchBarTextView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                filter(editable.toString());
+
+            }
+        });
 
 
-//        richmondItem.add(new RichmondItem("23291",143));
-//        richmondItem.add(new RichmondItem("23232",145));
-//        richmondItem.add(new RichmondItem("23212",176));
-//
+    }
 
-
+    private void filter(String text) {
+        ArrayList<RichmondItem> filterList=new ArrayList<>();
+        for(RichmondItem item: richmondItem){
+            if (item.getZipcode().toLowerCase().contains(text.toLowerCase())){
+                filterList.add(item);
+            }
+        }
+        adapter.filterList(filterList);
     }
 }

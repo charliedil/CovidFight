@@ -5,9 +5,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.animation.ValueAnimator;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -25,6 +28,7 @@ public class RichmondStat extends AppCompatActivity {
 
     private RecyclerView richmondCaseRecView;
     private EditText searchBarTextView;
+    private TextView findTestLocation;
     final ArrayList<RichmondItem> richmondItem=new ArrayList<>();
     CaseByZipRecViewAdapter adapter=new CaseByZipRecViewAdapter();
 
@@ -36,7 +40,7 @@ public class RichmondStat extends AppCompatActivity {
 
         richmondCaseRecView=findViewById(R.id.RichmondCaseRecyclerView);
         searchBarTextView=findViewById(R.id.RichmondCaseSearch);
-
+        findTestLocation=findViewById(R.id.findTestLocation);
 
         final Gson gson= new Gson();
 
@@ -87,7 +91,14 @@ public class RichmondStat extends AppCompatActivity {
 
             }
         });
-
+        findTestLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uriUrl=Uri.parse("https://www.vdh.virginia.gov");
+                Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+                startActivity(launchBrowser);
+            }
+        });
 
     }
 

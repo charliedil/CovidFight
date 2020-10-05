@@ -38,6 +38,11 @@ public class CaseByZipRecViewAdapter extends RecyclerView.Adapter<CaseByZipRecVi
         return richmondCaseItems.size();
     }
 
+    public void filterList(ArrayList<RichmondItem> filterList) {
+        richmondCaseItems = filterList;
+        notifyDataSetChanged();
+    }
+
     public void setRichmondCaseItem(ArrayList<RichmondItem> richmondCaseItem) {
         this.richmondCaseItems = richmondCaseItem;
         notifyDataSetChanged();

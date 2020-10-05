@@ -1,5 +1,6 @@
 package com.example.covidfight;
 
+import android.content.Context;
 import android.graphics.drawable.ClipDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +13,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.BusinessViewHolder> {
-    private ArrayList<BusinessItem> mBusinessList;
+public class BusAdapter extends RecyclerView.Adapter<BusAdapter.BusViewHolder> {
+    private ArrayList<YelpRestaurant> businessData;
     private OnItemClickListener bListener;
 
     /** interface */
@@ -26,14 +28,14 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.Busine
         bListener = listener;
     }
 
-    public static class BusinessViewHolder extends RecyclerView.ViewHolder {
+    public static class BusViewHolder extends RecyclerView.ViewHolder {
         public TextView bTextView1;
         public TextView bTextView2;
         public ImageView bImageView;
         public ImageView bRating;
         public ClipDrawable RatingDrawable;
 
-        public BusinessViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
+        public BusViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
             bTextView1 = itemView.findViewById(R.id.cardTitle);
             bTextView2 = itemView.findViewById(R.id.cardDescription);
@@ -56,25 +58,25 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.Busine
         }
     }
 
-    public BusinessAdapter(ArrayList<BusinessItem> businessList) {
-        mBusinessList = businessList;
+    public BusAdapter(Context context, ArrayList<YelpRestaurant> businessList) {
+        businessData = businessList;
     }
 
     @Override
-    public BusinessViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public BusViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.business_item, parent, false);
-        BusinessViewHolder bvh = new BusinessViewHolder(v, bListener);
+        BusViewHolder bvh = new BusViewHolder(v, bListener);
         return bvh;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BusinessViewHolder holder, int position) {
-        BusinessItem currentItem = mBusinessList.get(position);
+    public void onBindViewHolder(@NonNull BusViewHolder holder, int position) {
+        YelpRestaurant currentItem = businessData.get(position);
         // set card info using data from list
-        holder.bTextView1.setText(currentItem.getTitle());
-        holder.bTextView2.setText(currentItem.getInfo());
-        holder.bImageView.setImageResource(currentItem.getImageResource());
-        holder.RatingDrawable.setLevel((currentItem.getRating()));
+        holder.bTextView1.setText(currentItem.getName());
+        holder.RatingDrawable.setLevel((int) (Math.round(currentItem.getRating()*2000)));
+        holder.bTextView2.setText(currentItem.getPrice());
+        //holder.bImageView.setImageResource(currentItem.getImageResource());
     }
 
     /** Set Limit on # of Cards */
@@ -82,7 +84,8 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.Busine
 
     @Override
     public int getItemCount() {
-        return Math.min(mBusinessList.size(), limit);
+        //return Math.min(businessData.size(), limit);
+        return 20;
     }
 
 }

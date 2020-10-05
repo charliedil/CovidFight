@@ -7,28 +7,42 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class Business extends AppCompatActivity {
     private ArrayList<BusinessItem> mBusinessList;
+    private ArrayList<YelpRestaurant> businessData;
 
     /**================================**/
 
     private RecyclerView bRecyclerView;
-    private BusinessAdapter bAdapter;
+    //private BusinessAdapter bAdapter;
+    private BusAdapter busAdapter;
+    private ResAdapter resAdapter;
     private RecyclerView.LayoutManager bLayoutManager;
 
     private SearchView searchBusiness;
+    //private Object Callback;
+    //private java.lang.Object Object;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_business);
 
-        createBusinessList();
-        buildRecyclerView();
+        getData();
+        //createBusinessList();
+        //buildRecyclerView();
 
         // Get the intent, verify the action and get the query
         /*Intent intent = getIntent();
@@ -39,10 +53,53 @@ public class Business extends AppCompatActivity {
 
     }
 
-    public void changeItem(int position, String text) {
+    public void getData() {
+        //final JSONObject json = new JSONObject();
+
+        final String TAG = "Business";
+        final String BASE_URL = "https://api.yelp.com/v3/";
+        final String API_KEY = "4cgiDC6gAIz5bZaGBCzV_ls0z6wp2O2NChwaZyuQKJMG6--0irgMX-fNXHtkE5MvxLxVNAw4xv2S5S804XIbynWvsjOos0xBSM8Qe9p5Gr0uFyuwjGw7C5Xxrc10X3Yx";
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        businessData = new ArrayList<YelpRestaurant>();
+        resAdapter = new ResAdapter(this, businessData);
+        bRecyclerView = findViewById(R.id.recyclerView);
+        bRecyclerView.setAdapter(resAdapter);
+        bLayoutManager = new LinearLayoutManager(this);
+        bRecyclerView.setLayoutManager(bLayoutManager);
+
+
+        YelpInterface yelpInt = retrofit.create(YelpInterface.class);
+        yelpInt.searchRestaurants("Bearer "+API_KEY, "deli", "New York").enqueue(new Callback<YelpSearchResult>() {
+            @Override
+            public void onResponse(Call<YelpSearchResult> call, Response<YelpSearchResult> response){
+                Log.i(TAG, "onResponse "+response);
+                if (response.body() == null) {
+                    Log.w(TAG, "Did not receive valid response body from Yelp API... exiting");
+                    return;
+                }
+                businessData.addAll(response.body().restaurants);
+                resAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<YelpSearchResult> call, Throwable t) {
+                Log.i(TAG, "onFailure "+t);
+            }
+
+        });
+
+
+    }
+
+    /*public void changeItem(int position, String text) {
         mBusinessList.get(position).changeTitle(text);
         bAdapter.notifyItemChanged(position);
-    }
+    }*/
 
     /** initialize list containing business data (for testing) */
     public void createBusinessList() {
@@ -62,21 +119,35 @@ public class Business extends AppCompatActivity {
         bRecyclerView = findViewById(R.id.recyclerView);
         bRecyclerView.setHasFixedSize(true); //locks size (increases performance)
         bLayoutManager = new LinearLayoutManager(this);
-        bAdapter = new BusinessAdapter(mBusinessList);
-
+        //bAdapter = new BusinessAdapter(mBusinessList);
+        //resAdapter = new ResAdapter(this, businessData);
         bRecyclerView.setLayoutManager(bLayoutManager);
-        bRecyclerView.setAdapter(bAdapter);
+        //bRecyclerView.setAdapter(bAdapter);
+        bRecyclerView.setAdapter(resAdapter);
 
-        bAdapter.setOnItemClickListener(new BusinessAdapter.OnItemClickListener() {
+        /**bAdapter.setOnItemClickListener(new BusinessAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
 
-                /** start popup activity */
+                ** start popup activity *
                 Intent intent = new Intent(Business.this, BusinessPopup.class);
                 intent.putExtra("BusinessItem", mBusinessList.get(position));
                 startActivity(intent);
             }
-        });
+        });*/
     }
+
+    /**public class SearchResult {
+        @SerializedName("total") int total;
+        @SerializedName("businesses") String businesses;
+        String businesses;
+
+        public Search(String terms, String businesses) {
+            this.terms = terms;
+            this.businesses = businesses;
+        }
+    }*/
+
+
 
 }

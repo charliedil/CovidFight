@@ -94,7 +94,7 @@ public class RichmondStat extends AppCompatActivity {
         findTestLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Uri uriUrl=Uri.parse("https://www.vdh.virginia.gov");
+                Uri uriUrl=Uri.parse("https://www.vdh.virginia.gov/coronavirus/covid-19-testing/covid-19-testing-sites/");
                 Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
                 startActivity(launchBrowser);
             }

@@ -8,6 +8,7 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
 
     <application
         android:allowBackup="true"
@@ -16,13 +17,9 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".RichmondStat"></activity>
-        <activity android:name=".VcuStat"></activity>
-
-        <activity android:name=".ReportActivity"></activity>
-
-
+        <activity android:name=".RichmondStat" />
+        <activity android:name=".VcuStat" />
+        <activity android:name=".ReportActivity" />
         <activity android:name=".Statictics" />
         <activity android:name=".Splash">
             <intent-filter>
@@ -31,17 +28,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".Business"></activity>
-        <activity android:name=".BusinessPopup"></activity>
-        <activity android:name=".MapsActivity" android:label="@string/title_activity_maps">
-
-    </activity>
-
-
+        <activity android:name=".MainActivity" />
+        <activity android:name=".Business" />
+        <activity android:name=".BusinessPopup" />
+        <activity
+            android:name=".MapsActivity"
+            android:label="@string/title_activity_maps"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -56,6 +48,8 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <receiver android:name=".Reminder"/>
     </application>
 
 </manifest>

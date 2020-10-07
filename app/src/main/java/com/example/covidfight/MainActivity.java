@@ -25,9 +25,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public CardView card1, card2, card3, card4, card5, card6;
 
-
-    //private Button btnLaunchBusiness;
-
+    //ensures that the notification pop up only occurs the first the app is launched
+    //adds functionality to each card that is on the home page
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         card6.setOnClickListener(this);
     }
 
+    //Displays a pop up screen that asks user whether they want to enable notifications
     private void showStartDialog(){
         new AlertDialog.Builder(this)
                 .setTitle("Notifications")
@@ -89,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editor.apply();
     }
 
+    //creates the notification channel that reminds users to wear their mask
     private void createNotificationChannel(){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             CharSequence name = "MaskReminderChannel";
@@ -102,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    //links each card on Home Page to their respective activities
     @Override
     public void onClick(View view) {
         Intent i;

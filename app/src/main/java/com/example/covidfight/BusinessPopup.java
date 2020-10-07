@@ -27,7 +27,7 @@ public class BusinessPopup extends AppCompatActivity {
         setContentView(R.layout.business_popup);
 
         Intent intent = getIntent();
-        YelpRestaurant restaurant = intent.getParcelableExtra("YelpRestaurant");
+        final YelpRestaurant restaurant = intent.getParcelableExtra("YelpRestaurant");
 
         String name = restaurant.getName();
         Double rating = restaurant.getRating();
@@ -39,10 +39,10 @@ public class BusinessPopup extends AppCompatActivity {
 
         TextView tvName = findViewById(R.id.tvName);
         ImageView imageView = findViewById(R.id.imageView);
-        RatingBar ratingBar = findViewById(R.id.ratingBar);
+        final RatingBar ratingBar = findViewById(R.id.ratingBar);
         TextView tvNumReviews = findViewById(R.id.tvNumReviews);
         TextView tvAddress = findViewById(R.id.tvAddress);
-        TextView tvCategory = findViewById(R.id.tvCategory);
+        final TextView tvCategory = findViewById(R.id.tvCategory);
         TextView tvDistance = findViewById(R.id.tvDistance);
         TextView tvPrice = findViewById(R.id.tvPrice);
 
@@ -65,7 +65,16 @@ public class BusinessPopup extends AppCompatActivity {
 
         int width = dm.widthPixels;
         int height = dm.heightPixels;
+        Button getRating = findViewById(R.id.ratingSubmit);
+        final RatingBar bar = findViewById(R.id.ratingBar);
+        getRating.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                restaurant.setRating(bar.getRating());
+                tvCategory.setText(String.valueOf(restaurant.getRating()));
 
+            }
+        });
         //getWindow().setLayout((int)(width*.8), (int)(height*.75));
 
         /** button to close popup */

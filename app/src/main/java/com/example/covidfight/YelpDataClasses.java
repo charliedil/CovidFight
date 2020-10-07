@@ -7,6 +7,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Dictionary;
 import java.util.List;
 
 class YelpSearchResult {
@@ -38,6 +39,7 @@ class YelpRestaurant implements Parcelable {
                           String imageUrl, String category, String location) {
         this.name = name;
         this.rating = rating;
+
         this.price = price;
         this.numReviews = numReviews;
         //this.distanceInMeters = distanceInMeters;
@@ -85,6 +87,7 @@ class YelpRestaurant implements Parcelable {
     public String getCategory() {
         return categories.get(0).title;
     }
+    public void setRating(float rate){ this.rating=(double)rate;}
     /*public YelpLocation getLocation() {
         return location;
     }*/

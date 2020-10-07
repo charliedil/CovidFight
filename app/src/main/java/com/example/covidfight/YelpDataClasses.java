@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,13 +34,16 @@ class YelpRestaurant implements Parcelable {
      * Constructor for the Business data model
      * @param name name of the business
      */
-    public YelpRestaurant(String name, Double rating, String price, int numReviews, Double distanceInMeters, String imageUrl) {
+    public YelpRestaurant(String name, Double rating, String price, int numReviews,
+                          String imageUrl, String category, String location) {
         this.name = name;
         this.rating = rating;
         this.price = price;
         this.numReviews = numReviews;
-        this.distanceInMeters = distanceInMeters;
+        //this.distanceInMeters = distanceInMeters;
         this.imageUrl = imageUrl;
+        //this.categories.get(0).title = category;
+        //this.location.address = location;
     }
 
     protected YelpRestaurant(Parcel in) {
@@ -47,8 +51,11 @@ class YelpRestaurant implements Parcelable {
         rating = in.readDouble();
         price = in.readString();
         numReviews = in.readInt();
-        distanceInMeters = in.readDouble();
+        //distanceInMeters = in.readDouble();
         imageUrl = in.readString();
+        //categories.get(0).title = in.readString();
+        location = in.readParcelable(YelpLocation.class.getClassLoader());
+
     }
 
     public static final Parcelable.Creator<YelpRestaurant> CREATOR = new Parcelable.Creator<YelpRestaurant>() {
@@ -75,6 +82,12 @@ class YelpRestaurant implements Parcelable {
     public String getImageUrl() {
         return imageUrl;
     }
+    public String getCategory() {
+        return categories.get(0).title;
+    }
+    /*public YelpLocation getLocation() {
+        return location;
+    }*/
 
     @Override
     public int describeContents() {
@@ -89,6 +102,8 @@ class YelpRestaurant implements Parcelable {
         parcel.writeInt(numReviews);
         parcel.writeDouble(distanceInMeters);
         parcel.writeString(imageUrl);
+        //parcel.writeString(categories.get(0).title);
+        parcel.writeParcelable(location, i);
     }
 }
 
@@ -96,6 +111,36 @@ class YelpCategory {
     String title;
 }
 
-class YelpLocation {
+class YelpLocation implements Parcelable {
     @SerializedName("address1") String address;
+
+    protected YelpLocation(Parcel in) {
+        address = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(address);
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<YelpLocation> CREATOR = new Creator<YelpLocation>() {
+        @Override
+        public YelpLocation createFromParcel(Parcel in) {
+            return new YelpLocation(in);
+        }
+
+        @Override
+        public YelpLocation[] newArray(int size) {
+            return new YelpLocation[size];
+        }
+    };
 }

@@ -12,9 +12,28 @@
     <string name="report_email">Email</string>
     <string name="report_description">Description</string>
     <string name="report_button">Submit</string>
+
     <string name="report_post_message">Please wait! We\'re sending your message.</string>
     <string name="report_posted">Thank you! Your message has been successfully delivered.</string>
     <string name="business_name">Business 1</string>
     <string name="description">Description</string>
-</resources>
 
+    <!-- Preference Titles -->
+    <string name="notifications_header">Notifications</string>
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+
+    <!-- Notifications Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Messages Preferences -->
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+</resources>

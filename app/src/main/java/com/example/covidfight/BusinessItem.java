@@ -60,11 +60,6 @@ public class BusinessItem implements Parcelable {
         return rating;
     }
 
-
-    public void changeTitle(String text) {
-        title = text;
-    }
-
     @Override
     public int describeContents() {
         return 0;

@@ -24,9 +24,9 @@ public class BusinessPopup extends AppCompatActivity {
         setContentView(R.layout.activity_business_popup);
 
         Intent intent = getIntent();
-        BusinessItem currentItem = intent.getParcelableExtra("BusinessItem");
+        YelpRestaurant currentItem = intent.getParcelableExtra("YelpRestaurant");
 
-        String popTitle = currentItem.getTitle();
+        /**String popTitle = currentItem.getTitle();
         String popDescription = currentItem.getInfo();
         int popImage = currentItem.getImageResource();
         int popRating = currentItem.getRating();
@@ -42,7 +42,7 @@ public class BusinessPopup extends AppCompatActivity {
 
         ImageView pRating = findViewById(R.id.pRatingFull);
         ClipDrawable pRatingDrawable = (ClipDrawable) pRating.getDrawable();
-        pRatingDrawable.setLevel(popRating);
+        pRatingDrawable.setLevel(popRating);*/
 
         /** layout */
         DisplayMetrics dm = new DisplayMetrics();

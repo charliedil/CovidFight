@@ -29,10 +29,29 @@
         android:textColor="#000"
         android:textSize="17sp"
         android:padding="7dp"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/RichmondCaseSearch"
+        android:layout_below="@id/RichmondInfoType"
+        android:hint="Search by zipcode"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/RichmondInfoType"
+        android:layout_height="550dp"
+        android:layout_below="@id/RichmondCaseSearch"
         android:id="@+id/RichmondCaseRecyclerView"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Say my nameasasas"
+        android:id="@+id/findTestLocation"
+        android:layout_below="@id/RichmondInfoType"
+        android:layout_marginTop="540dp"
+        android:background="#DDBCE5"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
+        android:padding="5dp"
+        android:textColor="#000"/>
 </RelativeLayout>

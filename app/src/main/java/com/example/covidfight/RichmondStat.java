@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -28,7 +29,7 @@ public class RichmondStat extends AppCompatActivity {
 
     private RecyclerView richmondCaseRecView;
     private EditText searchBarTextView;
-    private TextView findTestLocation;
+    private Button findTestLocation;
     final ArrayList<RichmondItem> richmondItem=new ArrayList<>();
     CaseByZipRecViewAdapter adapter=new CaseByZipRecViewAdapter();
 

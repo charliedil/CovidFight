@@ -7,8 +7,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,7 +34,7 @@ public class Business extends AppCompatActivity {
     private ResAdapter resAdapter;
     private RecyclerView.LayoutManager bLayoutManager;
 
-    private SearchView searchBusiness;
+    private EditText searchBusiness;
     //private Object Callback;
     //private java.lang.Object Object;
 
@@ -50,6 +53,25 @@ public class Business extends AppCompatActivity {
             String query = intent.getStringExtra(SearchManager.QUERY);
             doMySearch(query);
         }*/
+        searchBusiness=findViewById(R.id.searchBusiness);
+        searchBusiness.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                filter(editable.toString());
+
+            }
+        });
+
 
     }
 
@@ -148,6 +170,14 @@ public class Business extends AppCompatActivity {
         }
     }*/
 
-
+    private void filter(String text) {
+        ArrayList<YelpRestaurant> filterList=new ArrayList<>();
+        for(YelpRestaurant item: businessData){
+            if (item.getName().toLowerCase().contains(text.toLowerCase())){
+                filterList.add(item);
+            }
+        }
+        resAdapter.filterList(filterList);
+    }
 
 }

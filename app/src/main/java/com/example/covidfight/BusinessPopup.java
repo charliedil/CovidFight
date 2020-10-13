@@ -10,7 +10,10 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -21,26 +24,38 @@ public class BusinessPopup extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_business_popup);
+        setContentView(R.layout.business_popup);
 
         Intent intent = getIntent();
-        YelpRestaurant currentItem = intent.getParcelableExtra("YelpRestaurant");
+        final YelpRestaurant restaurant = intent.getParcelableExtra("YelpRestaurant");
 
-        /**String popTitle = currentItem.getTitle();
-        String popDescription = currentItem.getInfo();
-        int popImage = currentItem.getImageResource();
-        int popRating = currentItem.getRating();
+        String name = restaurant.getName();
+        Double rating = restaurant.getRating();
+        String price = restaurant.getPrice();
+        int numReviews = restaurant.getNumReviews();
+        String imageUrl = restaurant.getImageUrl();
+        //String category = restaurant.getCategory();
+        //String address = restaurant.location.getAddress();
 
-        TextView tv1 = findViewById(R.id.popTitle);
-        tv1.setText(popTitle);
+        TextView tvName = findViewById(R.id.tvName);
+        ImageView imageView = findViewById(R.id.imageView);
+        final RatingBar ratingBar = findViewById(R.id.ratingBar);
+        TextView tvNumReviews = findViewById(R.id.tvNumReviews);
+        TextView tvAddress = findViewById(R.id.tvAddress);
+        final TextView tvCategory = findViewById(R.id.tvCategory);
+        TextView tvDistance = findViewById(R.id.tvDistance);
+        TextView tvPrice = findViewById(R.id.tvPrice);
 
-        TextView tv2 = findViewById(R.id.popDescription);
-        tv2.setText(popDescription);
+        tvName.setText(name);
+        //Glide.with(context).load(imageUrl).into(imageView);
+        ratingBar.setRating(rating.floatValue());
+        tvNumReviews.setText(numReviews+" reviews");
+        //tvAddress.setText(address);
+        //tvCategory.setText(category);
+        //tvDistance.setText(restaurant.displayDistance());
+        tvPrice.setText(price);
 
-        ImageView iv = findViewById(R.id.popImage);
-        iv.setImageResource(popImage);
-
-        ImageView pRating = findViewById(R.id.pRatingFull);
+        /*ImageView pRating = findViewById(R.id.pRatingFull);
         ClipDrawable pRatingDrawable = (ClipDrawable) pRating.getDrawable();
         pRatingDrawable.setLevel(popRating);*/
 
@@ -50,17 +65,26 @@ public class BusinessPopup extends AppCompatActivity {
 
         int width = dm.widthPixels;
         int height = dm.heightPixels;
+        Button getRating = findViewById(R.id.ratingSubmit);
+        final RatingBar bar = findViewById(R.id.ratingBar);
+        getRating.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                restaurant.setRating(bar.getRating());
+                tvCategory.setText(String.valueOf(restaurant.getRating()));
 
+            }
+        });
         //getWindow().setLayout((int)(width*.8), (int)(height*.75));
 
         /** button to close popup */
-        btn_close = (Button) findViewById(R.id.btn_close);
+        /**btn_close = (Button) findViewById(R.id.btn_close);
         btn_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
-        });
+        });*/
 
     }
 

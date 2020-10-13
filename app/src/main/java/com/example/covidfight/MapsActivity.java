@@ -3,6 +3,7 @@ package com.example.covidfight;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 
 import androidx.fragment.app.FragmentActivity;
 
@@ -21,7 +22,10 @@ import com.google.maps.android.heatmaps.WeightedLatLng;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -77,11 +81,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng richmond = new LatLng(37.5483, -77.4527);
         //mMap.addMarker(new MarkerOptions().position(richmond).title("Marker in Richmond"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(richmond));
-        mMap.moveCamera(CameraUpdateFactory.zoomTo((float) 5.0));
+        mMap.moveCamera(CameraUpdateFactory.zoomTo((float) 5.5));//5.0 for US
         Gradient gradient = new Gradient(colors,startpoints);
 //        WeightedLatLng thingy = new WeightedLatLng(new LatLng(37.5483, -77.4527),2.0);
 //        WeightedLatLng thingy2 = new WeightedLatLng(new LatLng(37.5493, -77.4527),5.0);
-        List<WeightedLatLng> wDat = loadData();
+
+        List<WeightedLatLng> wDat = loadData2();
+
        // loadData2();
 //        wDat.add(thingy);
 //        wDat.add(thingy2);
@@ -93,7 +99,93 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     }
-    public List<DataRichmond> loadData2(){
+
+    public List<WeightedLatLng> loadData2(){
+
+        ArrayList<WeightedLatLng> wdat = new ArrayList<>();
+
+        try {
+            InputStream zipcodeFile = getAssets().open("ZipLatLong.csv");
+
+            System.out.println("hahafun");
+            Scanner scan = new Scanner(zipcodeFile);
+            String text="";
+            ArrayList<String>indexToZipcode = new ArrayList<>();
+            ArrayList<String>indexToLong = new ArrayList<>();
+            ArrayList<String>indexToLat = new ArrayList<>();
+            while (scan.hasNextLine()){
+                text+=scan.nextLine();
+            }
+            text = text.replaceAll(",,","\n");
+            String [] datapoints = text.split("\n");
+            for (String x : datapoints){
+                indexToZipcode.add(x.split(",")[0]);
+                indexToLat.add(x.split(",")[1]);
+                indexToLong.add(x.split(",")[2]);
+
+            }
+            String myUrl = "https://data.virginia.gov/resource/8bkr-zfqv.json";
+            String result="";
+            HttpGetRequest getRequest = new HttpGetRequest();
+            result = getRequest.execute(myUrl).get();
+
+            //String result = getRequest.execute(myUrl).get();
+            JSONArray jsonHold = new JSONArray(result);
+
+            //JSONArray jsonHold = jsonObj.getJSONArray("features");
+            ArrayList<String> reportDate = new ArrayList<>();
+            ArrayList<String> zipcodes = new ArrayList<>();
+            ArrayList<String> numCases = new ArrayList<>();
+            ArrayList<String> numPCRTesting = new ArrayList<>();
+            ArrayList<DataRichmond> dataList = new ArrayList<>();
+            for (int i = 0; i < jsonHold.length(); i++) {
+                JSONObject obj = jsonHold.getJSONObject(i);
+                //JSONObject attributes = obj.getJSONObject("attributes");
+                if(!(obj.isNull("report_date")||obj.isNull("zip_code")||obj.isNull("number_of_cases")
+                        || obj.isNull("number_of_pcr_testing") )) {
+                    reportDate.add((String) obj.get(("report_date")));
+                    zipcodes.add((String) obj.get(("zip_code")));
+                    numCases.add((String) obj.get(("number_of_cases")));
+                    numPCRTesting.add((String) obj.get("number_of_pcr_testing"));
+                }
+            }
+
+            for( int i = 0;i < reportDate.size();i++){
+                DataRichmond dataPoint = new DataRichmond(reportDate.get(i), zipcodes.get(i), numCases.get(i), numPCRTesting.get(i));
+                dataList.add(dataPoint);
+            }
+            for (DataRichmond d : dataList){
+                for (int i =0; i<indexToZipcode.size();i++) {
+                    if(indexToZipcode.get(i).equals(d.getZip_code()) && !d.getNumber_of_cases().equals("Suppressed")) {
+                        WeightedLatLng dataPoint = new WeightedLatLng(new LatLng(Double.valueOf(indexToLat.get(i)), Double.valueOf(indexToLong.get(i))), Double.valueOf(d.getNumber_of_cases()));
+                        wdat.add(dataPoint);
+                        break;
+                    }
+                }
+
+
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return wdat;
+    }
+
+    public List<WeightedLatLng> loadData(){
+
+        String myUrl = "https://services1.arcgis.com/0MSEUqKaxRlEPj5g/arcgis/rest/services/ncov_cas" +
+                "es_US/FeatureServer/0/query?where=1%3D1&outFields=Lat,Long_,Active&outSR=4326&f=json";
+        //String to place our result in
+
         String result;
         //Instantiate new instance of our class
         HttpGetRequest getRequest = new HttpGetRequest();

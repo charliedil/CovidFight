@@ -118,7 +118,7 @@
                 android:layout_below="@+id/IsolationAndQuarantine"
                 android:layout_toRightOf="@id/Isolation"
                 android:paddingTop="10dp"
-                android:text="  20"
+                android:text="  updating"
                 android:textColor="#111"
                 android:textSize="15dp" />
 
@@ -138,7 +138,7 @@
                 android:layout_below="@+id/IsolationNumber"
                 android:layout_toRightOf="@id/Quarantine"
                 android:paddingTop="10dp"
-                android:text="  20"
+                android:text="  updating"
                 android:textColor="#111"
                 android:textSize="15dp" />
 
@@ -187,7 +187,7 @@
                 android:layout_below="@+id/EntryTestResults"
                 android:layout_toRightOf="@id/NegativeEntryResult"
                 android:paddingTop="10dp"
-                android:text="  20"
+                android:text="  updating"
                 android:textColor="#111"
                 android:textSize="15dp" />
 
@@ -207,7 +207,7 @@
                 android:layout_below="@+id/NegativeEntryResult"
                 android:layout_toRightOf="@id/PositiveEntryResult"
                 android:paddingTop="10dp"
-                android:text="  20"
+                android:text="  updating"
                 android:textColor="#111"
                 android:textSize="15dp" />
 

@@ -55,8 +55,8 @@ public class Business extends AppCompatActivity {
         createBusinessList();
         openPopup();
 
-        searchBusiness = findViewById(R.id.searchBusiness);
-        searchQuery = searchBusiness.getQuery();
+        //searchBusiness = findViewById(R.id.searchBusiness);
+        //searchQuery = searchBusiness.getQuery();
 
         /*searchBusiness.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -112,6 +112,7 @@ public class Business extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
+        /** setup array list, adapter, layout manager */
         businessData = new ArrayList<YelpRestaurant>();
         resAdapter = new ResAdapter(this, businessData);
         bRecyclerView = findViewById(R.id.recyclerView);
@@ -119,6 +120,7 @@ public class Business extends AppCompatActivity {
         bLayoutManager = new LinearLayoutManager(this);
         bRecyclerView.setLayoutManager(bLayoutManager);
 
+        /** get Yelp API data */
         YelpInterface yelpInt = retrofit.create(YelpInterface.class);
         yelpInt.searchRestaurants("Bearer "+API_KEY, (String) searchQuery, "Richmond").enqueue(new Callback<YelpSearchResult>() {
             @Override
@@ -153,19 +155,6 @@ public class Business extends AppCompatActivity {
             }
         });
     }
-
-
-
-    /**public class SearchResult {
-        @SerializedName("total") int total;
-        @SerializedName("businesses") String businesses;
-        String businesses;
-
-        public Search(String terms, String businesses) {
-            this.terms = terms;
-            this.businesses = businesses;
-        }
-    }*/
 
     private void filter(String text) {
         ArrayList<YelpRestaurant> filterList=new ArrayList<>();

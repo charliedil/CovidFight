@@ -180,7 +180,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return wdat;
     }
 
-    public List<WeightedLatLng> loadData(){
+    /**public List<WeightedLatLng> loadData(){
 
         String myUrl = "https://services1.arcgis.com/0MSEUqKaxRlEPj5g/arcgis/rest/services/ncov_cas" +
                 "es_US/FeatureServer/0/query?where=1%3D1&outFields=Lat,Long_,Active&outSR=4326&f=json";
@@ -226,7 +226,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             e.printStackTrace();
         }
         return null;
-    }
+    }*/
 
     public List<WeightedLatLng> loadData(){
 

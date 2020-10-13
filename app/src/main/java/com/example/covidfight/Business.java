@@ -16,6 +16,8 @@ import android.widget.EditText;
 
 import com.google.gson.annotations.SerializedName;
 
+import com.google.gson.annotations.SerializedName;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,9 +37,11 @@ public class Business extends AppCompatActivity {
     private RecyclerView.LayoutManager bLayoutManager;
 
 
+
     private EditText searchBusiness;
     //private Object Callback;
     //private java.lang.Object Object;
+
 
     //private SearchView searchBusiness;  previous code
     public CharSequence searchQuery;
@@ -94,7 +98,9 @@ public class Business extends AppCompatActivity {
         });
 
 
+
     }
+
 
     public void createBusinessList() {
         final String TAG = "Business";
@@ -149,6 +155,7 @@ public class Business extends AppCompatActivity {
     }
 
 
+
     /**public class SearchResult {
         @SerializedName("total") int total;
         @SerializedName("businesses") String businesses;
@@ -169,6 +176,5 @@ public class Business extends AppCompatActivity {
         }
         resAdapter.filterList(filterList);
     }
-
 
 }

@@ -52,6 +52,11 @@ public class ResAdapter extends RecyclerView.Adapter<ResAdapter.ResViewHolder> {
         return businessData.size();
     }
 
+    public void filterList(ArrayList<YelpRestaurant> filterList) {
+        businessData = filterList;
+        notifyDataSetChanged();
+    }
+
     public static class ResViewHolder extends RecyclerView.ViewHolder {
         TextView name = itemView.findViewById(R.id.tvName);
         ImageView imageView = itemView.findViewById(R.id.imageView);

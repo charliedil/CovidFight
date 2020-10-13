@@ -8,8 +8,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -31,8 +34,14 @@ public class Business extends AppCompatActivity {
     private ResAdapter resAdapter;
     private RecyclerView.LayoutManager bLayoutManager;
 
-    private SearchView searchBusiness;
+
+    private EditText searchBusiness;
+    //private Object Callback;
+    //private java.lang.Object Object;
+
+    //private SearchView searchBusiness;  previous code
     public CharSequence searchQuery;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +74,25 @@ public class Business extends AppCompatActivity {
             String query = intent.getStringExtra(SearchManager.QUERY);
             doMySearch(query);
         }*/
+        searchBusiness=findViewById(R.id.searchBusiness);
+        searchBusiness.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                filter(editable.toString());
+
+            }
+        });
+
 
     }
 
@@ -119,5 +147,28 @@ public class Business extends AppCompatActivity {
             }
         });
     }
+
+
+    /**public class SearchResult {
+        @SerializedName("total") int total;
+        @SerializedName("businesses") String businesses;
+        String businesses;
+
+        public Search(String terms, String businesses) {
+            this.terms = terms;
+            this.businesses = businesses;
+        }
+    }*/
+
+    private void filter(String text) {
+        ArrayList<YelpRestaurant> filterList=new ArrayList<>();
+        for(YelpRestaurant item: businessData){
+            if (item.getName().toLowerCase().contains(text.toLowerCase())){
+                filterList.add(item);
+            }
+        }
+        resAdapter.filterList(filterList);
+    }
+
 
 }

@@ -1,6 +1,7 @@
 package com.example.covidfight;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -20,6 +21,11 @@ import java.util.ArrayList;
 public class BusinessPopup extends AppCompatActivity {
 
     private Button btn_close;
+
+    private AlertDialog.Builder dialogBuider;
+    private AlertDialog dialog;
+    private Button rateButton;
+    private Button cancelButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,8 +92,37 @@ public class BusinessPopup extends AppCompatActivity {
             }
         });*/
 
-    }
+        //Rate Business Button:
+        rateButton=findViewById(R.id.ratingSubmit);
+        rateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClickRateBussiness();
+            }
+        });
 
+
+
+    }
+    public void onClickRateBussiness(){
+        dialogBuider=new AlertDialog.Builder(this);
+        final View reviewPopupView=getLayoutInflater().inflate(R.layout.reviewpopup,null);
+
+        cancelButton=reviewPopupView.findViewById(R.id.cancelButton);
+
+        dialogBuider.setView(reviewPopupView);
+        dialog=dialogBuider.create();
+        dialog.show();
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //define cancel button here
+                dialog.dismiss();
+            }
+        });
+
+    }
 
 
 }

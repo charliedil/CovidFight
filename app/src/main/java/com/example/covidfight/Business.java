@@ -56,7 +56,7 @@ public class Business extends AppCompatActivity {
         openPopup();
 
         searchBusiness = findViewById(R.id.searchBusiness);
-        searchQuery = searchBusiness.getQuery();
+        //searchQuery = searchBusiness.getQuery();
 
         /*searchBusiness.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

@@ -1,5 +1,6 @@
 package com.example.covidfight;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -41,6 +42,7 @@ import java.util.concurrent.ExecutionException;
 public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private Button button;
 
     int[] colors = {
             Color.GREEN,    // green(0-50)
@@ -50,7 +52,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
             Color.rgb(153,50,204), //dark orchid(201-300)
             // Color.rgb(165,42,42) //brown(301-500)
     };
-    float[] startpoints = new float[]{
+    float[] startPoints = new float[]{
             .2f, .4f, .6f, .8f, 1.0f};
 
     @Override
@@ -62,15 +64,18 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        Button button = findViewById(R.id.dataButton);
+        button = (Button) findViewById(R.id.datAButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                openMap1();
             }
         });
     }
-
+    public void openMap1(){
+        Intent intent = new Intent(this, MapsActivity.class );
+        startActivity(intent);
+    }
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -93,7 +98,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         //mMap.addMarker(new MarkerOptions().position(richmond).title("Marker in Richmond"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(richmond));
         mMap.moveCamera(CameraUpdateFactory.zoomTo((float) 5.5));//5.0 for US
-        Gradient gradient = new Gradient(colors,startpoints);
+        Gradient gradient = new Gradient(colors,startPoints);
 //        WeightedLatLng thingy = new WeightedLatLng(new LatLng(37.5483, -77.4527),2.0);
 //        WeightedLatLng thingy2 = new WeightedLatLng(new LatLng(37.5493, -77.4527),5.0);
 

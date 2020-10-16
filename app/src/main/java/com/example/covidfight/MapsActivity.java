@@ -4,6 +4,9 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.fragment.app.FragmentActivity;
 
@@ -38,17 +41,18 @@ import java.util.concurrent.ExecutionException;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private List<WeightedLatLng> Switch = loadData();
 
     int[] colors = {
             Color.GREEN,    // green(0-50)
             Color.YELLOW,    // yellow(51-100)
-            Color.rgb(255, 165, 0), //Orange(101-150)
+            Color.rgb(255,165,0), //Orange(101-150)
             Color.RED,              //red(151-200)
-            Color.rgb(153, 50, 204), //dark orchid(201-300)
-            // Color.rgb(165,42,42) //brown(301-500)
+            Color.rgb(153,50,204), //dark orchid(201-300)
+           // Color.rgb(165,42,42) //brown(301-500)
     };
-    float[] startpoints = new float[]{
-            .2f, .4f, .6f, .8f, 1.0f};
+   float[] startpoints = new float[]{
+           .2f, .4f, .6f, .8f, 1.0f};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +62,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        Button button = findViewById(R.id.dataButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMap.moveCamera(CameraUpdateFactory.zoomTo((float) 5.5));
+                Gradient gradient = new Gradient(colors,startpoints);
+                List<WeightedLatLng> wDat = Switch();
+                HeatmapTileProvider provider = new HeatmapTileProvider.Builder().weightedData(wDat).gradient(gradient).build();
+                mMap.addTileOverlay(new TileOverlayOptions().tileProvider(provider));
+
+            }
+        });
     }
 
     /**
@@ -74,21 +91,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
 
-        MapStyleOptions mapStyleOptions = MapStyleOptions.loadRawResourceStyle(this, R.raw.style);
-        googleMap.setMapStyle(mapStyleOptions);
+       MapStyleOptions mapStyleOptions=MapStyleOptions.loadRawResourceStyle(this,R.raw.style);
+       googleMap.setMapStyle(mapStyleOptions);
 
         // Add a marker in Sydney and move the camera
         LatLng richmond = new LatLng(37.5483, -77.4527);
         //mMap.addMarker(new MarkerOptions().position(richmond).title("Marker in Richmond"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(richmond));
         mMap.moveCamera(CameraUpdateFactory.zoomTo((float) 5.5));//5.0 for US
-        Gradient gradient = new Gradient(colors, startpoints);
+        Gradient gradient = new Gradient(colors,startpoints);
 //        WeightedLatLng thingy = new WeightedLatLng(new LatLng(37.5483, -77.4527),2.0);
 //        WeightedLatLng thingy2 = new WeightedLatLng(new LatLng(37.5493, -77.4527),5.0);
 
-        List<WeightedLatLng> wDat = loadData2();
+        List<WeightedLatLng> wDat = Switch;
 
-        // loadData2();
+       // loadData2();
 //        wDat.add(thingy);
 //        wDat.add(thingy2);
         HeatmapTileProvider provider = new HeatmapTileProvider.Builder().weightedData(wDat).gradient(gradient).build();
@@ -97,9 +114,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //System.exit(0);
 
 
+
     }
 
-    public List<WeightedLatLng> loadData2() {
+    public List<WeightedLatLng> loadData2(){
 
         ArrayList<WeightedLatLng> wdat = new ArrayList<>();
 
@@ -108,23 +126,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             System.out.println("hahafun");
             Scanner scan = new Scanner(zipcodeFile);
-            String text = "";
-            ArrayList<String> indexToZipcode = new ArrayList<>();
-            ArrayList<String> indexToLong = new ArrayList<>();
-            ArrayList<String> indexToLat = new ArrayList<>();
-            while (scan.hasNextLine()) {
-                text += scan.nextLine();
+            String text="";
+            ArrayList<String>indexToZipcode = new ArrayList<>();
+            ArrayList<String>indexToLong = new ArrayList<>();
+            ArrayList<String>indexToLat = new ArrayList<>();
+            while (scan.hasNextLine()){
+                text+=scan.nextLine();
             }
-            text = text.replaceAll(",,", "\n");
-            String[] datapoints = text.split("\n");
-            for (String x : datapoints) {
+            text = text.replaceAll(",,","\n");
+            String [] datapoints = text.split("\n");
+            for (String x : datapoints){
                 indexToZipcode.add(x.split(",")[0]);
                 indexToLat.add(x.split(",")[1]);
                 indexToLong.add(x.split(",")[2]);
 
             }
             String myUrl = "https://data.virginia.gov/resource/8bkr-zfqv.json";
-            String result = "";
+            String result="";
             HttpGetRequest getRequest = new HttpGetRequest();
             result = getRequest.execute(myUrl).get();
 
@@ -140,8 +158,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             for (int i = 0; i < jsonHold.length(); i++) {
                 JSONObject obj = jsonHold.getJSONObject(i);
                 //JSONObject attributes = obj.getJSONObject("attributes");
-                if (!(obj.isNull("report_date") || obj.isNull("zip_code") || obj.isNull("number_of_cases")
-                        || obj.isNull("number_of_pcr_testing"))) {
+                if(!(obj.isNull("report_date")||obj.isNull("zip_code")||obj.isNull("number_of_cases")
+                        || obj.isNull("number_of_pcr_testing") )) {
                     reportDate.add((String) obj.get(("report_date")));
                     zipcodes.add((String) obj.get(("zip_code")));
                     numCases.add((String) obj.get(("number_of_cases")));
@@ -149,18 +167,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
             }
 
-            for (int i = 0; i < reportDate.size(); i++) {
+            for( int i = 0;i < reportDate.size();i++){
                 DataRichmond dataPoint = new DataRichmond(reportDate.get(i), zipcodes.get(i), numCases.get(i), numPCRTesting.get(i));
                 dataList.add(dataPoint);
             }
-            for (DataRichmond d : dataList) {
-                for (int i = 0; i < indexToZipcode.size(); i++) {
-                    if (indexToZipcode.get(i).equals(d.getZip_code()) && !d.getNumber_of_cases().equals("Suppressed")) {
+            for (DataRichmond d : dataList){
+                for (int i =0; i<indexToZipcode.size();i++) {
+                    if(indexToZipcode.get(i).equals(d.getZip_code()) && !d.getNumber_of_cases().equals("Suppressed")) {
                         WeightedLatLng dataPoint = new WeightedLatLng(new LatLng(Double.valueOf(indexToLat.get(i)), Double.valueOf(indexToLong.get(i))), Double.valueOf(d.getNumber_of_cases()));
                         wdat.add(dataPoint);
                         break;
                     }
                 }
+
 
 
             }
@@ -177,7 +196,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         return wdat;
     }
-
 
 
     public List<WeightedLatLng> loadData(){
@@ -226,6 +244,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             e.printStackTrace();
         }
         return null;
+    }
+
+    public List<WeightedLatLng> Switch(){
+        if(Switch.equals(loadData())){
+            Switch = loadData2();
+        }else if(Switch.equals(loadData2())){
+            Switch = loadData();
+        }
+        return Switch;
     }
 class HttpGetRequest extends AsyncTask<String, Void, String> {
 

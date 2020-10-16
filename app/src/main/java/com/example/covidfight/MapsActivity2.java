@@ -38,7 +38,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
 
@@ -48,10 +48,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Color.rgb(255,165,0), //Orange(101-150)
             Color.RED,              //red(151-200)
             Color.rgb(153,50,204), //dark orchid(201-300)
-           // Color.rgb(165,42,42) //brown(301-500)
+            // Color.rgb(165,42,42) //brown(301-500)
     };
-   float[] startpoints = new float[]{
-           .2f, .4f, .6f, .8f, 1.0f};
+    float[] startpoints = new float[]{
+            .2f, .4f, .6f, .8f, 1.0f};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,8 +85,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
 
-       MapStyleOptions mapStyleOptions=MapStyleOptions.loadRawResourceStyle(this,R.raw.style);
-       googleMap.setMapStyle(mapStyleOptions);
+        MapStyleOptions mapStyleOptions=MapStyleOptions.loadRawResourceStyle(this,R.raw.style);
+        googleMap.setMapStyle(mapStyleOptions);
 
         // Add a marker in Sydney and move the camera
         LatLng richmond = new LatLng(37.5483, -77.4527);
@@ -97,9 +97,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //        WeightedLatLng thingy = new WeightedLatLng(new LatLng(37.5483, -77.4527),2.0);
 //        WeightedLatLng thingy2 = new WeightedLatLng(new LatLng(37.5493, -77.4527),5.0);
 
-        List<WeightedLatLng> wDat = loadData();
+        List<WeightedLatLng> wDat = loadData2();
 
-       // loadData2();
+        // loadData2();
 //        wDat.add(thingy);
 //        wDat.add(thingy2);
         HeatmapTileProvider provider = new HeatmapTileProvider.Builder().weightedData(wDat).gradient(gradient).build();
@@ -191,80 +191,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return wdat;
     }
 
+    static class HttpGetRequest extends AsyncTask<String, Void, String> {
 
-    public List<WeightedLatLng> loadData(){
-
-        String myUrl = "https://services1.arcgis.com/0MSEUqKaxRlEPj5g/arcgis/rest/services/ncov_cas" +
-                    "es_US/FeatureServer/0/query?where=1%3D1&outFields=Lat,Long_,Active&outSR=4326&f=json";
-            //String to place our result in
-            String result;
-            //Instantiate new instance of our class
-            HttpGetRequest getRequest = new HttpGetRequest();
-            //Perform the doInBackground method, passing in our url
+        @Override
+        protected String doInBackground(String... params) {
+            String stringUrl = params[0];
+            String result = "";
             try {
-                result = getRequest.execute(myUrl).get();
-                JSONObject obj = new JSONObject(result);
-            JSONArray two = obj.getJSONArray("features");
-            ArrayList<Double> latList = new ArrayList<Double>();
-            ArrayList<Double> longList = new ArrayList<Double>();
-            ArrayList<Integer> activeList = new ArrayList<Integer>();
-
-            for (int i =0; i<two.length(); i++) {
-                JSONObject thingy = two.getJSONObject(i);
-                JSONObject attributes = thingy.getJSONObject("attributes");
-                if(!(attributes.isNull("Lat")||attributes.isNull("Long_")||attributes.isNull("Active"))) {
-                    double lat = attributes.getDouble("Lat");
-                    double long_  = attributes.getDouble("Long_");
-                    int active = attributes.getInt("Active");
-                    latList.add(lat);
-                    longList.add(long_);
-                    activeList.add(active);
+                //Create a URL object holding our url
+                URL myUrl = new URL(stringUrl);
+                //Create a connection
+                InputStream thing = myUrl.openStream();
+                Scanner scan = new Scanner(thing);
+                while (scan.hasNextLine()) {
+                    result += scan.nextLine();
                 }
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            List<WeightedLatLng> wDat = new ArrayList<WeightedLatLng>();
-            for( int i =0;i<latList.size();i++){
-                WeightedLatLng dataPoint = new WeightedLatLng(new LatLng(latList.get(i), longList.get(i)),activeList.get(i));
-                wDat.add(dataPoint);
-            }
-            return wDat;
-
-            //System.exit(0);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-
-    } catch (JSONException e) {
-            e.printStackTrace();
+            return result;
         }
-        return null;
-    }
 
-static class HttpGetRequest extends AsyncTask<String, Void, String> {
-
-    @Override
-    protected String doInBackground(String... params) {
-        String stringUrl = params[0];
-        String result = "";
-        try {
-            //Create a URL object holding our url
-            URL myUrl = new URL(stringUrl);
-            //Create a connection
-            InputStream thing = myUrl.openStream();
-            Scanner scan = new Scanner(thing);
-            while (scan.hasNextLine()) {
-                result += scan.nextLine();
-            }
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
         }
-        return result;
-    }
-
-    @Override
-    protected void onPostExecute(String result) {
-        super.onPostExecute(result);
-    }
-}}
+    }}

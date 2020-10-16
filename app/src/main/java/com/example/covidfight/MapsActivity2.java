@@ -58,7 +58,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
+        setContentView(R.layout.activity_maps2);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -97,7 +97,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         LatLng richmond = new LatLng(37.5483, -77.4527);
         //mMap.addMarker(new MarkerOptions().position(richmond).title("Marker in Richmond"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(richmond));
-        mMap.moveCamera(CameraUpdateFactory.zoomTo((float) 5.5));//5.0 for US
+        mMap.moveCamera(CameraUpdateFactory.zoomTo((float) 5.75));//5.0 for US
         Gradient gradient = new Gradient(colors,startPoints);
 //        WeightedLatLng thingy = new WeightedLatLng(new LatLng(37.5483, -77.4527),2.0);
 //        WeightedLatLng thingy2 = new WeightedLatLng(new LatLng(37.5493, -77.4527),5.0);

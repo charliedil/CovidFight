@@ -94,10 +94,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
        googleMap.setMapStyle(mapStyleOptions);
 
         // Add a marker in Sydney and move the camera
-        LatLng richmond = new LatLng(37.5483, -77.4527);
+        LatLng richmond = new LatLng(37.5483, -89.4527);
         //mMap.addMarker(new MarkerOptions().position(richmond).title("Marker in Richmond"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(richmond));
-        mMap.moveCamera(CameraUpdateFactory.zoomTo((float) 5.5));//5.0 for US
+        mMap.moveCamera(CameraUpdateFactory.zoomTo((float) 3.75));//5.0 for US
         Gradient gradient = new Gradient(colors,startPoints);
 //        WeightedLatLng thingy = new WeightedLatLng(new LatLng(37.5483, -77.4527),2.0);
 //        WeightedLatLng thingy2 = new WeightedLatLng(new LatLng(37.5493, -77.4527),5.0);

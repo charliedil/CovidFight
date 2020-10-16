@@ -41,6 +41,7 @@ import java.util.concurrent.ExecutionException;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private List<WeightedLatLng> Switch = loadData();
 
     int[] colors = {
             Color.GREEN,    // green(0-50)
@@ -66,6 +67,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mMap.moveCamera(CameraUpdateFactory.zoomTo((float) 5.5));
+                Gradient gradient = new Gradient(colors,startpoints);
+                List<WeightedLatLng> wDat = Switch();
+                HeatmapTileProvider provider = new HeatmapTileProvider.Builder().weightedData(wDat).gradient(gradient).build();
+                mMap.addTileOverlay(new TileOverlayOptions().tileProvider(provider));
+
             }
         });
     }
@@ -96,7 +103,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //        WeightedLatLng thingy = new WeightedLatLng(new LatLng(37.5483, -77.4527),2.0);
 //        WeightedLatLng thingy2 = new WeightedLatLng(new LatLng(37.5493, -77.4527),5.0);
 
-        List<WeightedLatLng> wDat = loadData2();
+        List<WeightedLatLng> wDat = Switch;
 
        // loadData2();
 //        wDat.add(thingy);
@@ -190,53 +197,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return wdat;
     }
 
-    public List<WeightedLatLng> loadData(){
-
-        String myUrl = "https://services1.arcgis.com/0MSEUqKaxRlEPj5g/arcgis/rest/services/ncov_cas" +
-                "es_US/FeatureServer/0/query?where=1%3D1&outFields=Lat,Long_,Active&outSR=4326&f=json";
-        //String to place our result in
-
-        String result;
-        //Instantiate new instance of our class
-        HttpGetRequest getRequest = new HttpGetRequest();
-        //Perform the doInBackground method, passing in our url
-        try {
-            String myUrl = "https://data.virginia.gov/resource/8bkr-zfqv.json";
-
-            result = getRequest.execute(myUrl).get();
-            JSONObject jsonObj = new JSONObject(result);
-            JSONArray jsonHold = jsonObj.getJSONArray("features");
-            ArrayList<String> reportDate = new ArrayList<>();
-            ArrayList<String> zipcodes = new ArrayList<>();
-            ArrayList<String> numCases = new ArrayList<>();
-            ArrayList<String> numPCRTesting = new ArrayList<>();
-
-            for (int i = 0; i < jsonHold.length(); i++) {
-                JSONObject obj = jsonHold.getJSONObject(i);
-                JSONObject attributes = obj.getJSONObject("attributes");
-                if(!(attributes.isNull("report_date")||attributes.isNull("zip_code")||attributes.isNull("number_of_cases")
-                        || attributes.isNull("number_of_pcr_testing") )) {
-                    reportDate.add((String) attributes.get(("report_date")));
-                    zipcodes.add((String) attributes.get(("zip_code")));
-                    numCases.add((String) attributes.get(("number_of_cases")));
-                    numPCRTesting.add((String) attributes.get("number_of_pcr_testing"));
-                }
-            }
-
-            for( int i = 0;i < reportDate.size();i++){
-                DataRichmond dataPoint = new DataRichmond(reportDate.get(i), zipcodes.get(i), numCases.get(i), numPCRTesting.get(i));
-                //dataList.add(dataPoint);
-            }
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     public List<WeightedLatLng> loadData(){
 
@@ -284,6 +244,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             e.printStackTrace();
         }
         return null;
+    }
+
+    public List<WeightedLatLng> Switch(){
+        if(Switch.equals(loadData())){
+            Switch = loadData2();
+        }else if(Switch.equals(loadData2())){
+            Switch = loadData();
+        }
+        return Switch;
     }
 class HttpGetRequest extends AsyncTask<String, Void, String> {
 

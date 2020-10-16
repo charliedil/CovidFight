@@ -41,7 +41,6 @@ import java.util.concurrent.ExecutionException;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private List<WeightedLatLng> Switch = loadData();
 
     int[] colors = {
             Color.GREEN,    // green(0-50)
@@ -67,11 +66,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mMap.moveCamera(CameraUpdateFactory.zoomTo((float) 5.5));
-                Gradient gradient = new Gradient(colors,startpoints);
-                List<WeightedLatLng> wDat = Switch();
-                HeatmapTileProvider provider = new HeatmapTileProvider.Builder().weightedData(wDat).gradient(gradient).build();
-                mMap.addTileOverlay(new TileOverlayOptions().tileProvider(provider));
 
             }
         });
@@ -103,7 +97,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //        WeightedLatLng thingy = new WeightedLatLng(new LatLng(37.5483, -77.4527),2.0);
 //        WeightedLatLng thingy2 = new WeightedLatLng(new LatLng(37.5493, -77.4527),5.0);
 
-        List<WeightedLatLng> wDat = Switch;
+        List<WeightedLatLng> wDat = loadData();
 
        // loadData2();
 //        wDat.add(thingy);
@@ -246,14 +240,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return null;
     }
 
-    public List<WeightedLatLng> Switch(){
-        if(Switch.equals(loadData())){
-            Switch = loadData2();
-        }else if(Switch.equals(loadData2())){
-            Switch = loadData();
-        }
-        return Switch;
-    }
 class HttpGetRequest extends AsyncTask<String, Void, String> {
 
     @Override

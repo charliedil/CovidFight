@@ -38,7 +38,8 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
 
-public class MapsActvity2 extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallback {
+
     private GoogleMap mMap;
 
     int[] colors = {
@@ -87,13 +88,24 @@ public class MapsActvity2 extends FragmentActivity implements OnMapReadyCallback
         MapStyleOptions mapStyleOptions=MapStyleOptions.loadRawResourceStyle(this,R.raw.style);
         googleMap.setMapStyle(mapStyleOptions);
 
+        // Add a marker in Sydney and move the camera
         LatLng richmond = new LatLng(37.5483, -77.4527);
+        //mMap.addMarker(new MarkerOptions().position(richmond).title("Marker in Richmond"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(richmond));
         mMap.moveCamera(CameraUpdateFactory.zoomTo((float) 5.5));//5.0 for US
         Gradient gradient = new Gradient(colors,startpoints);
+//        WeightedLatLng thingy = new WeightedLatLng(new LatLng(37.5483, -77.4527),2.0);
+//        WeightedLatLng thingy2 = new WeightedLatLng(new LatLng(37.5493, -77.4527),5.0);
+
         List<WeightedLatLng> wDat = loadData2();
+
+        // loadData2();
+//        wDat.add(thingy);
+//        wDat.add(thingy2);
         HeatmapTileProvider provider = new HeatmapTileProvider.Builder().weightedData(wDat).gradient(gradient).build();
         mMap.addTileOverlay(new TileOverlayOptions().tileProvider(provider));
+
+        //System.exit(0);
 
 
 
@@ -125,7 +137,7 @@ public class MapsActvity2 extends FragmentActivity implements OnMapReadyCallback
             }
             String myUrl = "https://data.virginia.gov/resource/8bkr-zfqv.json";
             String result="";
-            MapsActivity.HttpGetRequest getRequest = new MapsActivity.HttpGetRequest();
+            HttpGetRequest getRequest = new HttpGetRequest();
             result = getRequest.execute(myUrl).get();
 
             //String result = getRequest.execute(myUrl).get();
@@ -178,7 +190,8 @@ public class MapsActvity2 extends FragmentActivity implements OnMapReadyCallback
         }
         return wdat;
     }
-    class HttpGetRequest extends AsyncTask<String, Void, String> {
+
+    static class HttpGetRequest extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... params) {
@@ -205,5 +218,4 @@ public class MapsActvity2 extends FragmentActivity implements OnMapReadyCallback
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
         }
-    }
-}
+    }}

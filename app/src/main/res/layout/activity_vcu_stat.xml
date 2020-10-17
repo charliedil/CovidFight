@@ -28,7 +28,7 @@
                 android:background="#F1AA41"
                 android:gravity="center_horizontal"
                 android:padding="10dp"
-                android:text="Actice Case"
+                android:text="Active Cases"
                 android:textAlignment="center"
                 android:textColor="#000"
                 android:textSize="20dp"
@@ -40,7 +40,7 @@
                 android:layout_height="45dp"
                 android:layout_below="@id/ActiveCases"
                 android:paddingTop="10dp"
-                android:text="  Active Student Case:     "
+                android:text="  Active Student Cases:     "
                 android:textSize="15dp" />
 
             <TextView
@@ -60,7 +60,7 @@
                 android:layout_height="45dp"
                 android:layout_below="@id/ActiveStudentCases"
                 android:paddingTop="10dp"
-                android:text="  Active Employee Case:     "
+                android:text="  Active Employee Cases:     "
                 android:textSize="15dp" />
 
             <TextView
@@ -96,7 +96,7 @@
                 android:background="#F1AA41"
                 android:gravity="center_horizontal"
                 android:padding="10dp"
-                android:text="On campus Isolation and Quarantie"
+                android:text="On Campus Isolation And Quarantie"
                 android:textAlignment="center"
                 android:textColor="#000"
                 android:textSize="20dp"
@@ -108,7 +108,7 @@
                 android:layout_height="45dp"
                 android:layout_below="@id/IsolationAndQuarantine"
                 android:paddingTop="10dp"
-                android:text="  Resident students in isolation :     "
+                android:text="  Resident Students In Isolation :     "
                 android:textSize="15dp" />
 
             <TextView
@@ -128,7 +128,7 @@
                 android:layout_height="45dp"
                 android:layout_below="@id/Isolation"
                 android:paddingTop="10dp"
-                android:text="  Resident Students in quarantine:     "
+                android:text="  Resident Students In Quarantine:     "
                 android:textSize="15dp" />
 
             <TextView
@@ -165,7 +165,7 @@
                 android:background="#F1AA41"
                 android:gravity="center_horizontal"
                 android:padding="10dp"
-                android:text="Entry test results"
+                android:text="Entry Test Results"
                 android:textAlignment="center"
                 android:textColor="#000"
                 android:textSize="20dp"

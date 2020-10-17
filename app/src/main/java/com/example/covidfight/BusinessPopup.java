@@ -15,6 +15,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -107,7 +109,10 @@ public class BusinessPopup extends AppCompatActivity {
     public void onClickRateBussiness(){
         dialogBuider=new AlertDialog.Builder(this);
         final View reviewPopupView=getLayoutInflater().inflate(R.layout.reviewpopup,null);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("message");
 
+        myRef.setValue("Hello, World!");
         cancelButton=reviewPopupView.findViewById(R.id.cancelButton);
 
         dialogBuider.setView(reviewPopupView);

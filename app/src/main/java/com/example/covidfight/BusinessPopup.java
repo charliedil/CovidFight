@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -25,7 +26,9 @@ public class BusinessPopup extends AppCompatActivity {
     private AlertDialog.Builder dialogBuider;
     private AlertDialog dialog;
     private Button rateButton;
-    private Button cancelButton;
+    private Button cancelButton,submitButton;
+    private RatingBar ratingBarInPopup;
+    private EditText commentEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,16 +107,22 @@ public class BusinessPopup extends AppCompatActivity {
 
 
     }
+
+    //Method: Show popup for users to rate the businesses.
     public void onClickRateBussiness(){
         dialogBuider=new AlertDialog.Builder(this);
         final View reviewPopupView=getLayoutInflater().inflate(R.layout.reviewpopup,null);
 
         cancelButton=reviewPopupView.findViewById(R.id.cancelButton);
+        submitButton=reviewPopupView.findViewById(R.id.submitButton);
+        commentEditText=reviewPopupView.findViewById(R.id.reviewText);
+        ratingBarInPopup=reviewPopupView.findViewById(R.id.ratingBarInPopUp);
 
         dialogBuider.setView(reviewPopupView);
         dialog=dialogBuider.create();
         dialog.show();
 
+        //Close popup when clicking cancel button
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,6 +131,23 @@ public class BusinessPopup extends AppCompatActivity {
             }
         });
 
+        //Submit data to database when submit button is clicked
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Submit data to firebase here
+                //Method: addReview
+            }
+        });
+
+    }
+
+    //Add review(rating stars, and comments to firebase
+    public void addReview(){
+
+        //add String comment and int Start
+
+        //add if statement to submit when stars and comment are filled, otherwise make Toast error
     }
 
 

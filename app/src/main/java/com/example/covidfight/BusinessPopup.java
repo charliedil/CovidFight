@@ -7,7 +7,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.drawable.ClipDrawable;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -15,10 +17,14 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class BusinessPopup extends AppCompatActivity {
 
@@ -109,10 +115,18 @@ public class BusinessPopup extends AppCompatActivity {
     public void onClickRateBussiness(){
         dialogBuider=new AlertDialog.Builder(this);
         final View reviewPopupView=getLayoutInflater().inflate(R.layout.reviewpopup,null);
+        //writing data example--------------------------------------------------
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
+        DatabaseReference myRef = database.getReference();
+        //Writing to database
+        myRef.child("RestaurantName").child("uid").setValue(Settings.Secure.getString(getContentResolver(),
+                Settings.Secure.ANDROID_ID));
+        myRef.child("RestaurantName").child("uid").child("rating").setValue(5.0);
+        myRef.child("RestaurantName").child("uid").child("review").setValue("No one was wearing masks");
 
-        myRef.setValue("Hello, World!");
+        //Reading from databae ???
+
+
         cancelButton=reviewPopupView.findViewById(R.id.cancelButton);
 
         dialogBuider.setView(reviewPopupView);

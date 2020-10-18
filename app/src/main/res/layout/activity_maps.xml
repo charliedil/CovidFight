@@ -14,7 +14,7 @@ tools:context=".MapsActivity">
     ></fragment>
 
     <Button
-        android:id="@+id/datAButton"
+        android:id="@+id/dataButton"
         android:layout_width="123dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"

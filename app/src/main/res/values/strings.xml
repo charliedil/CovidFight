@@ -18,6 +18,7 @@
     <string name="business_name">Business 1</string>
     <string name="description">Description</string>
 
+
     <!-- Preference Titles -->
     <string name="notifications_header">Notifications</string>
     <string name="messages_header">Messages</string>

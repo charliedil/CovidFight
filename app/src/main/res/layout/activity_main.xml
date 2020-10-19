@@ -10,9 +10,8 @@
     android:weightSum="10"
     tools:context=".MainActivity">
 
-
     <RelativeLayout
-        android:layout_weight="4"
+        android:layout_weight="3.5"
         android:layout_width="match_parent"
         android:layout_height="0dp">
 
@@ -20,21 +19,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="66dp"
             android:src="@drawable/logo"
-            android:contentDescription="@string/app_logo"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="66dp" />
+            android:contentDescription="@string/app_logo" />
     </RelativeLayout>
 
         
         <GridLayout
-            android:layout_weight="6"
+            android:layout_weight="6.5"
             android:columnCount="2"
             android:rowCount="3"
             android:alignmentMode="alignMargins"
-            android:padding="14dp"
+            android:padding="8dp"
             android:columnOrderPreserved="false"
             android:layout_width="match_parent"
             android:layout_height="0dp">
@@ -53,24 +48,25 @@
                 android:layout_marginRight="16dp"
                 app:cardElevation="8dp"
                 app:cardCornerRadius="8dp"
-                android:layout_margin="12dp"
                 >
                 <LinearLayout
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_margin="8dp"
                     android:orientation="vertical"
-                    android:padding="16dp"
-                    android:gravity="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
                     <ImageView
                         android:src="@drawable/map_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
                         android:contentDescription="@string/title_activity_maps" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
                         android:fontFamily="@font/baloo"
                         android:text="@string/title_activity_maps"
                         android:textColor="#000000"
@@ -82,25 +78,28 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/statsCard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
-                app:cardElevation="6dp"
-                app:cardCornerRadius="12dp"
-                android:layout_margin="12dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                app:cardElevation="8dp"
+                app:cardCornerRadius="8dp"
                 >
                 <LinearLayout
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_margin="8dp"
                     android:orientation="vertical"
-                    android:padding="16dp"
-                    android:gravity="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
                     <ImageView
                         android:src="@drawable/stats_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
                         android:contentDescription="@string/title_activity_stats" />
 
                     <TextView
@@ -117,33 +116,37 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/businessCard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
-                app:cardElevation="6dp"
-                app:cardCornerRadius="12dp"
-                android:layout_margin="12dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                app:cardElevation="8dp"
+                app:cardCornerRadius="8dp"
                 >
                 <LinearLayout
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_margin="8dp"
                     android:orientation="vertical"
-                    android:padding="16dp"
-                    android:gravity="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
                     <ImageView
                         android:src="@drawable/business_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
                         android:contentDescription="@string/title_activity_business" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/baloo"
                         android:text="@string/title_activity_business"
                         android:textColor="#000000"
-                        android:textSize="25sp" />
+                        android:textSize="30sp" />
 
                 </LinearLayout>
 
@@ -151,25 +154,28 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/reportCard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
-                app:cardElevation="6dp"
-                app:cardCornerRadius="12dp"
-                android:layout_margin="12dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                app:cardElevation="8dp"
+                app:cardCornerRadius="8dp"
                 >
                 <LinearLayout
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_margin="8dp"
                     android:orientation="vertical"
-                    android:padding="16dp"
-                    android:gravity="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
                     <ImageView
                         android:src="@drawable/report_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
                         android:contentDescription="@string/title_activity_report" />
 
                     <TextView
@@ -180,68 +186,34 @@
                         android:textColor="#000000"
                         android:textSize="30sp" />
 
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/infoCard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"
-                app:cardElevation="6dp"
-                app:cardCornerRadius="12dp"
-                android:layout_margin="12dp"
-                >
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:padding="16dp"
-                    android:gravity="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:src="@drawable/info_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/title_activity_info" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/baloo"
-                        android:text="@string/title_activity_info"
-                        android:textColor="#000000"
-                        android:textSize="30sp" />
-
-
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/settingsCard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
-                app:cardElevation="6dp"
-                app:cardCornerRadius="12dp"
-                android:layout_margin="12dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                app:cardElevation="8dp"
+                app:cardCornerRadius="8dp"
                 >
                 <LinearLayout
+                    android:layout_gravity="center_horizontal|center_vertical"
                     android:orientation="vertical"
-                    android:padding="16dp"
-                    android:gravity="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_margin="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
                     <ImageView
                         android:src="@drawable/settings_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
                         android:contentDescription="@string/title_activity_settings" />
 
                     <TextView

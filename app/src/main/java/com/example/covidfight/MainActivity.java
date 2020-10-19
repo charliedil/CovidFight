@@ -41,14 +41,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         card1 = (CardView) findViewById(R.id.mapCard);
         card2 = (CardView) findViewById(R.id.statsCard);
         card3 = (CardView) findViewById(R.id.businessCard);
-        card4 = (CardView) findViewById(R.id.infoCard);
+        //card4 = (CardView) findViewById(R.id.infoCard);
         card5 = (CardView) findViewById(R.id.reportCard);
         card6 = (CardView) findViewById(R.id.settingsCard);
 
         card1.setOnClickListener(this);
         card2.setOnClickListener(this);
         card3.setOnClickListener(this);
-        card4.setOnClickListener(this);
+        //card4.setOnClickListener(this);
         card5.setOnClickListener(this);
         card6.setOnClickListener(this);
     }

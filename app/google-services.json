@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "138472015237",
+    "firebase_url": "https://covidfight-292622.firebaseio.com",
+    "project_id": "covidfight-292622",
+    "storage_bucket": "covidfight-292622.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:138472015237:android:cb7705c3c784a5d0d170ec",
+        "android_client_info": {
+          "package_name": "com.example.covidfight"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "138472015237-spo3poeuk9j0i5bl3chu4ad4l0iimn19.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMfAA4XAk3F2pC-Ft8T_YBmeB5Jy_KTX0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "138472015237-spo3poeuk9j0i5bl3chu4ad4l0iimn19.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

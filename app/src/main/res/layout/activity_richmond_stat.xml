@@ -42,16 +42,19 @@
         android:layout_below="@id/RichmondCaseSearch"
         android:id="@+id/RichmondCaseRecyclerView"/>
 
-    <TextView
+    <Button
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:text="Say my nameasasas"
+        android:text="Search for nearest testing centers"
         android:id="@+id/findTestLocation"
         android:layout_below="@id/RichmondInfoType"
         android:layout_marginTop="540dp"
-        android:background="#DDBCE5"
+        android:background="@drawable/custom_button"
         android:textAlignment="center"
         android:gravity="center_horizontal"
         android:padding="5dp"
-        android:textColor="#000"/>
+        android:textColor="#FFF"
+        android:textSize="15sp"
+        />
+
 </RelativeLayout>

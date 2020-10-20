@@ -18,6 +18,13 @@
     <string name="business_name">Business 1</string>
     <string name="description">Description</string>
 
+    <string name="set_reminder">Set Daily Mask Reminder</string>
+    <string name="cancel_reminder">Cancel Reminder</string>
+    <string name="no_reminder">No Reminder Set</string>
+    <string name="reminder_canceled">Reminder Canceled</string>
+    <string name="reminder_settings">Reminder Settings</string>
+
+
 
     <!-- Preference Titles -->
     <string name="notifications_header">Notifications</string>

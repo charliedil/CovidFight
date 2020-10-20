@@ -3,17 +3,17 @@ package com.example.covidfight;
 //Class ReviewItem: class for a review;
 
 public class ReviewItem {
-    private int starNumbers;
+    private float starNumbers;
     private int id;
     private String comment;
 
-    public ReviewItem(int starNumbers, int id, String comment) {
+    public ReviewItem(float starNumbers, int id, String comment) {
         this.starNumbers = starNumbers;
         this.id = id;
         this.comment = comment;
     }
 
-    public int getStarNumbers() {
+    public float getStarNumbers() {
         return starNumbers;
     }
 

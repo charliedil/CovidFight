@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -29,6 +30,8 @@ public class BusinessPopup extends AppCompatActivity {
     private Button cancelButton,submitButton;
     private RatingBar ratingBarInPopup;
     private EditText commentEditText;
+    static int id;
+    //DatabaseReference
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +98,8 @@ public class BusinessPopup extends AppCompatActivity {
             }
         });*/
 
+        //Define DatabaseReferences
+
         //Rate Business Button:
         rateButton=findViewById(R.id.ratingSubmit);
         rateButton.setOnClickListener(new View.OnClickListener() {
@@ -145,9 +150,19 @@ public class BusinessPopup extends AppCompatActivity {
     //Add review(rating stars, and comments to firebase
     public void addReview(){
 
-        //add String comment and int Start
+        //add String comment and float Start
+        String comment=commentEditText.getText().toString();
+        Float numStart=ratingBarInPopup.getRating();
 
         //add if statement to submit when stars and comment are filled, otherwise make Toast error
+        if(numStart!=null){
+            id++;
+            ReviewItem reviewItem=new ReviewItem(numStart,id,comment);
+            //Set Databasereference:
+
+        }else{
+            Toast.makeText(this, "Please rate this business", Toast.LENGTH_SHORT).show();
+        }
     }
 
 

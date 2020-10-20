@@ -21,7 +21,7 @@ public class Reminder extends BroadcastReceiver {
                 .setContentIntent(pendingIntent)
                 .setSmallIcon(R.drawable.logo)
                 .setContentTitle("Daily Mask Reminder")
-                .setContentText("Hey there! Don't forget to grab your mask before you leave! ;)")
+                .setContentText("Don't forget to grab your mask!")
                 //.setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setAutoCancel(true);
 

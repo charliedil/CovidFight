@@ -81,7 +81,7 @@ public class SettingsActivity extends AppCompatActivity implements TimePickerDia
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         alarmManager.cancel(pendingIntent);
-        mTextView.setText("@string/reminder_canceled");
+        mTextView.setText("Reminder Canceled");
     }
 
     //creates the notification channel that reminds users to wear their mask

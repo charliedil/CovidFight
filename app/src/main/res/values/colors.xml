@@ -6,5 +6,6 @@
     <color name="colorTopGradient">#5E439A</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-    <color name="purple">#3b4870</color>
+    <color name="purple">#5f488a</color>
+    <color name="grey">#605d66</color>
 </resources>

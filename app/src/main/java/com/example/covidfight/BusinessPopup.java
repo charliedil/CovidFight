@@ -1,6 +1,7 @@
 package com.example.covidfight;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,9 +10,11 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -20,6 +23,15 @@ import java.util.ArrayList;
 public class BusinessPopup extends AppCompatActivity {
 
     private Button btn_close;
+
+    private AlertDialog.Builder dialogBuider;
+    private AlertDialog dialog;
+    private Button rateButton;
+    private Button cancelButton,submitButton;
+    private RatingBar ratingBarInPopup;
+    private EditText commentEditText;
+    static int id;
+    //DatabaseReference
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,8 +101,72 @@ public class BusinessPopup extends AppCompatActivity {
             }
         });*/
 
+        //Define DatabaseReferences
+
+        //Rate Business Button:
+        rateButton=findViewById(R.id.ratingSubmit);
+        rateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClickRateBussiness();
+            }
+        });
+
+
+
     }
 
+    //Method: Show popup for users to rate the businesses.
+    public void onClickRateBussiness(){
+        dialogBuider=new AlertDialog.Builder(this);
+        final View reviewPopupView=getLayoutInflater().inflate(R.layout.reviewpopup,null);
+
+        cancelButton=reviewPopupView.findViewById(R.id.cancelButton);
+        submitButton=reviewPopupView.findViewById(R.id.submitButton);
+        commentEditText=reviewPopupView.findViewById(R.id.reviewText);
+        ratingBarInPopup=reviewPopupView.findViewById(R.id.ratingBarInPopUp);
+
+        dialogBuider.setView(reviewPopupView);
+        dialog=dialogBuider.create();
+        dialog.show();
+
+        //Close popup when clicking cancel button
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //define cancel button here
+                dialog.dismiss();
+            }
+        });
+
+        //Submit data to database when submit button is clicked
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Submit data to firebase here
+                //Method: addReview
+            }
+        });
+
+    }
+
+    //Add review(rating stars, and comments to firebase
+    public void addReview(){
+
+        //add String comment and float Start
+        String comment=commentEditText.getText().toString();
+        Float numStart=ratingBarInPopup.getRating();
+
+        //add if statement to submit when stars and comment are filled, otherwise make Toast error
+        if(numStart!=null){
+            id++;
+            ReviewItem reviewItem=new ReviewItem(numStart,id,comment);
+            //Set Databasereference:
+
+        }else{
+            Toast.makeText(this, "Please rate this business", Toast.LENGTH_SHORT).show();
+        }
+    }
 
 
 }

@@ -41,14 +41,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         card1 = (CardView) findViewById(R.id.mapCard);
         card2 = (CardView) findViewById(R.id.statsCard);
         card3 = (CardView) findViewById(R.id.businessCard);
-        card4 = (CardView) findViewById(R.id.infoCard);
+        //card4 = (CardView) findViewById(R.id.infoCard);
         card5 = (CardView) findViewById(R.id.reportCard);
         card6 = (CardView) findViewById(R.id.settingsCard);
 
         card1.setOnClickListener(this);
         card2.setOnClickListener(this);
         card3.setOnClickListener(this);
-        card4.setOnClickListener(this);
+        //card4.setOnClickListener(this);
         card5.setOnClickListener(this);
         card6.setOnClickListener(this);
     }
@@ -57,12 +57,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void showStartDialog(){
         new AlertDialog.Builder(this)
                 .setTitle("Notifications")
-                .setMessage("Would you like like to enable notifications?")
+                .setMessage("Would you like like to set a daily reminder to wear your mask?")
                 .setPositiveButton("Allow", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        createNotificationChannel();
-                        Calendar calendar = Calendar.getInstance();
+                       Intent start = new Intent(MainActivity.this, SettingsActivity.class);
+                       startActivity(start);
+
+                        //createNotificationChannel();
+                        /*Calendar calendar = Calendar.getInstance();
 
                         calendar.set(Calendar.HOUR_OF_DAY, 8);
                         calendar.set(Calendar.MINUTE, 0);
@@ -71,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Intent intent = new Intent(getApplicationContext(), Reminder.class);
                         PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-                        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+                        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);*/
                     }
                 })
 
@@ -89,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editor.apply();
     }
 
-    //creates the notification channel that reminds users to wear their mask
+   /* //creates the notification channel that reminds users to wear their mask
     private void createNotificationChannel(){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             CharSequence name = "MaskReminderChannel";
@@ -101,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
-    }
+    }*/
 
     //links each card on Home Page to their respective activities
     @Override
@@ -134,10 +137,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(i);
                 break;
 
-           /* case R.id.settingsCard :
+            case R.id.settingsCard :
                 i = new Intent(this,SettingsActivity.class);
                 startActivity(i);
-                break;*/
+                break;
         }
 
 

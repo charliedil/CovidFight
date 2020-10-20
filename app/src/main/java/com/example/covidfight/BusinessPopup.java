@@ -12,9 +12,11 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
@@ -33,7 +35,11 @@ public class BusinessPopup extends AppCompatActivity {
     private AlertDialog.Builder dialogBuider;
     private AlertDialog dialog;
     private Button rateButton;
-    private Button cancelButton;
+    private Button cancelButton,submitButton;
+    private RatingBar ratingBarInPopup;
+    private EditText commentEditText;
+    static int id;
+    //DatabaseReference
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +49,7 @@ public class BusinessPopup extends AppCompatActivity {
         Intent intent = getIntent();
         final YelpRestaurant restaurant = intent.getParcelableExtra("YelpRestaurant");
 
+        /** initialize variables */
         String name = restaurant.getName();
         Double rating = restaurant.getRating();
         String price = restaurant.getPrice();
@@ -51,6 +58,7 @@ public class BusinessPopup extends AppCompatActivity {
         //String category = restaurant.getCategory();
         //String address = restaurant.location.getAddress();
 
+        /** find widgets + app components */
         TextView tvName = findViewById(R.id.tvName);
         ImageView imageView = findViewById(R.id.imageView);
         final RatingBar ratingBar = findViewById(R.id.ratingBar);
@@ -60,6 +68,7 @@ public class BusinessPopup extends AppCompatActivity {
         TextView tvDistance = findViewById(R.id.tvDistance);
         TextView tvPrice = findViewById(R.id.tvPrice);
 
+        /** set components to data */
         tvName.setText(name);
         //Glide.with(context).load(imageUrl).into(imageView);
         ratingBar.setRating(rating.floatValue());
@@ -100,6 +109,8 @@ public class BusinessPopup extends AppCompatActivity {
             }
         });*/
 
+        //Define DatabaseReferences
+
         //Rate Business Button:
         rateButton=findViewById(R.id.ratingSubmit);
         rateButton.setOnClickListener(new View.OnClickListener() {
@@ -112,6 +123,8 @@ public class BusinessPopup extends AppCompatActivity {
 
 
     }
+
+    //Method: Show popup for users to rate the businesses.
     public void onClickRateBussiness(){
         dialogBuider=new AlertDialog.Builder(this);
         final View reviewPopupView=getLayoutInflater().inflate(R.layout.reviewpopup,null);
@@ -128,11 +141,15 @@ public class BusinessPopup extends AppCompatActivity {
 
 
         cancelButton=reviewPopupView.findViewById(R.id.cancelButton);
+        submitButton=reviewPopupView.findViewById(R.id.submitButton);
+        commentEditText=reviewPopupView.findViewById(R.id.reviewText);
+        ratingBarInPopup=reviewPopupView.findViewById(R.id.ratingBarInPopUp);
 
         dialogBuider.setView(reviewPopupView);
         dialog=dialogBuider.create();
         dialog.show();
 
+        //Close popup when clicking cancel button
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -141,6 +158,33 @@ public class BusinessPopup extends AppCompatActivity {
             }
         });
 
+        //Submit data to database when submit button is clicked
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Submit data to firebase here
+                //Method: addReview
+            }
+        });
+
+    }
+
+    //Add review(rating stars, and comments to firebase
+    public void addReview(){
+
+        //add String comment and float Start
+        String comment=commentEditText.getText().toString();
+        Float numStart=ratingBarInPopup.getRating();
+
+        //add if statement to submit when stars and comment are filled, otherwise make Toast error
+        if(numStart!=null){
+            id++;
+            ReviewItem reviewItem=new ReviewItem(numStart,id,comment);
+            //Set Databasereference:
+
+        }else{
+            Toast.makeText(this, "Please rate this business", Toast.LENGTH_SHORT).show();
+        }
     }
 
 

@@ -29,6 +29,7 @@ public class BusinessPopup extends AppCompatActivity {
         Intent intent = getIntent();
         final YelpRestaurant restaurant = intent.getParcelableExtra("YelpRestaurant");
 
+        /** initialize variables */
         String name = restaurant.getName();
         Double rating = restaurant.getRating();
         String price = restaurant.getPrice();
@@ -37,6 +38,7 @@ public class BusinessPopup extends AppCompatActivity {
         //String category = restaurant.getCategory();
         //String address = restaurant.location.getAddress();
 
+        /** find widgets + app components */
         TextView tvName = findViewById(R.id.tvName);
         ImageView imageView = findViewById(R.id.imageView);
         final RatingBar ratingBar = findViewById(R.id.ratingBar);
@@ -46,6 +48,7 @@ public class BusinessPopup extends AppCompatActivity {
         TextView tvDistance = findViewById(R.id.tvDistance);
         TextView tvPrice = findViewById(R.id.tvPrice);
 
+        /** set components to data */
         tvName.setText(name);
         //Glide.with(context).load(imageUrl).into(imageView);
         ratingBar.setRating(rating.floatValue());

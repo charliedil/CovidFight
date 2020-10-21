@@ -10,16 +10,60 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class ReportActivity extends AppCompatActivity {
+import java.net.Authenticator;
+import java.util.Properties;
 
-    private Activity activity;
+public class ReportActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private EditText editTextEmail;
+    private EditText editTextAddress;
+    private EditText editTextMessage;
+    private Button submitButton;
+    String sEmail, sPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
+
+        editTextEmail = (EditText) findViewById(R.id.enter_email);
+        editTextAddress = (EditText) findViewById(R.id.enter_address);
+        editTextMessage = (EditText) findViewById(R.id.enter_description);
+        submitButton = (Button) findViewById(R.id.submitButton);
+
+        sEmail = "covidfightapp@gmail.com";
+        sPassword = "TeamK#1!";
+
+        submitButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Properties properties = new Properties();
+                properties.put("mail.smtp.auth", "true");
+                properties.put("mail.smtp.starttls.enable", "true");
+                properties.put("mail.smtp.host", "smtp.gmail.com");
+                properties.put("mail.smtp.port", "587");
+
+                Sessionsession = Session.getInstance(properties, new Authenticator(){
+
+                })
+            }
+        });
     }
-    Button submit = (Button) findViewById(R.id.simpleButton);
+
+    private void sendEmail(){
+        String email = editTextEmail.getText().toString().trim();
+        String address = editTextAddress.getText().toString().trim();
+        String subject = "Reported COVID Violation";
+        String message = editTextMessage.getText().toString().trim();
+        SendMail sm = new SendMail(this, email, subject, address, message);
+        sm.execute();
+    }
+
+    @Override
+    public void onClick(View v){
+        sendEmail();
+    }
+
 
     //Work in progress
     /*final EditText your_name = (EditText) findViewById(R.id.enter_name);

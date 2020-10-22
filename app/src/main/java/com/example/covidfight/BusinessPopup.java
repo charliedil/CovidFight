@@ -138,6 +138,21 @@ public class BusinessPopup extends AppCompatActivity {
         myRef.child("RestaurantName").child("uid").child("review").setValue("No one was wearing masks");
 
         //Reading from databae ???
+        DatabaseReference db= FirebaseDatabase.getInstance().getReference().child("RestaurantName");
+        db.addValueEventListener(new ValueEventListener(){
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot data: dataSnapshot.getChildren()){
+                    String uid =data.child("uid").getValue().toString();
+                    String rating =data.child("uid").child("rating").getValue().toString();
+                    String review =data.child("uid").child("review").getValue().toString();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
 
 
         cancelButton=reviewPopupView.findViewById(R.id.cancelButton);

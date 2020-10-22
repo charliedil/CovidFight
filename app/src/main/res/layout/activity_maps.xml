@@ -15,8 +15,14 @@ tools:context=".MapsActivity">
 
     <Button
         android:id="@+id/dataButton"
-        android:layout_width="wrap_content"
+        android:layout_width="123dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="19dp"
+        android:layout_marginRight="19dp"
+        android:layout_marginBottom="6dp"
         android:text="Switch View" />
 
 </RelativeLayout>

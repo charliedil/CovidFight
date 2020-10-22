@@ -19,11 +19,13 @@ public class ReportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
     }
+    Button submit = (Button) findViewById(R.id.simpleButton);
 
     //Work in progress
     /*final EditText your_name = (EditText) findViewById(R.id.enter_name);
     final EditText your_address = (EditText) findViewById(R.id.enter_address);
     final EditText your_description = (EditText) findViewById(R.id.enter_description);
+
 
     Button submit = (Button) findViewById(R.id.post_message);
 

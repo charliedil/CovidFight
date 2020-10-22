@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.drawable.ClipDrawable;
 import android.os.Bundle;
@@ -125,25 +126,26 @@ public class BusinessPopup extends AppCompatActivity {
     }
 
     //Method: Show popup for users to rate the businesses.
+    @SuppressLint("WrongViewCast")
     public void onClickRateBussiness(){
         dialogBuider=new AlertDialog.Builder(this);
         final View reviewPopupView=getLayoutInflater().inflate(R.layout.reviewpopup,null);
-        //writing data example--------------------------------------------------
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference();
-        //Writing to database
-        myRef.child("RestaurantName").child("uid").setValue(Settings.Secure.getString(getContentResolver(),
-                Settings.Secure.ANDROID_ID));
-        myRef.child("RestaurantName").child("uid").child("rating").setValue(5.0);
-        myRef.child("RestaurantName").child("uid").child("review").setValue("No one was wearing masks");
-
-        //Reading from databae ???
+//        //writing data example--------------------------------------------------
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        DatabaseReference myRef = database.getReference();
+//        //Writing to database
+//        myRef.child("RestaurantName").child("uid").setValue(Settings.Secure.getString(getContentResolver(),
+//                Settings.Secure.ANDROID_ID));
+//        myRef.child("RestaurantName").child("uid").child("rating").setValue(5.0);
+//        myRef.child("RestaurantName").child("uid").child("review").setValue("No one was wearing masks");
+//
+//        //Reading from databae ???
 
 
         cancelButton=reviewPopupView.findViewById(R.id.cancelButton);
         submitButton=reviewPopupView.findViewById(R.id.submitButton);
-        commentEditText=reviewPopupView.findViewById(R.id.reviewText);
-        ratingBarInPopup=reviewPopupView.findViewById(R.id.ratingBarInPopUp);
+  //      commentEditText= reviewPopupView.findViewById(R.id.reviewText);
+       ratingBarInPopup=reviewPopupView.findViewById(R.id.ratingBarInPopUp);
 
         dialogBuider.setView(reviewPopupView);
         dialog=dialogBuider.create();
@@ -164,6 +166,7 @@ public class BusinessPopup extends AppCompatActivity {
             public void onClick(View view) {
                 //Submit data to firebase here
                 //Method: addReview
+
             }
         });
 

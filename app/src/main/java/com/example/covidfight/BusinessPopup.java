@@ -144,7 +144,9 @@ public class BusinessPopup extends AppCompatActivity {
 
         cancelButton=reviewPopupView.findViewById(R.id.cancelButton);
         submitButton=reviewPopupView.findViewById(R.id.submitButton);
-  //      commentEditText= reviewPopupView.findViewById(R.id.reviewText);
+      commentEditText= reviewPopupView.findViewById(R.id.CommentReview);
+
+
        ratingBarInPopup=reviewPopupView.findViewById(R.id.ratingBarInPopUp);
 
         dialogBuider.setView(reviewPopupView);

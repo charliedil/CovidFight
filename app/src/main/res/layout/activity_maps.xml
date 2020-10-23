@@ -42,6 +42,14 @@ tools:context=".MapsActivity">
             android:text="Active Cases in the US"
             android:textSize="20sp"
             android:gravity="center" />
+
+        <Button
+            android:id="@+id/btnClose"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="18dp"
+            android:background="@drawable/x_button" />
     </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

@@ -39,8 +39,10 @@ public class BusinessPopup extends AppCompatActivity {
     private Button cancelButton,submitButton;
     private RatingBar ratingBarInPopup;
     private EditText commentEditText;
-    static int id;
+    static int id=0;
+    String name;
     //DatabaseReference
+    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +53,7 @@ public class BusinessPopup extends AppCompatActivity {
         final YelpRestaurant restaurant = intent.getParcelableExtra("YelpRestaurant");
 
         /** initialize variables */
-        String name = restaurant.getName();
+         name = restaurant.getName();
         Double rating = restaurant.getRating();
         String price = restaurant.getPrice();
         int numReviews = restaurant.getNumReviews();
@@ -111,6 +113,7 @@ public class BusinessPopup extends AppCompatActivity {
         });*/
 
         //Define DatabaseReferences
+        databaseReference=FirebaseDatabase.getInstance().getReference("RestaurantReview");
 
         //Rate Business Button:
         rateButton=findViewById(R.id.ratingSubmit);
@@ -168,6 +171,7 @@ public class BusinessPopup extends AppCompatActivity {
             public void onClick(View view) {
                 //Submit data to firebase here
                 //Method: addReview
+                addReview();
 
             }
         });
@@ -181,12 +185,16 @@ public class BusinessPopup extends AppCompatActivity {
         String comment=commentEditText.getText().toString();
         Float numStart=ratingBarInPopup.getRating();
 
+
         //add if statement to submit when stars and comment are filled, otherwise make Toast error
         if(numStart!=null){
             id++;
-            ReviewItem reviewItem=new ReviewItem(numStart,id,comment);
+            ReviewItem reviewItem=new ReviewItem(numStart,id,comment,name);
             //Set Databasereference:
-
+            databaseReference.child(name).setValue(reviewItem);
+            commentEditText.setText("");
+            ratingBarInPopup.setRating(0);
+            Toast.makeText(this, "Your review is submitted, thank you!", Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(this, "Please rate this business", Toast.LENGTH_SHORT).show();
         }

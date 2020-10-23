@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.drawable.ClipDrawable;
 import android.os.Bundle;
@@ -38,8 +39,10 @@ public class BusinessPopup extends AppCompatActivity {
     private Button cancelButton,submitButton;
     private RatingBar ratingBarInPopup;
     private EditText commentEditText;
-    static int id;
+    static int id=0;
+    String name;
     //DatabaseReference
+    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +53,7 @@ public class BusinessPopup extends AppCompatActivity {
         final YelpRestaurant restaurant = intent.getParcelableExtra("YelpRestaurant");
 
         /** initialize variables */
-        String name = restaurant.getName();
+         name = restaurant.getName();
         Double rating = restaurant.getRating();
         String price = restaurant.getPrice();
         int numReviews = restaurant.getNumReviews();
@@ -110,6 +113,7 @@ public class BusinessPopup extends AppCompatActivity {
         });*/
 
         //Define DatabaseReferences
+        databaseReference=FirebaseDatabase.getInstance().getReference("RestaurantReview");
 
         //Rate Business Button:
         rateButton=findViewById(R.id.ratingSubmit);
@@ -125,25 +129,28 @@ public class BusinessPopup extends AppCompatActivity {
     }
 
     //Method: Show popup for users to rate the businesses.
+    @SuppressLint("WrongViewCast")
     public void onClickRateBussiness(){
         dialogBuider=new AlertDialog.Builder(this);
         final View reviewPopupView=getLayoutInflater().inflate(R.layout.reviewpopup,null);
-        //writing data example--------------------------------------------------
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference();
-        //Writing to database
-        myRef.child("RestaurantName").child("uid").setValue(Settings.Secure.getString(getContentResolver(),
-                Settings.Secure.ANDROID_ID));
-        myRef.child("RestaurantName").child("uid").child("rating").setValue(5.0);
-        myRef.child("RestaurantName").child("uid").child("review").setValue("No one was wearing masks");
-
-        //Reading from databae ???
+//        //writing data example--------------------------------------------------
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        DatabaseReference myRef = database.getReference();
+//        //Writing to database
+//        myRef.child("RestaurantName").child("uid").setValue(Settings.Secure.getString(getContentResolver(),
+//                Settings.Secure.ANDROID_ID));
+//        myRef.child("RestaurantName").child("uid").child("rating").setValue(5.0);
+//        myRef.child("RestaurantName").child("uid").child("review").setValue("No one was wearing masks");
+//
+//        //Reading from databae ???
 
 
         cancelButton=reviewPopupView.findViewById(R.id.cancelButton);
         submitButton=reviewPopupView.findViewById(R.id.submitButton);
-        commentEditText=reviewPopupView.findViewById(R.id.reviewText);
-        ratingBarInPopup=reviewPopupView.findViewById(R.id.ratingBarInPopUp);
+      commentEditText= reviewPopupView.findViewById(R.id.CommentReview);
+
+
+       ratingBarInPopup=reviewPopupView.findViewById(R.id.ratingBarInPopUp);
 
         dialogBuider.setView(reviewPopupView);
         dialog=dialogBuider.create();
@@ -164,6 +171,8 @@ public class BusinessPopup extends AppCompatActivity {
             public void onClick(View view) {
                 //Submit data to firebase here
                 //Method: addReview
+                addReview();
+
             }
         });
 
@@ -176,12 +185,16 @@ public class BusinessPopup extends AppCompatActivity {
         String comment=commentEditText.getText().toString();
         Float numStart=ratingBarInPopup.getRating();
 
+
         //add if statement to submit when stars and comment are filled, otherwise make Toast error
         if(numStart!=null){
             id++;
-            ReviewItem reviewItem=new ReviewItem(numStart,id,comment);
+            ReviewItem reviewItem=new ReviewItem(numStart,id,comment,name);
             //Set Databasereference:
-
+            databaseReference.child(name).setValue(reviewItem);
+            commentEditText.setText("");
+            ratingBarInPopup.setRating(0);
+            Toast.makeText(this, "Your review is submitted, thank you!", Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(this, "Please rate this business", Toast.LENGTH_SHORT).show();
         }

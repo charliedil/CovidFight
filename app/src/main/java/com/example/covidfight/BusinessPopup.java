@@ -133,16 +133,16 @@ public class BusinessPopup extends AppCompatActivity {
     public void onClickRateBussiness(){
         dialogBuider=new AlertDialog.Builder(this);
         final View reviewPopupView=getLayoutInflater().inflate(R.layout.reviewpopup,null);
-//        //writing data example--------------------------------------------------
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        DatabaseReference myRef = database.getReference();
-//        //Writing to database
-//        myRef.child("RestaurantName").child("uid").setValue(Settings.Secure.getString(getContentResolver(),
-//                Settings.Secure.ANDROID_ID));
-//        myRef.child("RestaurantName").child("uid").child("rating").setValue(5.0);
-//        myRef.child("RestaurantName").child("uid").child("review").setValue("No one was wearing masks");
-//
-//        //Reading from databae ???
+        //writing data example--------------------------------------------------
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference();
+        //Writing to database
+        myRef.child("RestaurantName").child("uid").setValue(Settings.Secure.getString(getContentResolver(),
+                Settings.Secure.ANDROID_ID));
+        myRef.child("RestaurantName").child("uid").child("rating").setValue(5.0);
+        myRef.child("RestaurantName").child("uid").child("review").setValue("No one was wearing masks");
+
+        //Reading from databae ???
 
 
         cancelButton=reviewPopupView.findViewById(R.id.cancelButton);

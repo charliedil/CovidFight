@@ -3,36 +3,51 @@ package com.example.covidfight;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
-import java.net.Authenticator;
 import java.util.Properties;
 
-public class ReportActivity extends AppCompatActivity implements View.OnClickListener {
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
-    private EditText editTextEmail;
+public class ReportActivity extends AppCompatActivity {
+
+    //private EditText editTextEmail;
     private EditText editTextAddress;
     private EditText editTextMessage;
     private Button submitButton;
-    String sEmail, sPassword;
+    String sEmail, sPassword, subject, finalMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
 
-        editTextEmail = (EditText) findViewById(R.id.enter_email);
+        //editTextEmail = (EditText) findViewById(R.id.enter_email);
         editTextAddress = (EditText) findViewById(R.id.enter_address);
         editTextMessage = (EditText) findViewById(R.id.enter_description);
         submitButton = (Button) findViewById(R.id.submitButton);
 
         sEmail = "covidfightapp@gmail.com";
         sPassword = "TeamK#1!";
+        subject = "Reported COVID Violation";
 
         submitButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -43,25 +58,75 @@ public class ReportActivity extends AppCompatActivity implements View.OnClickLis
                 properties.put("mail.smtp.host", "smtp.gmail.com");
                 properties.put("mail.smtp.port", "587");
 
-                Sessionsession = Session.getInstance(properties, new Authenticator(){
+                Session session = Session.getInstance(properties, new Authenticator(){
+                     @Override
+                     protected PasswordAuthentication getPasswordAuthentication(){
+                         return new PasswordAuthentication(sEmail, sPassword);
+                     }
+                });
 
-                })
+                try {
+                    Message message = new MimeMessage(session);
+                    message.setFrom(new InternetAddress(sEmail));
+                    message.addRecipient(Message.RecipientType.TO, new InternetAddress(sEmail));
+                    message.setSubject(subject);
+                    finalMessage = "Address: " + editTextAddress.getText().toString().trim() +
+                            "\nMessage: " + editTextMessage.getText().toString().trim();
+                    message.setText(finalMessage);
+
+                    new SendMail().execute(message);
+
+                } catch (MessagingException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
 
-    private void sendEmail(){
-        String email = editTextEmail.getText().toString().trim();
-        String address = editTextAddress.getText().toString().trim();
-        String subject = "Reported COVID Violation";
-        String message = editTextMessage.getText().toString().trim();
-        SendMail sm = new SendMail(this, email, subject, address, message);
-        sm.execute();
-    }
+    private class SendMail extends AsyncTask<Message, String, String> {
+        private ProgressDialog progressDialog;
 
-    @Override
-    public void onClick(View v){
-        sendEmail();
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = ProgressDialog.show(ReportActivity.this,"Please Wait", "Sending Mail...", true, false);
+        }
+
+        @Override
+        protected String doInBackground(Message... messages) {
+            try {
+                Transport.send(messages[0]);
+                return "Success";
+            } catch (MessagingException e){
+                e.printStackTrace();
+                return "Error";
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            progressDialog.dismiss();
+            if(s.equals("Success")){
+                AlertDialog.Builder builder = new AlertDialog.Builder(ReportActivity.this);
+                builder.setCancelable(false);
+                builder.setTitle(Html.fromHtml("<font color= '#509324'>Success</font"));
+                builder.setMessage("Mail send successfully.");
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                        editTextAddress.setText("");
+                        editTextMessage.setText("");
+                    }
+                });
+
+                builder.show();
+            } else{
+                Toast.makeText(getApplicationContext()
+                        , "Something went wrong ?", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
 

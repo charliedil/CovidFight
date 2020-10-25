@@ -120,8 +120,6 @@ public class BusinessPopup extends AppCompatActivity {
             }
         });
 
-
-
     }
 
     //Method: Show popup for users to rate the businesses.

@@ -2,19 +2,17 @@ package com.example.covidfight;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 
 import java.util.Properties;
 
@@ -28,7 +26,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class ReportActivity extends AppCompatActivity {
-
     //private EditText editTextEmail;
     private EditText editTextAddress;
     private EditText editTextMessage;
@@ -49,7 +46,7 @@ public class ReportActivity extends AppCompatActivity {
         sPassword = "TeamK#1!";
         subject = "Reported COVID Violation";
 
-        submitButton.setOnClickListener(new View.OnClickListener(){
+        submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Properties properties = new Properties();
@@ -58,11 +55,11 @@ public class ReportActivity extends AppCompatActivity {
                 properties.put("mail.smtp.host", "smtp.gmail.com");
                 properties.put("mail.smtp.port", "587");
 
-                Session session = Session.getInstance(properties, new Authenticator(){
-                     @Override
-                     protected PasswordAuthentication getPasswordAuthentication(){
-                         return new PasswordAuthentication(sEmail, sPassword);
-                     }
+                Session session = Session.getInstance(properties, new Authenticator() {
+                    @Override
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(sEmail, sPassword);
+                    }
                 });
 
                 try {
@@ -71,7 +68,7 @@ public class ReportActivity extends AppCompatActivity {
                     message.addRecipient(Message.RecipientType.TO, new InternetAddress(sEmail));
                     message.setSubject(subject);
                     finalMessage = "Address: " + editTextAddress.getText().toString().trim() +
-                            "\nMessage: " + editTextMessage.getText().toString().trim();
+                            "\nMessage: \n" + editTextMessage.getText().toString().trim();
                     message.setText(finalMessage);
 
                     new SendMail().execute(message);
@@ -111,7 +108,7 @@ public class ReportActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(ReportActivity.this);
                 builder.setCancelable(false);
                 builder.setTitle(Html.fromHtml("<font color= '#509324'>Success</font"));
-                builder.setMessage("Mail send successfully.");
+                builder.setMessage("Report sent successfully.");
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -124,7 +121,7 @@ public class ReportActivity extends AppCompatActivity {
                 builder.show();
             } else{
                 Toast.makeText(getApplicationContext()
-                        , "Something went wrong ?", Toast.LENGTH_SHORT).show();
+                        , "Something went wrong", Toast.LENGTH_SHORT).show();
             }
         }
     }

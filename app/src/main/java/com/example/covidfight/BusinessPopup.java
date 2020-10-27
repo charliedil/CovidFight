@@ -39,7 +39,6 @@ public class BusinessPopup extends AppCompatActivity {
     private Button cancelButton,submitButton;
     private RatingBar ratingBarInPopup;
     private EditText commentEditText;
-    static int id=0;
     String name;
     //DatabaseReference
     DatabaseReference databaseReference;
@@ -113,7 +112,7 @@ public class BusinessPopup extends AppCompatActivity {
         });*/
 
         //Define DatabaseReferences
-        databaseReference=FirebaseDatabase.getInstance().getReference("RestaurantReview");
+        databaseReference=FirebaseDatabase.getInstance().getReference();
 
         //Rate Business Button:
         rateButton=findViewById(R.id.ratingSubmit);
@@ -196,14 +195,14 @@ public class BusinessPopup extends AppCompatActivity {
         //add String comment and float Start
         String comment=commentEditText.getText().toString();
         Float numStart=ratingBarInPopup.getRating();
-
+        String uid=Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
 
         //add if statement to submit when stars and comment are filled, otherwise make Toast error
         if(numStart!=null){
-            id++;
-            ReviewItem reviewItem=new ReviewItem(numStart,id,comment,name);
+
+            ReviewItem reviewItem=new ReviewItem(numStart,comment);
             //Set Databasereference:
-            databaseReference.child(name).setValue(reviewItem);
+            databaseReference.child(name).child(uid).setValue(reviewItem);
             commentEditText.setText("");
             ratingBarInPopup.setRating(0);
             Toast.makeText(this, "Your review is submitted, thank you!", Toast.LENGTH_SHORT).show();

@@ -3,6 +3,8 @@ package com.example.covidfight;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -30,6 +32,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class BusinessPopup extends AppCompatActivity {
+
+    private ArrayList<ReviewObject> reviewList;
+    private RecyclerView rRecyclerView;
+    private ReviewAdapter reviewAdapter;
+    private RecyclerView.LayoutManager rLayoutManager;
 
     private Button btn_close;
 
@@ -84,6 +91,8 @@ public class BusinessPopup extends AppCompatActivity {
         ClipDrawable pRatingDrawable = (ClipDrawable) pRating.getDrawable();
         pRatingDrawable.setLevel(popRating);*/
 
+        createReviewList();
+
         /** layout */
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -123,8 +132,19 @@ public class BusinessPopup extends AppCompatActivity {
             }
         });
 
+    }
 
+    public void createReviewList() {
+        /** setup array list, adapter, layout manager */
+        reviewList = new ArrayList<ReviewObject>();
+        ReviewObject test1 = new ReviewObject("name", (float) 2.5, "10/10/20", "wow this is a review");
+        reviewList.add(0, test1);
 
+        reviewAdapter = new ReviewAdapter(this, reviewList);
+        rRecyclerView = findViewById(R.id.popupRecyclerView);
+        rRecyclerView.setAdapter(reviewAdapter);
+        rLayoutManager = new LinearLayoutManager(this);
+        rRecyclerView.setLayoutManager(rLayoutManager);
     }
 
     //Method: Show popup for users to rate the businesses.

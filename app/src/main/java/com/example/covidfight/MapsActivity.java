@@ -43,6 +43,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     private Button button;
+    private Button closeActivity;
 
     int[] colors = {
             Color.GREEN,    // green(0-50)
@@ -71,11 +72,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 openMap2();
             }
         });
+
+        /** button to close popup */
+        closeActivity = (Button) findViewById(R.id.btnClose);
+        closeActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openMain();
+            }
+        });
     }
     public void openMap2(){
         Intent intent = new Intent(this, MapsActivity2.class );
         startActivity(intent);
     }
+
+    public void openMain(){
+        Intent intent = new Intent(this, MainActivity.class );
+        startActivity(intent);
+    }
+
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.

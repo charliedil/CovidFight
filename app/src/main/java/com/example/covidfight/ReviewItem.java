@@ -6,6 +6,7 @@ public class ReviewItem {
     private float starNumbers;
     private String comment;
 
+    public ReviewItem(){}
     public ReviewItem(float starNumbers, String comment) {
         this.starNumbers = starNumbers;
         this.comment = comment;

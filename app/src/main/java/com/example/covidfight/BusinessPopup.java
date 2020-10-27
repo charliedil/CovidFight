@@ -62,7 +62,7 @@ public class BusinessPopup extends AppCompatActivity {
          name = restaurant.getName();
         Double rating = restaurant.getRating();
         String price = restaurant.getPrice();
-        int numReviews = restaurant.getNumReviews();
+        final int[] numReviews = {0};
         String imageUrl = restaurant.getImageUrl();
         //String category = restaurant.getCategory();
         //String address = restaurant.location.getAddress();
@@ -80,13 +80,42 @@ public class BusinessPopup extends AppCompatActivity {
         /** set components to data */
         tvName.setText(name);
         //Glide.with(context).load(imageUrl).into(imageView);
-        ratingBar.setRating(rating.floatValue());
-        tvNumReviews.setText(numReviews+" reviews");
+        ratingBar.setRating((float) 0.0);
+        tvNumReviews.setText(numReviews[0] +" reviews");
         //tvAddress.setText(address);
         //tvCategory.setText(category);
         //tvDistance.setText(restaurant.displayDistance());
         tvPrice.setText(price);
+        DatabaseReference db= FirebaseDatabase.getInstance().getReference().child(name);
 
+        db.addValueEventListener(new ValueEventListener(){
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) {
+                    TextView tvNumReviews = findViewById(R.id.tvNumReviews);
+                    numReviews[0] =  (int) dataSnapshot.getChildrenCount();
+                    tvNumReviews.setText(numReviews[0]+" reviews");
+                    if(numReviews[0]>0){
+                        float total =  (float) 0.0;
+                        for (DataSnapshot d : dataSnapshot.getChildren()) {
+                            ReviewItem r = d.getValue(ReviewItem.class);
+                            total +=r.getStarNumbers();
+
+                        }
+                        RatingBar ratingBar = findViewById(R.id.ratingBar);
+                        ratingBar.setRating((float) total/numReviews[0]);
+
+                    } else {
+                        RatingBar ratingBar = findViewById(R.id.ratingBar);
+                        ratingBar.setRating((float) 0.0);
+                    }
+                    System.out.println("ok");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
         /*ImageView pRating = findViewById(R.id.pRatingFull);
         ClipDrawable pRatingDrawable = (ClipDrawable) pRating.getDrawable();
         pRatingDrawable.setLevel(popRating);*/

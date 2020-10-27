@@ -49,15 +49,11 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
     }
 
     public static class ReviewViewHolder extends RecyclerView.ViewHolder {
-        TextView username = itemView.findViewById(R.id.tvUsername);
         RatingBar revRating = itemView.findViewById(R.id.ratingReview);
-        TextView date = itemView.findViewById(R.id.tvDate);
         TextView reviewText = itemView.findViewById(R.id.tvReview);
 
         public void bind(ReviewObject review, Context context) {
-            username.setText(review.username);
             revRating.setRating(review.rating.floatValue());
-            date.setText(review.date);
             reviewText.setText(review.review);
         }
 

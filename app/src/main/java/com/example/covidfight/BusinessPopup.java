@@ -3,6 +3,8 @@ package com.example.covidfight;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -31,6 +33,11 @@ import java.util.HashMap;
 
 public class BusinessPopup extends AppCompatActivity {
 
+    private ArrayList<ReviewObject> reviewList;
+    private RecyclerView rRecyclerView;
+    private ReviewAdapter reviewAdapter;
+    private RecyclerView.LayoutManager rLayoutManager;
+
     private Button btn_close;
 
     private AlertDialog.Builder dialogBuider;
@@ -55,7 +62,7 @@ public class BusinessPopup extends AppCompatActivity {
          name = restaurant.getName();
         Double rating = restaurant.getRating();
         String price = restaurant.getPrice();
-        int numReviews = restaurant.getNumReviews();
+        final int[] numReviews = {0};
         String imageUrl = restaurant.getImageUrl();
         //String category = restaurant.getCategory();
         //String address = restaurant.location.getAddress();
@@ -73,16 +80,47 @@ public class BusinessPopup extends AppCompatActivity {
         /** set components to data */
         tvName.setText(name);
         //Glide.with(context).load(imageUrl).into(imageView);
-        ratingBar.setRating(rating.floatValue());
-        tvNumReviews.setText(numReviews+" reviews");
+        ratingBar.setRating((float) 0.0);
+        tvNumReviews.setText(numReviews[0] +" reviews");
         //tvAddress.setText(address);
         //tvCategory.setText(category);
         //tvDistance.setText(restaurant.displayDistance());
         tvPrice.setText(price);
+        DatabaseReference db= FirebaseDatabase.getInstance().getReference().child(name);
 
+        db.addValueEventListener(new ValueEventListener(){
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) {
+                    TextView tvNumReviews = findViewById(R.id.tvNumReviews);
+                    numReviews[0] =  (int) dataSnapshot.getChildrenCount();
+                    tvNumReviews.setText(numReviews[0]+" reviews");
+                    if(numReviews[0]>0){
+                        float total =  (float) 0.0;
+                        for (DataSnapshot d : dataSnapshot.getChildren()) {
+                            ReviewItem r = d.getValue(ReviewItem.class);
+                            total +=r.getStarNumbers();
+
+                        }
+                        RatingBar ratingBar = findViewById(R.id.ratingBar);
+                        ratingBar.setRating((float) total/numReviews[0]);
+
+                    } else {
+                        RatingBar ratingBar = findViewById(R.id.ratingBar);
+                        ratingBar.setRating((float) 0.0);
+                    }
+                    System.out.println("ok");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
         /*ImageView pRating = findViewById(R.id.pRatingFull);
         ClipDrawable pRatingDrawable = (ClipDrawable) pRating.getDrawable();
         pRatingDrawable.setLevel(popRating);*/
+
+        createReviewList();
 
         /** layout */
         DisplayMetrics dm = new DisplayMetrics();
@@ -123,8 +161,19 @@ public class BusinessPopup extends AppCompatActivity {
             }
         });
 
+    }
 
+    public void createReviewList() {
+        /** setup array list, adapter, layout manager */
+        reviewList = new ArrayList<ReviewObject>();
+        ReviewObject test1 = new ReviewObject("name", (float) 2.5, "10/10/20", "wow this is a review");
+        reviewList.add(0, test1);
 
+        reviewAdapter = new ReviewAdapter(this, reviewList);
+        rRecyclerView = findViewById(R.id.popupRecyclerView);
+        rRecyclerView.setAdapter(reviewAdapter);
+        rLayoutManager = new LinearLayoutManager(this);
+        rRecyclerView.setLayoutManager(rLayoutManager);
     }
 
     //Method: Show popup for users to rate the businesses.
@@ -132,41 +181,36 @@ public class BusinessPopup extends AppCompatActivity {
     public void onClickRateBussiness(){
         dialogBuider=new AlertDialog.Builder(this);
         final View reviewPopupView=getLayoutInflater().inflate(R.layout.reviewpopup,null);
-        //writing data example--------------------------------------------------
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference();
-        //Writing to database
-        myRef.child("RestaurantName").child("uid").setValue(Settings.Secure.getString(getContentResolver(),
-                Settings.Secure.ANDROID_ID));
-        myRef.child("RestaurantName").child("uid").child("rating").setValue(5.0);
-        myRef.child("RestaurantName").child("uid").child("review").setValue("No one was wearing masks");
+        cancelButton=reviewPopupView.findViewById(R.id.cancelButton);
+        submitButton=reviewPopupView.findViewById(R.id.submitButton);
+        commentEditText= reviewPopupView.findViewById(R.id.CommentReview);
 
-        //Reading from databae ???
-        DatabaseReference db= FirebaseDatabase.getInstance().getReference().child("RestaurantName");
-        db.addValueEventListener(new ValueEventListener(){
+
+        ratingBarInPopup=reviewPopupView.findViewById(R.id.ratingBarInPopUp);
+
+        dialogBuider.setView(reviewPopupView);
+        dialog=dialogBuider.create();
+        dialog.show();
+        DatabaseReference db= FirebaseDatabase.getInstance().getReference().child(name).child(Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
+        final ReviewItem[] temp = {null};
+        db.addListenerForSingleValueEvent(new ValueEventListener(){
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    final RatingBar ratingBar = findViewById(R.id.ratingBar);
+                    temp[0] = dataSnapshot.getValue(ReviewItem.class);
+                    ratingBarInPopup.setRating(temp[0].getStarNumbers());
+                    commentEditText.setText(temp[0].getComment());
+                } else {
+                    ratingBarInPopup.setRating(0);
+                    commentEditText.setText("");
+                }
 
-                Long rating = (Long) dataSnapshot.child("uid").child("rating").getValue();
-                String review = (String) dataSnapshot.child("uid").child("review").getValue();
-                System.out.println("I am pleased");
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
-
-        cancelButton=reviewPopupView.findViewById(R.id.cancelButton);
-        submitButton=reviewPopupView.findViewById(R.id.submitButton);
-      commentEditText= reviewPopupView.findViewById(R.id.CommentReview);
-
-
-       ratingBarInPopup=reviewPopupView.findViewById(R.id.ratingBarInPopUp);
-
-        dialogBuider.setView(reviewPopupView);
-        dialog=dialogBuider.create();
-        dialog.show();
-
         //Close popup when clicking cancel button
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,6 +226,7 @@ public class BusinessPopup extends AppCompatActivity {
             public void onClick(View view) {
                 //Submit data to firebase here
                 //Method: addReview
+
                 addReview();
 
             }
@@ -203,8 +248,8 @@ public class BusinessPopup extends AppCompatActivity {
             ReviewItem reviewItem=new ReviewItem(numStart,comment);
             //Set Databasereference:
             databaseReference.child(name).child(uid).setValue(reviewItem);
-            commentEditText.setText("");
-            ratingBarInPopup.setRating(0);
+
+
             Toast.makeText(this, "Your review is submitted, thank you!", Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(this, "Please rate this business", Toast.LENGTH_SHORT).show();

@@ -156,9 +156,10 @@ public class Business extends AppCompatActivity {
                                         total += r.getStarNumbers();
                                     }
                                     businessData.get(i).setRating((float) total / businessData.get(i).getNumReviews());
-
+                                    resAdapter.notifyDataSetChanged();
                                 } else {
                                     businessData.get(i).setRating((float) 0.0);
+                                    resAdapter.notifyDataSetChanged();
                                 }
                                 System.out.println("ok");
                             }

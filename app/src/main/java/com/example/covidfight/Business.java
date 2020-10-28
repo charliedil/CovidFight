@@ -1,7 +1,9 @@
 package com.example.covidfight;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.widget.SearchView;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,12 +32,13 @@ import java.util.List;
 public class Business extends AppCompatActivity {
     private ArrayList<YelpRestaurant> businessData;
 
-    /**================================**/
+    /**
+     * ================================
+     **/
 
     private RecyclerView bRecyclerView;
     private ResAdapter resAdapter;
     private RecyclerView.LayoutManager bLayoutManager;
-
 
 
     private EditText searchBusiness;
@@ -80,7 +83,7 @@ public class Business extends AppCompatActivity {
             String query = intent.getStringExtra(SearchManager.QUERY);
             doMySearch(query);
         }*/
-        searchBusiness=findViewById(R.id.searchBusiness);
+        searchBusiness = findViewById(R.id.searchBusiness);
         searchBusiness.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -98,7 +101,6 @@ public class Business extends AppCompatActivity {
 
             }
         });
-
 
 
     }
@@ -124,21 +126,22 @@ public class Business extends AppCompatActivity {
 
         /** get Yelp API data */
         YelpInterface yelpInt = retrofit.create(YelpInterface.class);
-        yelpInt.searchRestaurants("Bearer "+API_KEY, (String) searchQuery, "Richmond").enqueue(new Callback<YelpSearchResult>() {
+        yelpInt.searchRestaurants("Bearer " + API_KEY, (String) searchQuery, "Richmond").enqueue(new Callback<YelpSearchResult>() {
             @Override
-            public void onResponse(Call<YelpSearchResult> call, Response<YelpSearchResult> response){
-                Log.i(TAG, "onResponse "+response);
+            public void onResponse(Call<YelpSearchResult> call, Response<YelpSearchResult> response) {
+                Log.i(TAG, "onResponse " + response);
                 if (response.body() == null) {
                     Log.w(TAG, "Did not receive valid response body from Yelp API... exiting");
                     return;
                 }
                 businessData.addAll(response.body().restaurants);
+
                 resAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onFailure(Call<YelpSearchResult> call, Throwable t) {
-                Log.i(TAG, "onFailure "+t);
+                Log.i(TAG, "onFailure " + t);
             }
         });
     }
@@ -159,9 +162,9 @@ public class Business extends AppCompatActivity {
     }
 
     private void filter(String text) {
-        ArrayList<YelpRestaurant> filterList=new ArrayList<>();
-        for(YelpRestaurant item: businessData){
-            if (item.getName().toLowerCase().contains(text.toLowerCase())){
+        ArrayList<YelpRestaurant> filterList = new ArrayList<>();
+        for (YelpRestaurant item : businessData) {
+            if (item.getName().toLowerCase().contains(text.toLowerCase())) {
                 filterList.add(item);
             }
         }

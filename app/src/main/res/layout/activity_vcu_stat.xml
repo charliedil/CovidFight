@@ -96,7 +96,7 @@
                 android:background="#F1AA41"
                 android:gravity="center_horizontal"
                 android:padding="10dp"
-                android:text="On Campus Isolation And Quarantie"
+                android:text="On Campus Isolation And Quarantine"
                 android:textAlignment="center"
                 android:textColor="#000"
                 android:textSize="20dp"

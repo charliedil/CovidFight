@@ -28,7 +28,6 @@
     <string name="reminder_settings">Reminder Settings</string>
 
 
-
     <!-- Preference Titles -->
     <string name="notifications_header">Notifications</string>
     <string name="messages_header">Messages</string>

@@ -1,6 +1,9 @@
 package com.example.covidfight;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.widget.RatingBar;
 import android.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,7 +16,13 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.annotations.SerializedName;
 
 import com.google.gson.annotations.SerializedName;
@@ -133,6 +142,33 @@ public class Business extends AppCompatActivity {
                     return;
                 }
                 businessData.addAll(response.body().restaurants);
+                    DatabaseReference db= FirebaseDatabase.getInstance().getReference();
+                    db.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for(int i = 0; i < businessData.size(); i++){
+                            if (dataSnapshot.child(businessData.get(i).getName()).exists()) {
+                                businessData.get(i).setNumReviews((int) dataSnapshot.child(businessData.get(i).getName()).getChildrenCount());
+                                if (businessData.get(i).getNumReviews() > 0) {
+                                    float total = (float) 0.0;
+                                    for (DataSnapshot d : dataSnapshot.child(businessData.get(i).getName()).getChildren()) {
+                                        ReviewItem r = d.getValue(ReviewItem.class);
+                                        total += r.getStarNumbers();
+                                    }
+                                    businessData.get(i).setRating((float) total / businessData.get(i).getNumReviews());
+
+                                } else {
+                                    businessData.get(i).setRating((float) 0.0);
+                                }
+                                System.out.println("ok");
+                            }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {}
+                    });
+
                 resAdapter.notifyDataSetChanged();
             }
 
@@ -142,6 +178,8 @@ public class Business extends AppCompatActivity {
             }
         });
     }
+
+
 
     public void openPopup() {
 

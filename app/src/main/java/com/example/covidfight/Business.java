@@ -141,7 +141,16 @@ public class Business extends AppCompatActivity {
                     Log.w(TAG, "Did not receive valid response body from Yelp API... exiting");
                     return;
                 }
+
                 businessData.addAll(response.body().restaurants);
+
+                for(int i = 0; i < businessData.size(); i++){
+                    businessData.get(i).setNumReviews(0);
+                    resAdapter.notifyDataSetChanged();
+                    businessData.get(i).setRating( (float) 0.0);
+                    resAdapter.notifyDataSetChanged();
+                }
+                resAdapter.notifyDataSetChanged();
                     DatabaseReference db= FirebaseDatabase.getInstance().getReference();
                     db.addValueEventListener(new ValueEventListener() {
                         @Override

@@ -23,7 +23,7 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    public CardView card1, card2, card3, card4, card5, card6;
+    public CardView card1, card2, card3, card4, card5, card6, card7;
 
     //ensures that the notification pop up only occurs the first the app is launched
     //adds functionality to each card that is on the home page
@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //card4 = (CardView) findViewById(R.id.infoCard);
         card5 = (CardView) findViewById(R.id.reportCard);
         card6 = (CardView) findViewById(R.id.settingsCard);
+        card7 = (CardView) findViewById(R.id.aboutCard);
 
         card1.setOnClickListener(this);
         card2.setOnClickListener(this);
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //card4.setOnClickListener(this);
         card5.setOnClickListener(this);
         card6.setOnClickListener(this);
+        card7.setOnClickListener(this);
     }
 
     //Displays a pop up screen that asks user whether they want to enable notifications
@@ -139,6 +141,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.settingsCard :
                 i = new Intent(this,SettingsActivity.class);
+                startActivity(i);
+                break;
+
+
+            case R.id.aboutCard :
+                i = new Intent(this,AboutUsActivity.class);
                 startActivity(i);
                 break;
 

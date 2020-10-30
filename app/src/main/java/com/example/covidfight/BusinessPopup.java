@@ -34,14 +34,13 @@ import java.util.HashMap;
 
 public class BusinessPopup extends AppCompatActivity {
 
-    private ArrayList<ReviewObject> reviewList;
+    private ArrayList<ReviewItem> reviewList;
+    //final ArrayList<ReviewItem>[] reviewList = new ArrayList[]{new ArrayList<>()};
     private RecyclerView rRecyclerView;
     private ReviewAdapter reviewAdapter;
     private RecyclerView.LayoutManager rLayoutManager;
 
-    private Button btn_close;
-
-    private AlertDialog.Builder dialogBuider;
+    private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
     private Button rateButton;
     private Button cancelButton,submitButton;
@@ -117,18 +116,22 @@ public class BusinessPopup extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
-        /*ImageView pRating = findViewById(R.id.pRatingFull);
-        ClipDrawable pRatingDrawable = (ClipDrawable) pRating.getDrawable();
-        pRatingDrawable.setLevel(popRating);*/
 
         createReviewList();
+
+        /*reviewList = new ArrayList<ReviewItem>();
+        ReviewItem test1 = new ReviewItem((float) 2.5, "wow this is a review");
+        reviewList.add(0, test1);
+        reviewAdapter = new ReviewAdapter(this, reviewList);
+        rRecyclerView = findViewById(R.id.popupRecyclerView);
+        rRecyclerView.setAdapter(reviewAdapter);
+        rLayoutManager = new LinearLayoutManager(this);
+        rRecyclerView.setLayoutManager(rLayoutManager);*/
 
         /** layout */
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
-        int width = dm.widthPixels;
-        int height = dm.heightPixels;
         Button getRating = findViewById(R.id.ratingSubmit);
         final RatingBar bar = findViewById(R.id.ratingBar);
         getRating.setOnClickListener(new View.OnClickListener() {
@@ -139,16 +142,6 @@ public class BusinessPopup extends AppCompatActivity {
 
             }
         });
-        //getWindow().setLayout((int)(width*.8), (int)(height*.75));
-
-        /** button to close popup */
-        /**btn_close = (Button) findViewById(R.id.btn_close);
-        btn_close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });*/
 
         //Define DatabaseReferences
         databaseReference=FirebaseDatabase.getInstance().getReference();
@@ -170,14 +163,29 @@ public class BusinessPopup extends AppCompatActivity {
         //ReviewObject test1 = new ReviewObject("name", (float) 2.5, "10/10/20", "wow this is a review");
         //reviewList.add(0, test1);
 
+        /*ArrayList<ReviewItem> placeholder = new ArrayList<>();
+        placeholder.add((float) 0, "");
+        reviewList[0] = new ArrayList<ReviewItem>((float) 0, "");*/
+
+        reviewList = new ArrayList<ReviewItem>();
+        ReviewItem test1 = new ReviewItem((float) 2.5, "wow this is a review");
+        reviewList.add(0, test1);
+        reviewAdapter = new ReviewAdapter(this, reviewList);
+        rRecyclerView = findViewById(R.id.popupRecyclerView);
+        rRecyclerView.setAdapter(reviewAdapter);
+        rLayoutManager = new LinearLayoutManager(this);
+        rRecyclerView.setLayoutManager(rLayoutManager);
+
         //THIS HAPPENS ASYNCHRONOUSLY
-        final ArrayList<ReviewItem>[] reviewList = new ArrayList[]{new ArrayList<>()}; // i HAD to because java, 0th element is the thing
+        //final ArrayList<ReviewItem>[] reviewList = new ArrayList[]{new ArrayList<>()}; // i HAD to because java, 0th element is the thing
         DatabaseReference db = FirebaseDatabase.getInstance().getReference().child(name);
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 if (snapshot.exists()){
-                    reviewList[0] = getReviews(snapshot);
+                    reviewList = getReviews(snapshot);
+                    //reviewAdapter.notifyItemInserted(0);
+                    reviewAdapter.notifyDataSetChanged();
                 }
             }
 
@@ -186,17 +194,14 @@ public class BusinessPopup extends AppCompatActivity {
 
             }
         });
-//        reviewAdapter = new ReviewAdapter(this, reviewList);
-//        rRecyclerView = findViewById(R.id.popupRecyclerView);
-//        rRecyclerView.setAdapter(reviewAdapter);
-//        rLayoutManager = new LinearLayoutManager(this);
-//        rRecyclerView.setLayoutManager(rLayoutManager);
+
+
     }
 
     //Method: Show popup for users to rate the businesses.
     @SuppressLint("WrongViewCast")
     public void onClickRateBussiness(){
-        dialogBuider=new AlertDialog.Builder(this);
+        dialogBuilder=new AlertDialog.Builder(this);
         final View reviewPopupView=getLayoutInflater().inflate(R.layout.reviewpopup,null);
         cancelButton=reviewPopupView.findViewById(R.id.cancelButton);
         submitButton=reviewPopupView.findViewById(R.id.submitButton);
@@ -205,8 +210,8 @@ public class BusinessPopup extends AppCompatActivity {
 
         ratingBarInPopup=reviewPopupView.findViewById(R.id.ratingBarInPopUp);
 
-        dialogBuider.setView(reviewPopupView);
-        dialog=dialogBuider.create();
+        dialogBuilder.setView(reviewPopupView);
+        dialog=dialogBuilder.create();
         dialog.show();
         DatabaseReference db= FirebaseDatabase.getInstance().getReference().child(name).child(Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
         final ReviewItem[] temp = {null};
@@ -216,6 +221,7 @@ public class BusinessPopup extends AppCompatActivity {
                 if(dataSnapshot.exists()){
                     final RatingBar ratingBar = findViewById(R.id.ratingBar);
                     temp[0] = dataSnapshot.getValue(ReviewItem.class);
+                    ratingBarInPopup.setRating(temp[0].getStarNumbers());
                     ratingBarInPopup.setRating(temp[0].getStarNumbers());
                     commentEditText.setText(temp[0].getComment());
                 } else {

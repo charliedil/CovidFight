@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    tools:context=".AboutUsActivity">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:src="@drawable/logo"
+        android:id="@+id/headerLogo"/>
+
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="About Us"
+        android:layout_below="@+id/headerLogo"
+        android:layout_centerHorizontal="true"
+        android:textSize="30sp"
+        android:textColor="#FFF"
+        android:textStyle="bold"
+        android:layout_marginTop="15dp"/>
+    <TextView
+        android:id="@+id/line1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/header"
+        android:text="----***----"
+        android:textColor="#FFF"/>
+    <TextView
+        android:id="@+id/ContextHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text=" Context"
+        android:drawableLeft="@drawable/ic_baseline_context"
+        android:layout_marginTop="20dp"
+        android:textSize="20dp"
+        android:textColor="#fff"
+        android:layout_below="@+id/line1"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/context"
+        android:textSize="15dp"
+        android:layout_marginHorizontal="5dp"
+        android:layout_below="@+id/ContextHeader"
+        android:textAlignment="center"
+        android:textColor="#fff"
+        android:text=" This is text this is text this is text this is text this is text this is text this is text this is text this is textthis is textvv this is text this is text this is text this is text this is text this is text this is text this is text this is text"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/SourceHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/context"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textSize="20dp"
+        android:textColor="#FFF"
+        android:drawableLeft="@drawable/ic_baseline_resource"
+        android:text=" Sources"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/source"
+        android:layout_below="@+id/SourceHeader"
+        android:textSize="15dp"
+        android:textColor="#fff"
+        android:textAlignment="center"
+        android:layout_marginHorizontal="5dp"
+        android:text="text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text"
+        android:gravity="center_horizontal" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/email"
+        android:layout_below="@id/source"
+        android:text="Email: covidfightapp@gmail.com"
+        android:drawableLeft="@drawable/ic_baseline_email_24"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="#000"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" We can do this together!"
+        android:layout_below="@+id/email"
+        android:drawableLeft="@drawable/ic_heart"
+        android:layout_marginTop="20dp"
+        android:textSize="20dp"
+        android:textStyle="italic"
+        android:textColor="#000"
+        android:layout_centerHorizontal="true"/>
+
+
+
+
+
+</RelativeLayout>

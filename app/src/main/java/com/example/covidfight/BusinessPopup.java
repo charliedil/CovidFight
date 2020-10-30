@@ -35,7 +35,7 @@ import java.util.HashMap;
 public class BusinessPopup extends AppCompatActivity {
 
     private ArrayList<ReviewItem> reviewList;
-    //final ArrayList<ReviewItem>[] reviewList = new ArrayList[]{new ArrayList<>()};
+    //final ArrayList<ReviewItem>[] reviewList;
     private RecyclerView rRecyclerView;
     private ReviewAdapter reviewAdapter;
     private RecyclerView.LayoutManager rLayoutManager;
@@ -158,23 +158,11 @@ public class BusinessPopup extends AppCompatActivity {
     }
 
     public void createReviewList() {
-        /** setup array list, adapter, layout manager */
-        //reviewList = new ArrayList<ReviewObject>();
-        //ReviewObject test1 = new ReviewObject("name", (float) 2.5, "10/10/20", "wow this is a review");
-        //reviewList.add(0, test1);
-
-        /*ArrayList<ReviewItem> placeholder = new ArrayList<>();
-        placeholder.add((float) 0, "");
-        reviewList[0] = new ArrayList<ReviewItem>((float) 0, "");*/
 
         reviewList = new ArrayList<ReviewItem>();
-        ReviewItem test1 = new ReviewItem((float) 2.5, "wow this is a review");
-        reviewList.add(0, test1);
-        reviewAdapter = new ReviewAdapter(this, reviewList);
-        rRecyclerView = findViewById(R.id.popupRecyclerView);
-        rRecyclerView.setAdapter(reviewAdapter);
-        rLayoutManager = new LinearLayoutManager(this);
-        rRecyclerView.setLayoutManager(rLayoutManager);
+        buildAdapter();
+        //ReviewItem test1 = new ReviewItem((float) 2.5, "wow this is a review");
+        //reviewList.add(0, test1);
 
         //THIS HAPPENS ASYNCHRONOUSLY
         //final ArrayList<ReviewItem>[] reviewList = new ArrayList[]{new ArrayList<>()}; // i HAD to because java, 0th element is the thing
@@ -184,7 +172,7 @@ public class BusinessPopup extends AppCompatActivity {
             public void onDataChange(DataSnapshot snapshot) {
                 if (snapshot.exists()){
                     reviewList = getReviews(snapshot);
-                    //reviewAdapter.notifyItemInserted(0);
+                    buildAdapter();
                     reviewAdapter.notifyDataSetChanged();
                 }
             }
@@ -196,6 +184,14 @@ public class BusinessPopup extends AppCompatActivity {
         });
 
 
+    }
+
+    public void buildAdapter() {
+        reviewAdapter = new ReviewAdapter(this, reviewList);
+        rRecyclerView = findViewById(R.id.popupRecyclerView);
+        rRecyclerView.setAdapter(reviewAdapter);
+        rLayoutManager = new LinearLayoutManager(this);
+        rRecyclerView.setLayoutManager(rLayoutManager);
     }
 
     //Method: Show popup for users to rate the businesses.

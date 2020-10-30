@@ -1,6 +1,7 @@
 package com.example.covidfight;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.drawable.ClipDrawable;
+import android.icu.text.SimpleDateFormat;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.DisplayMetrics;
@@ -29,7 +32,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 public class BusinessPopup extends AppCompatActivity {
 
@@ -162,6 +167,8 @@ public class BusinessPopup extends AppCompatActivity {
         dialogBuider.setView(reviewPopupView);
         dialog=dialogBuider.create();
         dialog.show();
+
+        //When I comment this part out, it works
         DatabaseReference db= FirebaseDatabase.getInstance().getReference().child(name).child(Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
         final ReviewItem[] temp = {null};
         db.addListenerForSingleValueEvent(new ValueEventListener(){
@@ -177,11 +184,14 @@ public class BusinessPopup extends AppCompatActivity {
                     commentEditText.setText("");
                 }
 
-            }
+             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
+
+        //Comment part end
+
         //Close popup when clicking cancel button
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -193,6 +203,7 @@ public class BusinessPopup extends AppCompatActivity {
 
         //Submit data to database when submit button is clicked
         submitButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
                 //Submit data to firebase here
@@ -206,20 +217,21 @@ public class BusinessPopup extends AppCompatActivity {
     }
 
     //Add review(rating stars, and comments to firebase
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void addReview(){
 
         //add String comment and float Start
         String comment=commentEditText.getText().toString();
         Float numStart=ratingBarInPopup.getRating();
         String uid=Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+        String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());;
 
         //add if statement to submit when stars and comment are filled, otherwise make Toast error
         if(numStart!=null){
 
-            ReviewItem reviewItem=new ReviewItem(numStart,comment);
+            ReviewItem reviewItem= new ReviewItem(numStart,comment,date);
             //Set Databasereference:
             databaseReference.child(name).child(uid).setValue(reviewItem);
-
 
             Toast.makeText(this, "Your review is submitted, thank you!", Toast.LENGTH_SHORT).show();
         }else{

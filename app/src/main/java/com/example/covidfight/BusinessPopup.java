@@ -56,6 +56,7 @@ public class BusinessPopup extends AppCompatActivity {
     //DatabaseReference
     DatabaseReference databaseReference;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -169,6 +170,7 @@ public class BusinessPopup extends AppCompatActivity {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void createReviewList() {
         /** setup array list, adapter, layout manager */
         //reviewList = new ArrayList<ReviewObject>();
@@ -177,7 +179,12 @@ public class BusinessPopup extends AppCompatActivity {
 
         //THIS HAPPENS ASYNCHRONOUSLY
         final ArrayList<ReviewItem>[] reviewList = new ArrayList[]{new ArrayList<>()}; // i HAD to because java, 0th element is the thing
+        //sort by date and time
         DatabaseReference db = FirebaseDatabase.getInstance().getReference().child(name);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        String currentDateandTime = sdf.format(new Date());
+
+        db.orderByChild("date").startAt(currentDateandTime );
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
@@ -270,7 +277,8 @@ public class BusinessPopup extends AppCompatActivity {
         String comment=commentEditText.getText().toString();
         Float numStart=ratingBarInPopup.getRating();
         String uid=Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
-        String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());;
+        String date = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(new Date());
+
 
         //add if statement to submit when stars and comment are filled, otherwise make Toast error
         if(numStart!=null){

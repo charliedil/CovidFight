@@ -17,29 +17,33 @@ import java.util.ArrayList;
 
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder> {
     private Context context;
-    private ArrayList<ReviewObject> reviewList;
-    private ReviewAdapter.OnItemClickListener rListener;
+    private ArrayList<ReviewItem> reviewList;
+    //private ReviewAdapter.OnItemClickListener rListener;
 
-    public interface OnItemClickListener {
+    /*public interface OnItemClickListener {
         void onItemClick(int position);
     }
 
-    public ReviewAdapter(Context c, ArrayList<ReviewObject> revList) {
-        context = c;
-        reviewList = revList;
+    public void setOnItemClickListener(ReviewAdapter.OnItemClickListener listener) {
+        rListener = listener;
+    }*/
+
+    public ReviewAdapter(Context reviewContext, ArrayList<ReviewItem> rList) {
+        context = reviewContext;
+        reviewList = rList;
     }
 
     @NonNull
     @Override
     public ReviewAdapter.ReviewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = (LayoutInflater.from(parent.getContext()).inflate(R.layout.item_review, parent, false));
-        ReviewAdapter.ReviewViewHolder rvh = new ReviewAdapter.ReviewViewHolder(v, rListener);
+        ReviewAdapter.ReviewViewHolder rvh = new ReviewAdapter.ReviewViewHolder(v);
         return rvh;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ReviewAdapter.ReviewViewHolder holder, int position) {
-        ReviewObject review = reviewList.get(position);
+        ReviewItem review = reviewList.get(position);
         holder.bind(review, context);
     }
 
@@ -49,22 +53,18 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
     }
 
     public static class ReviewViewHolder extends RecyclerView.ViewHolder {
-        TextView username = itemView.findViewById(R.id.tvUsername);
-        RatingBar revRating = itemView.findViewById(R.id.ratingReview);
-        TextView date = itemView.findViewById(R.id.tvDate);
-        TextView reviewText = itemView.findViewById(R.id.tvReview);
+        RatingBar rating = itemView.findViewById(R.id.ratingReview);
+        TextView comment = itemView.findViewById(R.id.tvReview);
 
-        public void bind(ReviewObject review, Context context) {
-            username.setText(review.username);
-            revRating.setRating(review.rating.floatValue());
-            date.setText(review.date);
-            reviewText.setText(review.review);
+        public void bind(ReviewItem review, Context context) {
+            rating.setRating(review.getStarNumbers());
+            comment.setText(review.getComment());
         }
 
-        public ReviewViewHolder(@NonNull View itemView, final ReviewAdapter.OnItemClickListener listener) {
+        public ReviewViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+            /*itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(listener != null) {
@@ -74,24 +74,19 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
                         }
                     }
                 }
-            });
+            });*/
         }
     }
-
 
 }
 
 /** Object for storing review data */
-class ReviewObject {
-    String username;
+/**class ReviewObject {
     Float rating;
-    String date;
     String review;
 
-    public ReviewObject(String username, Float rating, String date, String review) {
-        this.username = username;
+    public ReviewObject(Float rating, String review) {
         this.rating = rating;
-        this.date = date;
         this.review = review;
     }
-}
+}*/

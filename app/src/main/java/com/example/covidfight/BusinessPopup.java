@@ -1,6 +1,5 @@
 package com.example.covidfight;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,13 +8,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.drawable.ClipDrawable;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,29 +21,25 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
 
 public class BusinessPopup extends AppCompatActivity {
 
-    private ArrayList<ReviewObject> reviewList;
+    private ArrayList<ReviewItem> reviewList;
+    //final ArrayList<ReviewItem>[] reviewList;
     private RecyclerView rRecyclerView;
     private ReviewAdapter reviewAdapter;
     private RecyclerView.LayoutManager rLayoutManager;
 
-    private Button btn_close;
-
-    private AlertDialog.Builder dialogBuider;
+    private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
     private Button rateButton;
     private Button cancelButton,submitButton;
@@ -123,18 +116,22 @@ public class BusinessPopup extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
-        /*ImageView pRating = findViewById(R.id.pRatingFull);
-        ClipDrawable pRatingDrawable = (ClipDrawable) pRating.getDrawable();
-        pRatingDrawable.setLevel(popRating);*/
 
         createReviewList();
+
+        /*reviewList = new ArrayList<ReviewItem>();
+        ReviewItem test1 = new ReviewItem((float) 2.5, "wow this is a review");
+        reviewList.add(0, test1);
+        reviewAdapter = new ReviewAdapter(this, reviewList);
+        rRecyclerView = findViewById(R.id.popupRecyclerView);
+        rRecyclerView.setAdapter(reviewAdapter);
+        rLayoutManager = new LinearLayoutManager(this);
+        rRecyclerView.setLayoutManager(rLayoutManager);*/
 
         /** layout */
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
-        int width = dm.widthPixels;
-        int height = dm.heightPixels;
         Button getRating = findViewById(R.id.ratingSubmit);
         final RatingBar bar = findViewById(R.id.ratingBar);
         getRating.setOnClickListener(new View.OnClickListener() {
@@ -145,16 +142,6 @@ public class BusinessPopup extends AppCompatActivity {
 
             }
         });
-        //getWindow().setLayout((int)(width*.8), (int)(height*.75));
-
-        /** button to close popup */
-        /**btn_close = (Button) findViewById(R.id.btn_close);
-        btn_close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });*/
 
         //Define DatabaseReferences
         databaseReference=FirebaseDatabase.getInstance().getReference();
@@ -172,15 +159,19 @@ public class BusinessPopup extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void createReviewList() {
-        /** setup array list, adapter, layout manager */
-        //reviewList = new ArrayList<ReviewObject>();
-        //ReviewObject test1 = new ReviewObject("name", (float) 2.5, "10/10/20", "wow this is a review");
+
+        reviewList = new ArrayList<ReviewItem>();
+        buildAdapter();
+        //ReviewItem test1 = new ReviewItem((float) 2.5, "wow this is a review");
         //reviewList.add(0, test1);
 
         //THIS HAPPENS ASYNCHRONOUSLY
-        final ArrayList<ReviewItem>[] reviewList = new ArrayList[]{new ArrayList<>()}; // i HAD to because java, 0th element is the thing
-        //sort by date and time
+
+       // final ArrayList[][] reviewList = new ArrayList[][]{new ArrayList[]{new ArrayList<>()}}; // i HAD to because java, 0th element is the thing
+
+        //final ArrayList<ReviewItem>[] reviewList = new ArrayList[]{new ArrayList<>()}; // i HAD to because java, 0th element is the thin
         DatabaseReference db = FirebaseDatabase.getInstance().getReference().child(name);
+        //sort by date and time
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         String currentDateandTime = sdf.format(new Date());
 
@@ -189,7 +180,9 @@ public class BusinessPopup extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 if (snapshot.exists()){
-                    reviewList[0] = getReviews(snapshot);
+                    reviewList = getReviews(snapshot);
+                    buildAdapter();
+                    reviewAdapter.notifyDataSetChanged();
                 }
             }
 
@@ -198,17 +191,22 @@ public class BusinessPopup extends AppCompatActivity {
 
             }
         });
-//        reviewAdapter = new ReviewAdapter(this, reviewList);
-//        rRecyclerView = findViewById(R.id.popupRecyclerView);
-//        rRecyclerView.setAdapter(reviewAdapter);
-//        rLayoutManager = new LinearLayoutManager(this);
-//        rRecyclerView.setLayoutManager(rLayoutManager);
+
+
+    }
+
+    public void buildAdapter() {
+        reviewAdapter = new ReviewAdapter(this, reviewList);
+        rRecyclerView = findViewById(R.id.popupRecyclerView);
+        rRecyclerView.setAdapter(reviewAdapter);
+        rLayoutManager = new LinearLayoutManager(this);
+        rRecyclerView.setLayoutManager(rLayoutManager);
     }
 
     //Method: Show popup for users to rate the businesses.
     @SuppressLint("WrongViewCast")
     public void onClickRateBussiness(){
-        dialogBuider=new AlertDialog.Builder(this);
+        dialogBuilder=new AlertDialog.Builder(this);
         final View reviewPopupView=getLayoutInflater().inflate(R.layout.reviewpopup,null);
         cancelButton=reviewPopupView.findViewById(R.id.cancelButton);
         submitButton=reviewPopupView.findViewById(R.id.submitButton);
@@ -217,8 +215,8 @@ public class BusinessPopup extends AppCompatActivity {
 
         ratingBarInPopup=reviewPopupView.findViewById(R.id.ratingBarInPopUp);
 
-        dialogBuider.setView(reviewPopupView);
-        dialog=dialogBuider.create();
+        dialogBuilder.setView(reviewPopupView);
+        dialog=dialogBuilder.create();
         dialog.show();
 
         //When I comment this part out, it works
@@ -230,6 +228,7 @@ public class BusinessPopup extends AppCompatActivity {
                 if(dataSnapshot.exists()){
                     final RatingBar ratingBar = findViewById(R.id.ratingBar);
                     temp[0] = dataSnapshot.getValue(ReviewItem.class);
+                    ratingBarInPopup.setRating(temp[0].getStarNumbers());
                     ratingBarInPopup.setRating(temp[0].getStarNumbers());
                     commentEditText.setText(temp[0].getComment());
                 } else {

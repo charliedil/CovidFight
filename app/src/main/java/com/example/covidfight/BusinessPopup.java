@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.icu.text.DateFormat;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,7 +28,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Locale;
 
@@ -172,10 +177,10 @@ public class BusinessPopup extends AppCompatActivity {
         //final ArrayList<ReviewItem>[] reviewList = new ArrayList[]{new ArrayList<>()}; // i HAD to because java, 0th element is the thin
         DatabaseReference db = FirebaseDatabase.getInstance().getReference().child(name);
         //sort by date and time
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        String currentDateandTime = sdf.format(new Date());
+//        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+//        String currentDateandTime = sdf.format(new Date());
 
-        db.orderByChild("date").startAt(currentDateandTime );
+//        db.orderByChild("date").startAt(currentDateandTime );
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
@@ -276,7 +281,7 @@ public class BusinessPopup extends AppCompatActivity {
         String comment=commentEditText.getText().toString();
         Float numStart=ratingBarInPopup.getRating();
         String uid=Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
-        String date = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(new Date());
+        String date = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.getDefault()).format(new Date());
 
 
         //add if statement to submit when stars and comment are filled, otherwise make Toast error
@@ -292,6 +297,7 @@ public class BusinessPopup extends AppCompatActivity {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public ArrayList<ReviewItem> getReviews(DataSnapshot dataSnapshot){
         ArrayList<ReviewItem> reviews = new ArrayList<>();
         for (DataSnapshot d: dataSnapshot.getChildren()){
@@ -299,6 +305,22 @@ public class BusinessPopup extends AppCompatActivity {
 
         }
         System.out.println("hello");
+        Collections.sort(reviews, new Comparator<ReviewItem>() {
+            DateFormat f = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+            @Override
+            public int compare(ReviewItem reviewItem, ReviewItem t1) {
+                try {
+                    return f.parse(t1.getDate()).compareTo(f.parse(reviewItem.getDate()));
+                } catch (ParseException e) {
+                    throw new IllegalArgumentException(e);
+                }
+            }
+    //Use this method in case compare dont work
+//            @Override
+//            public Comparator<ReviewItem> reversed() {
+//                return null;
+//            }
+        });
         return reviews;
 
     }

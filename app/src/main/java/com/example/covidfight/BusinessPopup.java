@@ -173,7 +173,6 @@ public class BusinessPopup extends AppCompatActivity {
         //THIS HAPPENS ASYNCHRONOUSLY
 
        // final ArrayList[][] reviewList = new ArrayList[][]{new ArrayList[]{new ArrayList<>()}}; // i HAD to because java, 0th element is the thing
-
         //final ArrayList<ReviewItem>[] reviewList = new ArrayList[]{new ArrayList<>()}; // i HAD to because java, 0th element is the thin
         DatabaseReference db = FirebaseDatabase.getInstance().getReference().child(name);
         //sort by date and time

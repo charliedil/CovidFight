@@ -55,10 +55,12 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
     public static class ReviewViewHolder extends RecyclerView.ViewHolder {
         RatingBar rating = itemView.findViewById(R.id.ratingReview);
         TextView comment = itemView.findViewById(R.id.tvReview);
+        TextView date = itemView.findViewById(R.id.tvDate);
 
         public void bind(ReviewItem review, Context context) {
             rating.setRating(review.getStarNumbers());
             comment.setText(review.getComment());
+            date.setText(review.getDate());
         }
 
         public ReviewViewHolder(@NonNull View itemView) {
@@ -79,14 +81,3 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
     }
 
 }
-
-/** Object for storing review data */
-/**class ReviewObject {
-    Float rating;
-    String review;
-
-    public ReviewObject(Float rating, String review) {
-        this.rating = rating;
-        this.review = review;
-    }
-}*/

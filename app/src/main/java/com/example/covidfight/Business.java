@@ -1,10 +1,9 @@
 package com.example.covidfight;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.widget.RatingBar;
 import android.widget.SearchView;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,13 +15,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.gson.annotations.SerializedName;
 
 import com.google.gson.annotations.SerializedName;
@@ -39,12 +32,13 @@ import java.util.List;
 public class Business extends AppCompatActivity {
     private ArrayList<YelpRestaurant> businessData;
 
-    /**================================**/
+    /**
+     * ================================
+     **/
 
     private RecyclerView bRecyclerView;
     private ResAdapter resAdapter;
     private RecyclerView.LayoutManager bLayoutManager;
-
 
 
     private EditText searchBusiness;
@@ -89,7 +83,7 @@ public class Business extends AppCompatActivity {
             String query = intent.getStringExtra(SearchManager.QUERY);
             doMySearch(query);
         }*/
-        searchBusiness=findViewById(R.id.searchBusiness);
+        searchBusiness = findViewById(R.id.searchBusiness);
         searchBusiness.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -107,7 +101,6 @@ public class Business extends AppCompatActivity {
 
             }
         });
-
 
 
     }
@@ -133,63 +126,25 @@ public class Business extends AppCompatActivity {
 
         /** get Yelp API data */
         YelpInterface yelpInt = retrofit.create(YelpInterface.class);
-        yelpInt.searchRestaurants("Bearer "+API_KEY, (String) searchQuery, "Richmond").enqueue(new Callback<YelpSearchResult>() {
+        yelpInt.searchRestaurants("Bearer " + API_KEY, (String) searchQuery, "Richmond").enqueue(new Callback<YelpSearchResult>() {
             @Override
-            public void onResponse(Call<YelpSearchResult> call, Response<YelpSearchResult> response){
-                Log.i(TAG, "onResponse "+response);
+            public void onResponse(Call<YelpSearchResult> call, Response<YelpSearchResult> response) {
+                Log.i(TAG, "onResponse " + response);
                 if (response.body() == null) {
                     Log.w(TAG, "Did not receive valid response body from Yelp API... exiting");
                     return;
                 }
-
                 businessData.addAll(response.body().restaurants);
-
-                for(int i = 0; i < businessData.size(); i++){
-                    businessData.get(i).setNumReviews(0);
-                    resAdapter.notifyDataSetChanged();
-                    businessData.get(i).setRating( (float) 0.0);
-                    resAdapter.notifyDataSetChanged();
-                }
-                resAdapter.notifyDataSetChanged();
-                    DatabaseReference db= FirebaseDatabase.getInstance().getReference();
-                    db.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            for(int i = 0; i < businessData.size(); i++){
-                            if (dataSnapshot.child(businessData.get(i).getName()).exists()) {
-                                businessData.get(i).setNumReviews((int) dataSnapshot.child(businessData.get(i).getName()).getChildrenCount());
-                                if (businessData.get(i).getNumReviews() > 0) {
-                                    float total = (float) 0.0;
-                                    for (DataSnapshot d : dataSnapshot.child(businessData.get(i).getName()).getChildren()) {
-                                        ReviewItem r = d.getValue(ReviewItem.class);
-                                        total += r.getStarNumbers();
-                                    }
-                                    businessData.get(i).setRating((float) total / businessData.get(i).getNumReviews());
-                                    resAdapter.notifyDataSetChanged();
-                                } else {
-                                    businessData.get(i).setRating((float) 0.0);
-                                    resAdapter.notifyDataSetChanged();
-                                }
-                                System.out.println("ok");
-                            }
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {}
-                    });
 
                 resAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onFailure(Call<YelpSearchResult> call, Throwable t) {
-                Log.i(TAG, "onFailure "+t);
+                Log.i(TAG, "onFailure " + t);
             }
         });
     }
-
-
 
     public void openPopup() {
 
@@ -207,9 +162,9 @@ public class Business extends AppCompatActivity {
     }
 
     private void filter(String text) {
-        ArrayList<YelpRestaurant> filterList=new ArrayList<>();
-        for(YelpRestaurant item: businessData){
-            if (item.getName().toLowerCase().contains(text.toLowerCase())){
+        ArrayList<YelpRestaurant> filterList = new ArrayList<>();
+        for (YelpRestaurant item : businessData) {
+            if (item.getName().toLowerCase().contains(text.toLowerCase())) {
                 filterList.add(item);
             }
         }

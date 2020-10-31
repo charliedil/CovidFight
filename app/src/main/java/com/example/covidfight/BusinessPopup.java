@@ -1,6 +1,7 @@
 package com.example.covidfight;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.drawable.ClipDrawable;
+import android.icu.text.SimpleDateFormat;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.DisplayMetrics;
@@ -24,12 +27,15 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 public class BusinessPopup extends AppCompatActivity {
 
@@ -165,15 +171,31 @@ public class BusinessPopup extends AppCompatActivity {
 
     public void createReviewList() {
         /** setup array list, adapter, layout manager */
-        reviewList = new ArrayList<ReviewObject>();
-        ReviewObject test1 = new ReviewObject("name", (float) 2.5, "10/10/20", "wow this is a review");
-        reviewList.add(0, test1);
+        //reviewList = new ArrayList<ReviewObject>();
+        //ReviewObject test1 = new ReviewObject("name", (float) 2.5, "10/10/20", "wow this is a review");
+        //reviewList.add(0, test1);
 
-        reviewAdapter = new ReviewAdapter(this, reviewList);
-        rRecyclerView = findViewById(R.id.popupRecyclerView);
-        rRecyclerView.setAdapter(reviewAdapter);
-        rLayoutManager = new LinearLayoutManager(this);
-        rRecyclerView.setLayoutManager(rLayoutManager);
+        //THIS HAPPENS ASYNCHRONOUSLY
+        final ArrayList<ReviewItem>[] reviewList = new ArrayList[]{new ArrayList<>()}; // i HAD to because java, 0th element is the thing
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference().child(name);
+        db.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    reviewList[0] = getReviews(snapshot);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        });
+//        reviewAdapter = new ReviewAdapter(this, reviewList);
+//        rRecyclerView = findViewById(R.id.popupRecyclerView);
+//        rRecyclerView.setAdapter(reviewAdapter);
+//        rLayoutManager = new LinearLayoutManager(this);
+//        rRecyclerView.setLayoutManager(rLayoutManager);
     }
 
     //Method: Show popup for users to rate the businesses.
@@ -191,6 +213,8 @@ public class BusinessPopup extends AppCompatActivity {
         dialogBuider.setView(reviewPopupView);
         dialog=dialogBuider.create();
         dialog.show();
+
+        //When I comment this part out, it works
         DatabaseReference db= FirebaseDatabase.getInstance().getReference().child(name).child(Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
         final ReviewItem[] temp = {null};
         db.addListenerForSingleValueEvent(new ValueEventListener(){
@@ -206,11 +230,14 @@ public class BusinessPopup extends AppCompatActivity {
                     commentEditText.setText("");
                 }
 
-            }
+             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
+
+        //Comment part end
+
         //Close popup when clicking cancel button
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -222,6 +249,7 @@ public class BusinessPopup extends AppCompatActivity {
 
         //Submit data to database when submit button is clicked
         submitButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
                 //Submit data to firebase here
@@ -235,20 +263,21 @@ public class BusinessPopup extends AppCompatActivity {
     }
 
     //Add review(rating stars, and comments to firebase
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void addReview(){
 
         //add String comment and float Start
         String comment=commentEditText.getText().toString();
         Float numStart=ratingBarInPopup.getRating();
         String uid=Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+        String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());;
 
         //add if statement to submit when stars and comment are filled, otherwise make Toast error
         if(numStart!=null){
 
-            ReviewItem reviewItem=new ReviewItem(numStart,comment);
+            ReviewItem reviewItem= new ReviewItem(numStart,comment,date);
             //Set Databasereference:
             databaseReference.child(name).child(uid).setValue(reviewItem);
-
 
             Toast.makeText(this, "Your review is submitted, thank you!", Toast.LENGTH_SHORT).show();
         }else{
@@ -256,5 +285,15 @@ public class BusinessPopup extends AppCompatActivity {
         }
     }
 
+    public ArrayList<ReviewItem> getReviews(DataSnapshot dataSnapshot){
+        ArrayList<ReviewItem> reviews = new ArrayList<>();
+        for (DataSnapshot d: dataSnapshot.getChildren()){
+            reviews.add(d.getValue(ReviewItem.class));
+
+        }
+        System.out.println("hello");
+        return reviews;
+
+    }
 
 }

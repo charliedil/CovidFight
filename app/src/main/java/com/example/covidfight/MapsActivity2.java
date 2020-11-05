@@ -82,71 +82,50 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
             }
         });
     }
+    //Function to open the USA Active Cases map
     public void openMap1(){
         Intent intent = new Intent(this, MapsActivity.class );
         startActivity(intent);
     }
-
+    //Function to open the main activity
     public void openMain(){
         Intent intent = new Intent(this, MainActivity.class );
         startActivity(intent);
     }
-
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-
         MapStyleOptions mapStyleOptions=MapStyleOptions.loadRawResourceStyle(this,R.raw.style);
         googleMap.setMapStyle(mapStyleOptions);
-
-        // Add a marker in Sydney and move the camera
         LatLng richmond = new LatLng(37.5483, -77.4527);
-        //mMap.addMarker(new MarkerOptions().position(richmond).title("Marker in Richmond"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(richmond));
         mMap.moveCamera(CameraUpdateFactory.zoomTo((float) 5.75));//5.0 for US
         Gradient gradient = new Gradient(colors,startPoints);
-//        WeightedLatLng thingy = new WeightedLatLng(new LatLng(37.5483, -77.4527),2.0);
-//        WeightedLatLng thingy2 = new WeightedLatLng(new LatLng(37.5493, -77.4527),5.0);
-
         List<WeightedLatLng> wDat = loadData2();
-
-        // loadData2();
-//        wDat.add(thingy);
-//        wDat.add(thingy2);
         HeatmapTileProvider provider = new HeatmapTileProvider.Builder().weightedData(wDat).gradient(gradient).build();
         mMap.addTileOverlay(new TileOverlayOptions().tileProvider(provider));
-
-        //System.exit(0);
-
-
-
     }
 
+    /** loadData2 function.
+     * Function that loads the Virginia Active Cases data and our zip code data.
+     * The number of active cases per zip code is used as the "weight" for each coordinate.
+     * Coordinates are mapped from the zip codes using our zip code data.
+     *
+     * @return ArrayList of weighted coordinates of active cases in Virginia.
+     */
     public List<WeightedLatLng> loadData2(){
 
-        ArrayList<WeightedLatLng> wdat = new ArrayList<>();
+        ArrayList<WeightedLatLng> wdat = new ArrayList<>(); //array list to return
 
         try {
-            InputStream zipcodeFile = getAssets().open("ZipLatLong.csv");
-
-            System.out.println("hahafun");
+            InputStream zipcodeFile = getAssets().open("ZipLatLong.csv"); //open zip code data
             Scanner scan = new Scanner(zipcodeFile);
-            String text="";
-            ArrayList<String>indexToZipcode = new ArrayList<>();
-            ArrayList<String>indexToLong = new ArrayList<>();
-            ArrayList<String>indexToLat = new ArrayList<>();
-            while (scan.hasNextLine()){
-                text+=scan.nextLine();
+            String text = "";
+            ArrayList<String> indexToZipcode = new ArrayList<>(); //List for zips after parse
+            ArrayList<String> indexToLong = new ArrayList<>(); //List for long after parse
+            ArrayList<String> indexToLat = new ArrayList<>(); //List for lat after parse
+            while (scan.hasNextLine()) {
+                text += scan.nextLine();
             }
             text = text.replaceAll(",,","\n");
             String [] datapoints = text.split("\n");
@@ -159,12 +138,9 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
             String myUrl = "https://data.virginia.gov/resource/8bkr-zfqv.json";
             String result="";
             HttpGetRequest getRequest = new HttpGetRequest();
-            result = getRequest.execute(myUrl).get();
-
-            //String result = getRequest.execute(myUrl).get();
+            result = getRequest.execute(myUrl).get(); //COVID data from VA
             JSONArray jsonHold = new JSONArray(result);
-
-            //JSONArray jsonHold = jsonObj.getJSONArray("features");
+            //Stores the data from URL into array lists
             ArrayList<String> reportDate = new ArrayList<>();
             ArrayList<String> zipcodes = new ArrayList<>();
             ArrayList<String> numCases = new ArrayList<>();
@@ -172,7 +148,6 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
             ArrayList<DataRichmond> dataList = new ArrayList<>();
             for (int i = 0; i < jsonHold.length(); i++) {
                 JSONObject obj = jsonHold.getJSONObject(i);
-                //JSONObject attributes = obj.getJSONObject("attributes");
                 if(!(obj.isNull("report_date")||obj.isNull("zip_code")||obj.isNull("number_of_cases")
                         || obj.isNull("number_of_pcr_testing") )) {
                     reportDate.add((String) obj.get(("report_date")));
@@ -184,13 +159,14 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
 
             for( int i = 0;i < reportDate.size();i++){
                 DataRichmond dataPoint = new DataRichmond(reportDate.get(i), zipcodes.get(i), numCases.get(i), numPCRTesting.get(i));
-                dataList.add(dataPoint);
+                dataList.add(dataPoint); //data structure to hold for cases
             }
             for (DataRichmond d : dataList){
                 for (int i =0; i<indexToZipcode.size();i++) {
                     if(indexToZipcode.get(i).equals(d.getZip_code()) && !d.getNumber_of_cases().equals("Suppressed")) {
-                        WeightedLatLng dataPoint = new WeightedLatLng(new LatLng(Double.valueOf(indexToLat.get(i)), Double.valueOf(indexToLong.get(i))), Double.valueOf(d.getNumber_of_cases()));
-                        wdat.add(dataPoint);
+                        WeightedLatLng dataPoint = new WeightedLatLng(new LatLng(Double.valueOf(indexToLat.get(i)), Double.valueOf(indexToLong.get(i))),
+                                Double.valueOf(d.getNumber_of_cases())); //passed lat/long and active case data
+                        wdat.add(dataPoint); //added point ti array
                         break;
                     }
                 }
@@ -211,7 +187,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         }
         return wdat;
     }
-
+    //Takes care of request clogging in the main thread asynchronously
     static class HttpGetRequest extends AsyncTask<String, Void, String> {
 
         @Override

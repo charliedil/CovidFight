@@ -135,7 +135,6 @@ public class Business extends AppCompatActivity {
                     return;
                 }
                 businessData.addAll(response.body().restaurants);
-
                 resAdapter.notifyDataSetChanged();
             }
 

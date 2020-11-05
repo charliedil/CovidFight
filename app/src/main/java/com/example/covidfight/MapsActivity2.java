@@ -169,8 +169,6 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
             break;
           }
         }
-
-
       }
     } catch (JSONException e) {
       e.printStackTrace();

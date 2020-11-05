@@ -52,7 +52,7 @@
         android:layout_below="@+id/ContextHeader"
         android:textAlignment="center"
         android:textColor="#fff"
-        android:text=" This is text this is text this is text this is text this is text this is text this is text this is text this is textthis is textvv this is text this is text this is text this is text this is text this is text this is text this is text this is text"
+        android:text="CovidFight is a project of our team for CMSC 355 class -Software Engineering: Specification and Design, Fall 2020. In this hard time of the pandemic, we try to do what we could to help slow the spread of the virus and have people in our comunities informed with the informations. At the moment, the scopes of the CovidFight are in Richmond and VCU areas. "
         android:gravity="center_horizontal" />
 
     <TextView
@@ -71,12 +71,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/source"
+        android:layout_centerHorizontal="true"
         android:layout_below="@+id/SourceHeader"
         android:textSize="15dp"
         android:textColor="#fff"
         android:textAlignment="center"
         android:layout_marginHorizontal="5dp"
-        android:text="text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text"
+        android:maxLines="10"
+        android:text="Esri\n Virginia Department Of Health\n VCU Together Dashboard"
         android:gravity="center_horizontal" />
     <TextView
         android:layout_width="wrap_content"

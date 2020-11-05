@@ -144,10 +144,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(i);
                 break;
 
+
             /*case R.id.aboutCard :
+
                 i = new Intent(this,AboutUsActivity.class);
                 startActivity(i);
-                break;*/
+                break;
+
         }
 
 

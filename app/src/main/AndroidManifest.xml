@@ -17,8 +17,7 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-
+        <activity android:name=".AboutUsActivity"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -34,9 +33,7 @@
         <activity
             android:name=".MapsActivity2"
             android:label="@string/title_activity_maps2" />
-
-        <activity android:name=".SettingsActivity"></activity>
-
+        <activity android:name=".SettingsActivity" />
         <activity android:name=".RichmondStat" />
         <activity android:name=".VcuStat" />
         <activity android:name=".ReportActivity" />
@@ -54,7 +51,6 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
-
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -66,7 +62,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

@@ -54,9 +54,7 @@
         android:text="Project COVIDFight was developed for a Software Development class by a group of Undergrad CS students at VCU. You can find us on Github at \ngithub.com/nehadil/CovidFight"
         android:textAlignment="center"
         android:textColor="#fff"
-
-        android:text="CovidFight is a project of our team for CMSC 355 class -Software Engineering: Specification and Design, Fall 2020. In this hard time of the pandemic, we try to do what we could to help slow the spread of the virus and have people in our comunities informed with the informations. At the moment, the scopes of the CovidFight are in Richmond and VCU areas. "
-        android:gravity="center_horizontal" />
+        />
 
 
     <TextView
@@ -76,10 +74,7 @@
         android:id="@+id/source"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        android:id="@+id/source"
         android:layout_centerHorizontal="true"
-
         android:layout_below="@+id/SourceHeader"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"

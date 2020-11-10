@@ -26,7 +26,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class ReportActivity extends AppCompatActivity {
-    //private EditText editTextEmail;
+    private EditText editTextEmail;
     private EditText editTextAddress;
     private EditText editTextMessage;
     private Button submitButton;
@@ -37,7 +37,7 @@ public class ReportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
 
-        //editTextEmail = (EditText) findViewById(R.id.enter_email);
+        editTextEmail = (EditText) findViewById(R.id.enter_email);
         editTextAddress = (EditText) findViewById(R.id.enter_address);
         editTextMessage = (EditText) findViewById(R.id.enter_description);
         submitButton = (Button) findViewById(R.id.submitButton);
@@ -67,7 +67,7 @@ public class ReportActivity extends AppCompatActivity {
                     message.setFrom(new InternetAddress(sEmail));
                     message.addRecipient(Message.RecipientType.TO, new InternetAddress(sEmail));
                     message.setSubject(subject);
-                    finalMessage = "Address: " + editTextAddress.getText().toString().trim() +
+                    finalMessage = "Contact Email: " + editTextEmail.getText().toString().trim() + "\nAddress: " + editTextAddress.getText().toString().trim() +
                             "\nMessage: \n" + editTextMessage.getText().toString().trim();
                     message.setText(finalMessage);
 
@@ -113,6 +113,7 @@ public class ReportActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
+                        editTextEmail.setText("");
                         editTextAddress.setText("");
                         editTextMessage.setText("");
                     }

@@ -54,7 +54,10 @@
         android:text="Project COVIDFight was developed for a Software Development class by a group of Undergrad CS students at VCU. You can find us on Github at \ngithub.com/nehadil/CovidFight"
         android:textAlignment="center"
         android:textColor="#fff"
-        android:textSize="15dp" />
+
+        android:text="CovidFight is a project of our team for CMSC 355 class -Software Engineering: Specification and Design, Fall 2020. In this hard time of the pandemic, we try to do what we could to help slow the spread of the virus and have people in our comunities informed with the informations. At the moment, the scopes of the CovidFight are in Richmond and VCU areas. "
+        android:gravity="center_horizontal" />
+
 
     <TextView
         android:id="@+id/SourceHeader"
@@ -73,18 +76,17 @@
         android:id="@+id/source"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
+        android:id="@+id/source"
+        android:layout_centerHorizontal="true"
+
         android:layout_below="@+id/SourceHeader"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginHorizontal="5dp"
-        android:layout_marginTop="-1dp"
-        android:layout_marginEnd="62dp"
-        android:layout_marginRight="62dp"
-        android:gravity="center_horizontal"
-        android:text="One VCU: Responsible Together Dashboard\nVIrginia Department of Health\nESRI COVID19 Case Data\nYelp\n"
-        android:textAlignment="center"
-        android:textColor="#fff"
-        android:textSize="15dp" />
+        android:maxLines="10"
+        android:text="Esri\n Virginia Department Of Health\n VCU Together Dashboard"
+        android:gravity="center_horizontal" />
 
     <TextView
         android:layout_width="wrap_content"

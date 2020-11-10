@@ -110,85 +110,28 @@ public class VcuStat extends AppCompatActivity {
                negPrevelenceNum=(int) dataNegPreve.getValue();
 
 
-
-               ValueAnimator valueAnimator = ValueAnimator.ofInt(0, studentCase);
-               valueAnimator.setDuration(3000);
-               valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-               @Override
-               public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                activeStudentCaseNumber.setText(valueAnimator.getAnimatedValue().toString());
-               }
-               });
+               ValueAnimator valueAnimator = getValueAnimator(studentCase, activeStudentCaseNumber);
                valueAnimator.start();
 
-               ValueAnimator valueAnimator2 = ValueAnimator.ofInt(0, employeeCase);
-               valueAnimator2.setDuration(3000);
-               valueAnimator2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                   @Override
-                   public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                       activeEmployeeCaseNumber.setText(valueAnimator.getAnimatedValue().toString());
-                   }
-               });
+               ValueAnimator valueAnimator2 = getValueAnimator(employeeCase, activeEmployeeCaseNumber);
                valueAnimator2.start();
 
-               ValueAnimator valueAnimator3 = ValueAnimator.ofInt(0, isoNumber);
-               valueAnimator3.setDuration(3000);
-               valueAnimator3.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                   @Override
-                   public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                       isolationNumber.setText(valueAnimator.getAnimatedValue().toString());
-                   }
-               });
+               ValueAnimator valueAnimator3 = getValueAnimator(isoNumber, isolationNumber);
                valueAnimator3.start();
 
-               ValueAnimator valueAnimator4 = ValueAnimator.ofInt(0, quaNumber);
-               valueAnimator4.setDuration(3000);
-               valueAnimator4.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                   @Override
-                   public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                       quarantineNumber.setText(valueAnimator.getAnimatedValue().toString());
-                   }
-               });
+               ValueAnimator valueAnimator4 = getValueAnimator(quaNumber, quarantineNumber);
                valueAnimator4.start();
 
-               ValueAnimator valueAnimator5 = ValueAnimator.ofInt(0, negativeEntryNum);
-               valueAnimator5.setDuration(3000);
-               valueAnimator5.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                   @Override
-                   public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                       negativeEntryResultNumber.setText(valueAnimator.getAnimatedValue().toString());
-                   }
-               });
+               ValueAnimator valueAnimator5 = getValueAnimator(negativeEntryNum, negativeEntryResultNumber);
                valueAnimator5.start();
 
-               ValueAnimator valueAnimator6 = ValueAnimator.ofInt(0, positiveEntryNum);
-               valueAnimator6.setDuration(3000);
-               valueAnimator6.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                   @Override
-                   public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                       positiveEntryResultNumber.setText(valueAnimator.getAnimatedValue().toString());
-                   }
-               });
+               ValueAnimator valueAnimator6 = getValueAnimator(positiveEntryNum, positiveEntryResultNumber);
                valueAnimator6.start();
 
-               ValueAnimator valueAnimator7 = ValueAnimator.ofInt(0, posPrevelenceNum);
-               valueAnimator7.setDuration(3000);
-               valueAnimator7.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                   @Override
-                   public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                       positivePrevelenceNumber.setText(valueAnimator.getAnimatedValue().toString());
-                   }
-               });
+               ValueAnimator valueAnimator7 = getValueAnimator(posPrevelenceNum, positivePrevelenceNumber);
                valueAnimator7.start();
 
-               ValueAnimator valueAnimator8 = ValueAnimator.ofInt(0, negPrevelenceNum);
-               valueAnimator8.setDuration(3000);
-               valueAnimator8.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                   @Override
-                   public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                      negavtivePrevelenceNumber.setText(valueAnimator.getAnimatedValue().toString());
-                   }
-               });
+               ValueAnimator valueAnimator8 = getValueAnimator(negPrevelenceNum, negavtivePrevelenceNumber);
                valueAnimator8.start();
 
 
@@ -207,6 +150,17 @@ public class VcuStat extends AppCompatActivity {
 
    }
 
+    private ValueAnimator getValueAnimator(int studentCase, final TextView activeStudentCaseNumber) {
+        ValueAnimator valueAnimator = ValueAnimator.ofInt(0, studentCase);
+        valueAnimator.setDuration(3000);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                activeStudentCaseNumber.setText(valueAnimator.getAnimatedValue().toString());
+            }
+        });
+        return valueAnimator;
+    }
 
 
 }

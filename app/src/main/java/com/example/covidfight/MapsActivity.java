@@ -29,7 +29,7 @@ import java.util.concurrent.ExecutionException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+//need this to be async somewhere probably, very slow
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
   private GoogleMap googleMap;
   private Button button;

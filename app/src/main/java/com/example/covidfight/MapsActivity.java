@@ -1,3 +1,11 @@
+//problems encountered while testing on actual phone
+// 1. business text got cut off
+//2. notifs would not get set. once backing out of the settings app, notifs would get unset
+//3. after submittign review, might be nice to have popup close automatically
+// 4. business review popup text can get cut off, should scale
+// 5. map would not load
+// 6. we need to lock rotation
+
 package com.example.covidfight;
 
 import android.content.Intent;

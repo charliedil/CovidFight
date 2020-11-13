@@ -5,6 +5,7 @@
 // 4. business review popup text can get cut off, should scale
 // 5. map would not load
 // 6. we need to lock rotation
+// 7. back button
 
 package com.example.covidfight;
 

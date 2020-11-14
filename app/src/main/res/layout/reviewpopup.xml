@@ -59,6 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
             android:layout_marginTop="40dp"
+            android:layout_marginBottom="100dp"
             android:text="Cancel" />
 
         <Button
@@ -67,6 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="40dp"
+            android:layout_marginBottom="100dp"
             android:layout_toRightOf="@id/cancelButton"
             android:background="#42A5F3"
             android:text="Submit" />

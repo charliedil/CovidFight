@@ -7,6 +7,12 @@
     android:background="@drawable/bg"
     tools:context=".Splash">
 
+    <activity
+        android:name="com.example.demo_spinner.MainActivity"
+        android:label="@string/app_name"
+        android:screenOrientation="portrait" >
+    </activity>
+
 
     <ImageView
         android:id="@+id/logo"

@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".VcuStat">
 
+    <activity
+        android:name="com.example.demo_spinner.MainActivity"
+        android:label="@string/app_name"
+        android:screenOrientation="portrait" >
+    </activity>
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/ActiveCaseCardView"

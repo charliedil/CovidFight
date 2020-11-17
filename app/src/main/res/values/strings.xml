@@ -11,10 +11,11 @@
 
     <string name="app_logo">App Logo</string>
 
+    <string name="report_instructions">To ensure the safety of our community, please fill out the form below if you observe a COVID violation at any facility.</string>
     <string name="report_name">Name</string>
-    <string name="report_address">Address</string>
-    <string name="report_email">Email</string>
-    <string name="report_description">Description</string>
+    <string name="report_address">Location</string>
+    <string name="report_email">Email (Optional)</string>
+    <string name="report_description">Description of Violation</string>
     <string name="report_button">Submit</string>
 
     <string name="report_post_message">Please wait! We\'re sending your message.</string>

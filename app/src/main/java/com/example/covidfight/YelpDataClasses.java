@@ -88,6 +88,7 @@ class YelpRestaurant implements Parcelable {
         return categories.get(0).title;
     }
     public void setRating(float rate){ this.rating=(double)rate;}
+    public void setNumReviews(int i){this.numReviews = i;}
     /*public YelpLocation getLocation() {
         return location;
     }*/

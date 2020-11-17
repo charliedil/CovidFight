@@ -47,7 +47,8 @@
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".Business" />
-        <activity android:name=".BusinessPopup" />
+        <activity android:name=".BusinessPopup"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />

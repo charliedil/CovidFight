@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.graphics.Rect;
 import android.icu.text.DateFormat;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
@@ -16,6 +17,8 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -230,13 +233,18 @@ public class BusinessPopup extends AppCompatActivity {
         cancelButton=reviewPopupView.findViewById(R.id.cancelButton);
         submitButton=reviewPopupView.findViewById(R.id.submitButton);
         commentEditText= reviewPopupView.findViewById(R.id.CommentReview);
-
-
         ratingBarInPopup=reviewPopupView.findViewById(R.id.ratingBarInPopUp);
 
         dialogBuilder.setView(reviewPopupView);
         dialog=dialogBuilder.create();
         dialog.show();
+        reviewPopupView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                Rect r = new Rect();
+                reviewPopupView.getWindowVisibleDisplayFrame(r);
+            }
+        });
 
         //When I comment this part out, it works
         DatabaseReference db= FirebaseDatabase.getInstance().getReference().child(name).child(Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
@@ -260,8 +268,6 @@ public class BusinessPopup extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
-
-        //Comment part end
 
         //Close popup when clicking cancel button
         cancelButton.setOnClickListener(new View.OnClickListener() {

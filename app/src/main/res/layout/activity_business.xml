@@ -5,6 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/btnClose"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/x_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
         android:id="@+id/UnscrollableLayout"
         android:layout_width="match_parent"
@@ -37,6 +48,7 @@
             android:hint=" Find businesses"
             android:drawableStart="@drawable/ic_baseline_search_24"
             android:drawableLeft="@drawable/ic_baseline_search_24" />
+
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

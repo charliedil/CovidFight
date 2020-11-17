@@ -28,6 +28,16 @@ public class SettingsActivity extends AppCompatActivity implements TimePickerDia
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        /** Button to close activity */
+        Button closeButton = findViewById(R.id.btnClose);
+        closeButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         mTextView = findViewById(R.id.textView);
 
         Button buttonTimePicker = findViewById(R.id.timepicker_button);

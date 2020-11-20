@@ -8,6 +8,7 @@ import android.content.Intent;
 import androidx.core.app.NotificationCompat;
 
 public class Reminder extends BroadcastReceiver {
+
   @Override
   public void onReceive(Context context, Intent intent) {
     NotificationManager notificationManager = (NotificationManager)
@@ -16,6 +17,7 @@ public class Reminder extends BroadcastReceiver {
     repeatingIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     PendingIntent pendingIntent = PendingIntent.getActivity(context,
         100, repeatingIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
 
     NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "maskNotify")
         .setContentIntent(pendingIntent)
@@ -27,6 +29,8 @@ public class Reminder extends BroadcastReceiver {
 
     // NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
 
+
     notificationManager.notify(100, builder.build());
   }
+
 }

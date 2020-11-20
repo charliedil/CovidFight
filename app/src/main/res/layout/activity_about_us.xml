@@ -8,9 +8,21 @@
     android:screenOrientation="portrait"
     tools:context=".AboutUsActivity">
 
+    <Button
+        android:id="@+id/btnClose"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/x_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="match_parent"
         android:layout_height="150dp"
+        android:layout_marginTop="50dp"
         android:src="@drawable/logo"
         android:id="@+id/headerLogo"/>
 
@@ -77,10 +89,9 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/SourceHeader"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_marginHorizontal="5dp"
         android:maxLines="10"
+        android:textColor="#FFF"
         android:text="Esri\n Virginia Department Of Health\n VCU Together Dashboard"
         android:gravity="center_horizontal" />
 

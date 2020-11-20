@@ -49,16 +49,12 @@ public class RichmondStat extends AppCompatActivity {
 
             @Override
             public void onResponse(String response) {
-
+                //Getting data from the json file
                 DataRichmond[] dataRichmond=gson.fromJson(response,DataRichmond[].class);
-//                ArrayList<RichmondItem> richmondItem=new ArrayList<>();
                 for(int i=371;i<410;i++){
                     richmondItem.add(new RichmondItem(dataRichmond[i].getZipCodes(),dataRichmond[i].getNumberOfCases(),dataRichmond[i].getNumberOfPcrTesting()));
                 }
-
                 adapter.setRichmondCaseItem(richmondItem);
-
-
                 richmondCaseRecView.setAdapter(adapter);
                 richmondCaseRecView.setLayoutManager(new LinearLayoutManager(null));
             }
@@ -72,7 +68,7 @@ public class RichmondStat extends AppCompatActivity {
         queue.add(request);
         queue.start();
 
-
+       //Look for case by zipcode on search bar
         searchBarTextView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

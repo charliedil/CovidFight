@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.graphics.Rect;
 import android.icu.text.DateFormat;
 import android.icu.text.SimpleDateFormat;
@@ -25,12 +26,15 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -63,6 +67,16 @@ public class BusinessPopup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.business_popup);
 
+        /** Button to close activity */
+        Button closeButton = findViewById(R.id.btnClose);
+        closeButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         Intent intent = getIntent();
         final YelpRestaurant restaurant = intent.getParcelableExtra("YelpRestaurant");
 
@@ -87,7 +101,8 @@ public class BusinessPopup extends AppCompatActivity {
 
         /** set components to data */
         tvName.setText(name);
-        //Glide.with(context).load(imageUrl).into(imageView);
+        imageView.setImageDrawable(LoadImageFromURL(imageUrl));
+        //Glide.with(getApplicationContext()).load(imageUrl).into(imageView);
         ratingBar.setRating((float) 0.0);
         tvNumReviews.setText(numReviews[0] +" reviews");
         //tvAddress.setText(address);
@@ -163,6 +178,16 @@ public class BusinessPopup extends AppCompatActivity {
             }
         });
 
+    }
+
+    public static Drawable LoadImageFromURL(String url) {
+        try {
+            InputStream is = (InputStream) new URL(url).getContent();
+            Drawable d = Drawable.createFromStream(is, "src name");
+            return d;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -272,6 +297,7 @@ public class BusinessPopup extends AppCompatActivity {
                 //Method: addReview
 
                 addReview();
+                dialog.dismiss();
 
             }
         });

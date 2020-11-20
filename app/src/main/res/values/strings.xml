@@ -29,6 +29,15 @@
     <string name="reminder_canceled">Reminder Canceled</string>
     <string name="reminder_settings">Reminder Settings</string>
 
+    <string name="title_activity_gmu">GMU</string>
+    <string name="title_activity_jmu">JMU</string>
+    <string name="title_activity_ur">UR</string>
+    <string name="title_activity_uva">UVA</string>
+    <string name="title_activity_vcu">VCU</string>
+    <string name="title_activity_vt">VT</string>
+    <string name="title_activity_wm">WM</string>
+    <string name="title_activity_idk">IDK</string>
+
 
     <!-- Preference Titles -->
     <string name="notifications_header">Notifications</string>

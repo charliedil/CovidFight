@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient"
+    android:screenOrientation="portrait"
     tools:context=".SettingsActivity">
 
     <!-- <TextView
@@ -35,6 +36,7 @@
         android:textColor="@color/white"
         android:textStyle="bold"
         android:text="@string/no_reminder"
+        android:screenOrientation="portrait"
         android:textSize="40sp" />
 
     <Button

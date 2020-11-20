@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,7 +12,6 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -54,7 +52,7 @@ public class RichmondStat extends AppCompatActivity {
                 //Getting data from the json file
                 DataRichmond[] dataRichmond=gson.fromJson(response,DataRichmond[].class);
                 for(int i=371;i<410;i++){
-                    richmondItem.add(new RichmondItem(dataRichmond[i].getZip_code(),dataRichmond[i].getNumber_of_cases(),dataRichmond[i].getNumber_of_pcr_testing()));
+                    richmondItem.add(new RichmondItem(dataRichmond[i].getZipCodes(),dataRichmond[i].getNumberOfCases(),dataRichmond[i].getNumberOfPcrTesting()));
                 }
                 adapter.setRichmondCaseItem(richmondItem);
                 richmondCaseRecView.setAdapter(adapter);

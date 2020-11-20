@@ -5,28 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient"
-    android:gravity="center"
+
+    android:screenOrientation="portrait"
     tools:context=".ReportActivity">
 
-    <Button
-        android:id="@+id/btnClose"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="18dp"
-        android:layout_marginLeft="18dp"
-        android:layout_marginTop="18dp"
-        android:background="@drawable/x_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/bg_gradient"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="16dp"
-        tools:context=".ReportActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/baloo"
+        android:text="@string/title_activity_report"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/black"
+        android:textSize="50sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/report_instructions"
+        android:paddingBottom="20dp"
+        android:textColor="@color/grey"
+        android:textStyle="bold"
+        android:textSize="15sp" />
 
         <TextView
             android:layout_width="wrap_content"

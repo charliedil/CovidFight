@@ -163,12 +163,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
       }
       for (DataRichmond d : dataList) {
         for (int i = 0; i < indexToZipcode.size(); i++) {
-          if (indexToZipcode.get(i).equals(d.getZip_code()) //use zipcode to find long/lat
-                  && !d.getNumber_of_cases().equals("Suppressed")) {
+          if (indexToZipcode.get(i).equals(d.getZipCodes()) //use zipcode to find long/lat
+                  && !d.getNumberOfCases().equals("Suppressed")) {
             WeightedLatLng dataPoint = new WeightedLatLng(//using long/lat to pass in
                     new LatLng(Double.valueOf(indexToLat.get(i)),
                             Double.valueOf(indexToLong.get(i))),
-                    Double.valueOf(d.getNumber_of_cases())); //active cases is used for weight
+                    Double.valueOf(d.getNumberOfCases())); //active cases is used for weight
             wdat.add(dataPoint); //add it to the array
             break;
           }

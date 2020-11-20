@@ -272,6 +272,7 @@ public class BusinessPopup extends AppCompatActivity {
                 //Method: addReview
 
                 addReview();
+                dialog.dismiss();
 
             }
         });

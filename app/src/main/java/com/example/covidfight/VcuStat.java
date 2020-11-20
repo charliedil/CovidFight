@@ -61,79 +61,10 @@ public class VcuStat extends AppCompatActivity {
                negavtivePrevelenceNumber=findViewById(R.id.negativeTestNumbers);
 
                VcuCase vcuCase=gson.fromJson(response,VcuCase.class);
-               int studentSize =vcuCase.getStudents().size();
-               Data dataStudent=vcuCase.getStudents().get(studentSize-1);
-               String x1=Integer.toString(dataStudent.getValue());
-               activeStudentCaseNumber.setText(x1);
-               studentCase=(int) dataStudent.getValue();
-
-               int employeeSize=vcuCase.getEmployees().size();
-               Data dataEmployee=vcuCase.getEmployees().get(employeeSize-1);
-               String x2=Integer.toString(dataEmployee.getValue());
-               activeStudentCaseNumber.setText(x2);
-               employeeCase=(int) dataEmployee.getValue();
-
-               int isoSize=vcuCase.getIsolations().size();
-               Data dataIsolation=vcuCase.getIsolations().get(isoSize-1);
-               String x3=Integer.toString(dataIsolation.getValue());
-               isolationNumber.setText(x3);
-               isoNumber=(int) dataIsolation.getValue();
-
-               int quaSize=vcuCase.getQuarantines().size();
-               Data dataQuarantine=vcuCase.getQuarantines().get(quaSize-1);
-               String x4=Integer.toString(dataIsolation.getValue());
-               quarantineNumber.setText(x4);
-               quaNumber=(int) dataQuarantine.getValue();
-
-               int negEntrySize=vcuCase.getNegatives().size();
-               Data dataNegEntry=vcuCase.getNegatives().get(negEntrySize-1);
-               String x5=Integer.toString(dataNegEntry.getValue());
-               negativeEntryResultNumber.setText(x4);
-               negativeEntryNum=(int) dataNegEntry.getValue();
-
-               int posEntrySize=vcuCase.getPositives().size();
-               Data dataPosEntry=vcuCase.getPositives().get(posEntrySize-1);
-               String x6=Integer.toString(dataPosEntry.getValue());
-               positiveEntryResultNumber.setText(x6);
-               positiveEntryNum=(int) dataPosEntry.getValue();
-
-               int posPreveSize=vcuCase.getPrevalencePositive().size();
-               Data dataPosPreve=vcuCase.getPrevalencePositive().get(posPreveSize-1);
-               String x7=Integer.toString(dataPosPreve.getValue());
-               positivePrevelenceNumber.setText(x7);
-               posPrevelenceNum=(int) dataPosPreve.getValue();
-
-               int negPreveSize=vcuCase.getPrevalenceNegative().size();
-               Data dataNegPreve=vcuCase.getPrevalenceNegative().get(negPreveSize-1);
-               String x8=Integer.toString(dataNegPreve.getValue());
-               negavtivePrevelenceNumber.setText(x8);
-               negPrevelenceNum=(int) dataNegPreve.getValue();
-
-
-               ValueAnimator valueAnimator = getValueAnimator(studentCase, activeStudentCaseNumber);
-               valueAnimator.start();
-
-               ValueAnimator valueAnimator2 = getValueAnimator(employeeCase, activeEmployeeCaseNumber);
-               valueAnimator2.start();
-
-               ValueAnimator valueAnimator3 = getValueAnimator(isoNumber, isolationNumber);
-               valueAnimator3.start();
-
-               ValueAnimator valueAnimator4 = getValueAnimator(quaNumber, quarantineNumber);
-               valueAnimator4.start();
-
-               ValueAnimator valueAnimator5 = getValueAnimator(negativeEntryNum, negativeEntryResultNumber);
-               valueAnimator5.start();
-
-               ValueAnimator valueAnimator6 = getValueAnimator(positiveEntryNum, positiveEntryResultNumber);
-               valueAnimator6.start();
-
-               ValueAnimator valueAnimator7 = getValueAnimator(posPrevelenceNum, positivePrevelenceNumber);
-               valueAnimator7.start();
-
-               ValueAnimator valueAnimator8 = getValueAnimator(negPrevelenceNum, negavtivePrevelenceNumber);
-               valueAnimator8.start();
-
+               //get data from database and set to EditView
+               setDataVcu(vcuCase);
+               //Make animated numbers
+               animateNumberVcu();
 
 
            }
@@ -149,6 +80,82 @@ public class VcuStat extends AppCompatActivity {
 
 
    }
+
+    private void animateNumberVcu() {
+        ValueAnimator valueAnimator = getValueAnimator(studentCase, activeStudentCaseNumber);
+        valueAnimator.start();
+
+        ValueAnimator valueAnimator2 = getValueAnimator(employeeCase, activeEmployeeCaseNumber);
+        valueAnimator2.start();
+
+        ValueAnimator valueAnimator3 = getValueAnimator(isoNumber, isolationNumber);
+        valueAnimator3.start();
+
+        ValueAnimator valueAnimator4 = getValueAnimator(quaNumber, quarantineNumber);
+        valueAnimator4.start();
+
+        ValueAnimator valueAnimator5 = getValueAnimator(negativeEntryNum, negativeEntryResultNumber);
+        valueAnimator5.start();
+
+        ValueAnimator valueAnimator6 = getValueAnimator(positiveEntryNum, positiveEntryResultNumber);
+        valueAnimator6.start();
+
+        ValueAnimator valueAnimator7 = getValueAnimator(posPrevelenceNum, positivePrevelenceNumber);
+        valueAnimator7.start();
+
+        ValueAnimator valueAnimator8 = getValueAnimator(negPrevelenceNum, negavtivePrevelenceNumber);
+        valueAnimator8.start();
+    }
+
+    private void setDataVcu(VcuCase vcuCase) {
+        int studentSize =vcuCase.getStudents().size();
+        Data dataStudent=vcuCase.getStudents().get(studentSize-1);
+        String x1=Integer.toString(dataStudent.getValue());
+        activeStudentCaseNumber.setText(x1);
+        studentCase=(int) dataStudent.getValue();
+
+        int employeeSize=vcuCase.getEmployees().size();
+        Data dataEmployee=vcuCase.getEmployees().get(employeeSize-1);
+        String x2=Integer.toString(dataEmployee.getValue());
+        activeStudentCaseNumber.setText(x2);
+        employeeCase=(int) dataEmployee.getValue();
+
+        int isoSize=vcuCase.getIsolations().size();
+        Data dataIsolation=vcuCase.getIsolations().get(isoSize-1);
+        String x3=Integer.toString(dataIsolation.getValue());
+        isolationNumber.setText(x3);
+        isoNumber=(int) dataIsolation.getValue();
+
+        int quaSize=vcuCase.getQuarantines().size();
+        Data dataQuarantine=vcuCase.getQuarantines().get(quaSize-1);
+        String x4=Integer.toString(dataIsolation.getValue());
+        quarantineNumber.setText(x4);
+        quaNumber=(int) dataQuarantine.getValue();
+
+        int negEntrySize=vcuCase.getNegatives().size();
+        Data dataNegEntry=vcuCase.getNegatives().get(negEntrySize-1);
+        String x5=Integer.toString(dataNegEntry.getValue());
+        negativeEntryResultNumber.setText(x4);
+        negativeEntryNum=(int) dataNegEntry.getValue();
+
+        int posEntrySize=vcuCase.getPositives().size();
+        Data dataPosEntry=vcuCase.getPositives().get(posEntrySize-1);
+        String x6=Integer.toString(dataPosEntry.getValue());
+        positiveEntryResultNumber.setText(x6);
+        positiveEntryNum=(int) dataPosEntry.getValue();
+
+        int posPreveSize=vcuCase.getPrevalencePositive().size();
+        Data dataPosPreve=vcuCase.getPrevalencePositive().get(posPreveSize-1);
+        String x7=Integer.toString(dataPosPreve.getValue());
+        positivePrevelenceNumber.setText(x7);
+        posPrevelenceNum=(int) dataPosPreve.getValue();
+
+        int negPreveSize=vcuCase.getPrevalenceNegative().size();
+        Data dataNegPreve=vcuCase.getPrevalenceNegative().get(negPreveSize-1);
+        String x8=Integer.toString(dataNegPreve.getValue());
+        negavtivePrevelenceNumber.setText(x8);
+        negPrevelenceNum=(int) dataNegPreve.getValue();
+    }
 
     private ValueAnimator getValueAnimator(int studentCase, final TextView activeStudentCaseNumber) {
         ValueAnimator valueAnimator = ValueAnimator.ofInt(0, studentCase);

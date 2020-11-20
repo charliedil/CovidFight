@@ -11,6 +11,7 @@
         style="@style/Widget.AppCompat.RatingBar.Indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
         android:isIndicator="true"
         android:max="5"
         android:scaleX=".65"
@@ -24,12 +25,12 @@
         android:id="@+id/tvReview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginLeft="2dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="22dp"
         android:text="Review"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/ratingReview" />
 
     <TextView
         android:id="@+id/tvDate"
@@ -37,7 +38,18 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="124dp"
         android:layout_marginLeft="124dp"
+        android:layout_marginTop="2dp"
         android:text="Date"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/ratingReview" />
+
+    <ImageView
+        android:id="@+id/ivDivider"
+        android:layout_width="fill_parent"
+        android:layout_height="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/custom_divider"
+        android:background="@drawable/custom_divider"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

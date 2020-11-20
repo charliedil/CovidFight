@@ -37,6 +37,16 @@ public class ReportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
 
+        /** Button to close activity */
+        Button closeButton = findViewById(R.id.btnClose);
+        closeButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         editTextEmail = (EditText) findViewById(R.id.enter_email);
         editTextAddress = (EditText) findViewById(R.id.enter_address);
         editTextMessage = (EditText) findViewById(R.id.enter_description);

@@ -291,6 +291,10 @@ public class BusinessPopup extends AppCompatActivity {
 
 
         //add if statement to submit when stars and comment are filled, otherwise make Toast error
+        ifNotReviewedYet(comment, numStart, uid, date);
+    }
+
+    private void ifNotReviewedYet(String comment, Float numStart, String uid, String date) {
         if(numStart!=null){
 
             ReviewItem reviewItem= new ReviewItem(numStart,comment,date);

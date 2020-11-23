@@ -89,7 +89,6 @@
         android:gravity="center_horizontal"
         android:maxLines="10"
         android:text="Esri\n Virginia Department Of Health\n VCU Together Dashboard" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -87,7 +87,6 @@ public class BusinessPopup extends AppCompatActivity {
 
         /** set components to data */
         tvName.setText(name);
-        //Glide.with(context).load(imageUrl).into(imageView);
         ratingBar.setRating((float) 0.0);
         tvNumReviews.setText(numReviews[0] +" reviews");
         //tvAddress.setText(address);

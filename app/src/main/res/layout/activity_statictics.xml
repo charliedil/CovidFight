@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:screenOrientation="portrait"
     tools:context=".Statictics">
-
     <ImageView
         android:layout_width="250dp"
         android:layout_height="200dp"

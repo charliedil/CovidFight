@@ -7,7 +7,6 @@
     android:background="@drawable/bg_gradient"
     android:screenOrientation="portrait"
     tools:context=".SettingsActivity">
-
     <!-- <TextView
         android:id="@+id/settingsTitle"
         android:layout_width="match_parent"

@@ -76,6 +76,7 @@ public class SettingsActivity extends AppCompatActivity implements TimePickerDia
     }
 
     private void cancelAlarm(){
+
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         Intent intent = new Intent(getApplicationContext(), Reminder.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),100, intent, PendingIntent.FLAG_UPDATE_CURRENT);

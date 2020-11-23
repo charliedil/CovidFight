@@ -38,6 +38,15 @@ public class RichmondStat extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_richmond_stat);
 
+        /** Button to close activity */
+        Button closeButton = findViewById(R.id.btnClose);
+        closeButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         richmondCaseRecView=findViewById(R.id.RichmondCaseRecyclerView);
         searchBarTextView=findViewById(R.id.RichmondCaseSearch);

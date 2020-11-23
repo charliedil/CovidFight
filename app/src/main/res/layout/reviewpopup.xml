@@ -5,7 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
+    android:screenOrientation="portrait"
     android:background="@drawable/reviewbackground">
+
+    <activity
+        android:name="com.example.demo_spinner.MainActivity"
+        android:label="@string/app_name"
+        android:screenOrientation="portrait" >
+    </activity>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -50,14 +58,11 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        >
-
+        android:layout_gravity="center">
         <Button
             android:id="@+id/cancelButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
             android:layout_marginTop="40dp"
             android:layout_marginBottom="100dp"
             android:text="Cancel" />
@@ -66,6 +71,7 @@
             android:id="@+id/submitButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:layout_marginLeft="40dp"
             android:layout_marginTop="40dp"
             android:layout_marginBottom="100dp"

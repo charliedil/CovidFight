@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -33,7 +35,17 @@ public class Business extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_business);
+    /** Button to close activity */
+    Button closeButton = findViewById(R.id.btnClose);
+    closeButton.setOnClickListener(new View.OnClickListener() {
 
+      @Override
+      public void onClick(View v) {
+        finish();
+      }
+    });
+
+    /** Method calls */
     createBusinessList();
     openPopup();
 
@@ -103,7 +115,7 @@ public class Business extends AppCompatActivity {
     bLayoutManager = new LinearLayoutManager(this);
     bRecyclerView.setLayoutManager(bLayoutManager);
 
-    //get Yelp API data 
+    //get Yelp API data
     YelpInterface yelpInt = retrofit.create(YelpInterface.class);
     yelpInt.searchRestaurants("Bearer " + API_KEY, (String) searchQuery, "Richmond").enqueue(new Callback<YelpSearchResult>() {
       @Override

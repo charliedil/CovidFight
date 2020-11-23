@@ -7,6 +7,7 @@
     android:background="@drawable/bg_home"
     android:orientation="vertical"
     android:weightSum="10"
+    android:screenOrientation="portrait"
     tools:context=".MainActivity">
 
     <RelativeLayout
@@ -142,7 +143,8 @@
                         android:fontFamily="@font/baloo"
                         android:text="@string/title_activity_business"
                         android:textColor="#000000"
-                        android:textSize="30sp" />
+                        android:textSize="26sp" />
+
 
                 </LinearLayout>
 

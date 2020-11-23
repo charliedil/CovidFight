@@ -7,6 +7,16 @@
     android:background="@drawable/bg_gradient"
     android:screenOrientation="portrait"
     tools:context=".SettingsActivity">
+    <Button
+        android:id="@+id/btnClose"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/x_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <!-- <TextView
         android:id="@+id/settingsTitle"
         android:layout_width="match_parent"

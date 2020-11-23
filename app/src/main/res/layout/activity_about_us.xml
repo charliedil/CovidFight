@@ -7,11 +7,21 @@
     android:background="@drawable/bg_gradient"
     android:screenOrientation="portrait"
     tools:context=".AboutUsActivity">
-
+    <Button
+        android:id="@+id/btnClose"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/x_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/headerLogo"
         android:layout_width="match_parent"
         android:layout_height="150dp"
+        android:layout_marginTop="50dp"
         android:src="@drawable/logo" />
 
     <TextView

@@ -1,3 +1,12 @@
+//problems encountered while testing on actual phone
+// 1. business text got cut off
+//2. notifs would not get set. once backing out of the settings app, notifs would get unset
+//3. after submittign review, might be nice to have popup close automatically
+// 4. business review popup text can get cut off, should scale
+// 5. map would not load
+// 6. we need to lock rotation
+// 7. back button
+
 package com.example.covidfight;
 
 import android.content.Intent;
@@ -29,7 +38,7 @@ import java.util.concurrent.ExecutionException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+//need this to be async somewhere probably, very slow
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
   private GoogleMap googleMap;
   private Button button;
@@ -154,12 +163,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
       }
       for (DataRichmond d : dataList) {
         for (int i = 0; i < indexToZipcode.size(); i++) {
-          if (indexToZipcode.get(i).equals(d.getZip_code()) //use zipcode to find long/lat
-                  && !d.getNumber_of_cases().equals("Suppressed")) {
+          if (indexToZipcode.get(i).equals(d.getZipCodes()) //use zipcode to find long/lat
+                  && !d.getNumberOfCases().equals("Suppressed")) {
             WeightedLatLng dataPoint = new WeightedLatLng(//using long/lat to pass in
                     new LatLng(Double.valueOf(indexToLat.get(i)),
                             Double.valueOf(indexToLong.get(i))),
-                    Double.valueOf(d.getNumber_of_cases())); //active cases is used for weight
+                    Double.valueOf(d.getNumberOfCases())); //active cases is used for weight
             wdat.add(dataPoint); //add it to the array
             break;
           }

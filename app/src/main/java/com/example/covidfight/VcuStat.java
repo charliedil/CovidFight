@@ -32,19 +32,13 @@ public class VcuStat extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vcu_stat);
-
         getData();
-
-
-
     }
-
 
    private  void getData(){
        final Gson gson= new Gson();
 
        String url="https://quinn50.dev/vcucovid/api/v1";
-
 
        StringRequest request=new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
 

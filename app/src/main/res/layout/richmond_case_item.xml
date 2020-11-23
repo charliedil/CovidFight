@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:screenOrientation="portrait"
+    android:id="@+id/parent">
+
+    <activity
+        android:name="com.example.demo_spinner.MainActivity"
+        android:label="@string/app_name"
+        android:screenOrientation="portrait" >
+    </activity>
+
+
+    <TextView
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:text="Zip code"
+        android:id="@+id/zipcode"/>
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_toRightOf="@id/zipcode"
+        android:id="@+id/caseNumbers"/>
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_marginLeft="60dp"
+        android:layout_toRightOf="@id/caseNumbers"
+        android:id="@+id/testNumbers"/>
+
+
+</RelativeLayout>

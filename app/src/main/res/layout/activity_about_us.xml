@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    android:screenOrientation="portrait"
+    tools:context=".AboutUsActivity">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/headerLogo"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:src="@drawable/logo" />
+
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="About Us"
+        android:layout_below="@+id/headerLogo"
+        android:layout_centerHorizontal="true"
+        android:textSize="30sp"
+        android:textColor="#FFF"
+        android:textStyle="bold"
+        android:layout_marginTop="15dp"/>
+    <TextView
+        android:id="@+id/line1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/header"
+        android:text="----***----"
+        android:textColor="#FFF"/>
+    <TextView
+        android:id="@+id/ContextHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text=" Context"
+        android:drawableLeft="@drawable/ic_baseline_context"
+        android:layout_marginTop="20dp"
+        android:textSize="20dp"
+        android:textColor="#fff"
+        android:layout_below="@+id/line1"/>
+
+    <TextView
+        android:id="@+id/context"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ContextHeader"
+        android:layout_marginHorizontal="5dp"
+        android:gravity="center_horizontal"
+        android:text="Project COVIDFight was developed for a Software Development class by a group of Undergrad CS students at VCU. You can find us on Github at \ngithub.com/nehadil/CovidFight"
+        android:textAlignment="center"
+        android:textColor="#fff"
+        />
+
+
+    <TextView
+        android:id="@+id/SourceHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/context"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textSize="20dp"
+        android:textColor="#FFF"
+        android:drawableLeft="@drawable/ic_baseline_resource"
+        android:text=" Sources"
+        />
+
+    <TextView
+        android:id="@+id/source"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/SourceHeader"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginLeft="112dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="104dp"
+        android:layout_marginRight="104dp"
+        android:gravity="center_horizontal"
+        android:maxLines="10"
+        android:text="Esri\n Virginia Department Of Health\n VCU Together Dashboard" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/email"
+        android:layout_below="@id/source"
+        android:text="Email: covidfightapp@gmail.com"
+        android:drawableLeft="@drawable/ic_baseline_email_24"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="#000"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" We can do this together!"
+        android:layout_below="@+id/email"
+        android:drawableLeft="@drawable/ic_heart"
+        android:layout_marginTop="20dp"
+        android:textSize="20dp"
+        android:textStyle="italic"
+        android:textColor="#000"
+        android:layout_centerHorizontal="true"/>
+
+
+
+
+
+</RelativeLayout>

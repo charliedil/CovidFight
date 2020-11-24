@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:screenOrientation="portrait"
+    android:id="@+id/businessCard">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp">
+
+        <ImageView
+            android:id="@+id/cardImage"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:padding="2dp"
+            app:srcCompat="@drawable/insert_image" />
+
+        <TextView
+            android:id="@+id/cardTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Business"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/cardImage"
+            android:layout_toRightOf="@+id/cardImage" />
+
+        <FrameLayout
+            android:id="@+id/ratingFrame"
+            android:layout_width="120dp"
+            android:layout_height="24dp"
+            android:layout_below="@+id/cardTitle"
+            android:layout_toEndOf="@+id/cardImage"
+            android:layout_toRightOf="@+id/cardImage"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/ratingEmpty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/empty_stars"
+                app:srcCompat="@drawable/empty_stars" />
+
+            <ImageView
+                android:id="@+id/ratingFull"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/clip_source" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/cardDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ratingFrame"
+            android:layout_toEndOf="@+id/cardImage"
+            android:layout_toRightOf="@+id/cardImage"
+            android:text="Description"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:screenOrientation="portrait"
+    tools:context=".RichmondStat">
+    <Button
+        android:id="@+id/btnClose"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignBottom="@+id/richmondTextView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="6dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/x_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/richmondTextView"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#DDBCE5"
+        android:gravity="center_horizontal"
+        android:padding="7dp"
+        android:text="  Richmond Cases and Tests by Zipcode:"
+
+        android:textColor="#000"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="178dp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Zip code                        Cases                       Tests"
+        android:id="@+id/RichmondInfoType"
+        android:layout_below="@+id/richmondTextView"
+        android:textColor="#000"
+        android:textSize="17sp"
+        android:padding="7dp"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/RichmondCaseSearch"
+        android:layout_below="@id/RichmondInfoType"
+        android:hint="Search by zipcode"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="550dp"
+        android:layout_below="@id/RichmondCaseSearch"
+        android:id="@+id/RichmondCaseRecyclerView"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Search for nearest testing centers"
+        android:id="@+id/findTestLocation"
+        android:layout_below="@id/RichmondInfoType"
+        android:layout_marginTop="540dp"
+        android:background="@drawable/custom_button"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
+        android:padding="5dp"
+        android:textColor="#FFF"
+        android:textSize="15sp"
+        />
+
+</RelativeLayout>

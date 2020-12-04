@@ -19,7 +19,6 @@ public class Reminder extends BroadcastReceiver {
         Intent repeating_intent = new Intent(context, MainActivity.class);
         repeating_intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(context,100,repeating_intent,PendingIntent.FLAG_UPDATE_CURRENT);
-
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context,"maskNotify")
                 .setContentIntent(pendingIntent)
                 .setSmallIcon(R.drawable.logo)
@@ -27,9 +26,7 @@ public class Reminder extends BroadcastReceiver {
                 .setContentText("Don't forget to grab your mask!")
                 //.setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setAutoCancel(true);
-
        // NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-
         notificationManager.notify(100, builder.build());*/
     }
 }

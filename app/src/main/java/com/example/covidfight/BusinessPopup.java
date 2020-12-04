@@ -62,6 +62,15 @@ public class BusinessPopup extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.business_popup);
+        /** Button to close activity */
+        Button closeButton = findViewById(R.id.btnClose);
+        closeButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         Intent intent = getIntent();
         final YelpRestaurant restaurant = intent.getParcelableExtra("YelpRestaurant");
@@ -272,6 +281,7 @@ public class BusinessPopup extends AppCompatActivity {
                 //Method: addReview
 
                 addReview();
+                dialog.dismiss();
 
             }
         });

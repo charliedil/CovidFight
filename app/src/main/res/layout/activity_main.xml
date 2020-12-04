@@ -7,6 +7,7 @@
     android:background="@drawable/bg_home"
     android:orientation="vertical"
     android:weightSum="10"
+    android:screenOrientation="portrait"
     tools:context=".MainActivity">
 
     <RelativeLayout
@@ -22,247 +23,244 @@
             android:contentDescription="@string/app_logo" />
     </RelativeLayout>
 
-        
-        <GridLayout
-            android:layout_weight="6.5"
-            android:columnCount="2"
-            android:rowCount="3"
-            android:alignmentMode="alignMargins"
-            android:padding="8dp"
-            android:columnOrderPreserved="false"
-            android:layout_width="match_parent"
-            android:layout_height="0dp">
 
-            <!--Row 1 -->
-            <!--Column 1 -->
+    <GridLayout
+        android:layout_weight="6.5"
+        android:columnCount="2"
+        android:rowCount="3"
+        android:alignmentMode="alignMargins"
+        android:padding="8dp"
+        android:columnOrderPreserved="false"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/mapCard"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                app:cardElevation="8dp"
-                app:cardCornerRadius="8dp"
-                >
-                <LinearLayout
-                    android:layout_gravity="center_horizontal|center_vertical"
-                    android:orientation="vertical"
+        <!--Row 1 -->
+        <!--Column 1 -->
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/mapCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            app:cardElevation="8dp"
+            app:cardCornerRadius="8dp"
+            >
+            <LinearLayout
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:src="@drawable/map_icon"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:contentDescription="@string/title_activity_maps" />
+
+                <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:fontFamily="@font/baloo"
+                    android:text="@string/title_activity_maps"
+                    android:textColor="#000000"
+                    android:textSize="30sp" />
 
-                    <ImageView
-                        android:src="@drawable/map_icon"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:contentDescription="@string/title_activity_maps" />
+            </LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="10dp"
-                        android:fontFamily="@font/baloo"
-                        android:text="@string/title_activity_maps"
-                        android:textColor="#000000"
-                        android:textSize="30sp" />
+        </androidx.cardview.widget.CardView>
 
-                </LinearLayout>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/statsCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            app:cardElevation="8dp"
+            app:cardCornerRadius="8dp"
+            >
+            <LinearLayout
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-            </androidx.cardview.widget.CardView>
+                <ImageView
+                    android:src="@drawable/stats_icon"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:contentDescription="@string/title_activity_stats" />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/statsCard"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                app:cardElevation="8dp"
-                app:cardCornerRadius="8dp"
-                >
-                <LinearLayout
-                    android:layout_gravity="center_horizontal|center_vertical"
-                    android:orientation="vertical"
+                <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/baloo"
+                    android:text="@string/title_activity_stats"
+                    android:textColor="#000000"
+                    android:textSize="30sp" />
 
-                    <ImageView
-                        android:src="@drawable/stats_icon"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:contentDescription="@string/title_activity_stats" />
+            </LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/baloo"
-                        android:text="@string/title_activity_stats"
-                        android:textColor="#000000"
-                        android:textSize="30sp" />
+        </androidx.cardview.widget.CardView>
 
-                </LinearLayout>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/businessCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            app:cardElevation="8dp"
+            app:cardCornerRadius="8dp"
+            >
+            <LinearLayout
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-            </androidx.cardview.widget.CardView>
+                <ImageView
+                    android:src="@drawable/business_icon"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:contentDescription="@string/title_activity_business" />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/businessCard"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                app:cardElevation="8dp"
-                app:cardCornerRadius="8dp"
-                >
-                <LinearLayout
-                    android:layout_gravity="center_horizontal|center_vertical"
-                    android:orientation="vertical"
+                <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/baloo"
+                    android:text="@string/title_activity_business"
+                    android:textColor="#000000"
+                    android:textSize="30sp" />
 
-                    <ImageView
-                        android:src="@drawable/business_icon"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:contentDescription="@string/title_activity_business" />
+            </LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/baloo"
-                        android:text="@string/title_activity_business"
-                        android:textColor="#000000"
-                        android:textSize="26sp" />
+        </androidx.cardview.widget.CardView>
 
-                </LinearLayout>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/reportCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            app:cardElevation="8dp"
+            app:cardCornerRadius="8dp"
+            >
+            <LinearLayout
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-            </androidx.cardview.widget.CardView>
+                <ImageView
+                    android:src="@drawable/report_icon"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:contentDescription="@string/title_activity_report" />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/reportCard"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                app:cardElevation="8dp"
-                app:cardCornerRadius="8dp"
-                >
-                <LinearLayout
-                    android:layout_gravity="center_horizontal|center_vertical"
-                    android:orientation="vertical"
+                <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/baloo"
+                    android:text="@string/title_activity_report"
+                    android:textColor="#000000"
+                    android:textSize="30sp" />
 
-                    <ImageView
-                        android:src="@drawable/report_icon"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:contentDescription="@string/title_activity_report" />
+            </LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/baloo"
-                        android:text="@string/title_activity_report"
-                        android:textColor="#000000"
-                        android:textSize="30sp" />
+        </androidx.cardview.widget.CardView>
 
-                </LinearLayout>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/aboutCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            app:cardElevation="8dp"
+            app:cardCornerRadius="8dp"
+            >
+            <LinearLayout
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-            </androidx.cardview.widget.CardView>
+                <ImageView
+                    android:src="@drawable/about_icon"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:contentDescription="@string/title_activity_about" />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/aboutCard"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                app:cardElevation="8dp"
-                app:cardCornerRadius="8dp"
-                >
-                <LinearLayout
-                    android:layout_gravity="center_horizontal|center_vertical"
-                    android:orientation="vertical"
+                <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:fontFamily="@font/baloo"
+                    android:text="@string/title_activity_about"
+                    android:textColor="#000000"
+                    android:textSize="30sp" />
 
-                    <ImageView
-                        android:src="@drawable/about_icon"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:contentDescription="@string/title_activity_about" />
+            </LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="10dp"
-                        android:fontFamily="@font/baloo"
-                        android:text="@string/title_activity_about"
-                        android:textColor="#000000"
-                        android:textSize="30sp" />
+        </androidx.cardview.widget.CardView>
 
-                </LinearLayout>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/settingsCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            app:cardElevation="8dp"
+            app:cardCornerRadius="8dp"
+            >
+            <LinearLayout
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-            </androidx.cardview.widget.CardView>
+                <ImageView
+                    android:src="@drawable/settings_icon"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:contentDescription="@string/title_activity_settings" />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/settingsCard"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                app:cardElevation="8dp"
-                app:cardCornerRadius="8dp"
-                >
-                <LinearLayout
-                    android:layout_gravity="center_horizontal|center_vertical"
-                    android:orientation="vertical"
+                <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/baloo"
+                    android:text="@string/title_activity_settings"
+                    android:textColor="#000000"
+                    android:textSize="30sp" />
 
-                    <ImageView
-                        android:src="@drawable/settings_icon"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:contentDescription="@string/title_activity_settings" />
+            </LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/baloo"
-                        android:text="@string/title_activity_settings"
-                        android:textColor="#000000"
-                        android:textSize="30sp" />
+        </androidx.cardview.widget.CardView>
 
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-        </GridLayout>
+    </GridLayout>
 
 </LinearLayout>
-
-
-

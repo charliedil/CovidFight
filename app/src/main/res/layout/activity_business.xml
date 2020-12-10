@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:screenOrientation="portrait">
+    android:layout_height="match_parent">
+
     <Button
         android:id="@+id/btnClose"
         android:layout_width="24dp"
@@ -15,12 +15,12 @@
         android:background="@drawable/x_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
         android:id="@+id/UnscrollableLayout"
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:orientation="vertical"
-        android:screenOrientation="portrait"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -48,6 +48,7 @@
             android:hint=" Find businesses"
             android:drawableStart="@drawable/ic_baseline_search_24"
             android:drawableLeft="@drawable/ic_baseline_search_24" />
+
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

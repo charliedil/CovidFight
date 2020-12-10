@@ -96,6 +96,7 @@ public class BusinessPopup extends AppCompatActivity {
 
         /** set components to data */
         tvName.setText(name);
+        //Glide.with(context).load(imageUrl).into(imageView);
         ratingBar.setRating((float) 0.0);
         tvNumReviews.setText(numReviews[0] +" reviews");
         //tvAddress.setText(address);
@@ -299,10 +300,6 @@ public class BusinessPopup extends AppCompatActivity {
 
 
         //add if statement to submit when stars and comment are filled, otherwise make Toast error
-        ifNotReviewedYet(comment, numStart, uid, date);
-    }
-
-    private void ifNotReviewedYet(String comment, Float numStart, String uid, String date) {
         if(numStart!=null){
 
             ReviewItem reviewItem= new ReviewItem(numStart,comment,date);

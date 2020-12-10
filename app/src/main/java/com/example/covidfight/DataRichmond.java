@@ -1,48 +1,47 @@
 package com.example.covidfight;
 
 public class DataRichmond {
-  String reportDate;
-  String zipCodes;
-  String numberOfCases;
-  String numberOfPcrTesting;
+    String report_date;
+    String zip_code;
+    String number_of_cases;
+    String number_of_pcr_testing;
 
-  public DataRichmond(String reportDate, String zipCodes,
-                      String numberOfCases, String numberOfPcrTesting) {
-    this.reportDate = reportDate;
-    this.zipCodes = zipCodes;
-    this.numberOfCases = numberOfCases;
-    this.numberOfPcrTesting = numberOfPcrTesting;
-  }
+    public DataRichmond(String report_date, String zip_code, String number_of_cases, String number_of_pcr_testing) {
+        this.report_date = report_date;
+        this.zip_code = zip_code;
+        this.number_of_cases = number_of_cases;
+        this.number_of_pcr_testing = number_of_pcr_testing;
+    }
 
-  public String getReportDate() {
-    return reportDate;
-  }
+    public String getReport_date() {
+        return report_date;
+    }
 
-  public void setReportDate(String reportDate) {
-    this.reportDate = reportDate;
-  }
+    public void setReport_date(String report_date) {
+        this.report_date = report_date;
+    }
 
-  public String getZipCodes() {
-    return zipCodes;
-  }
+    public String getZip_code() {
+        return zip_code;
+    }
 
-  public void setZipCodes(String zipCodes) {
-    this.zipCodes = zipCodes;
-  }
+    public void setZip_code(String zip_code) {
+        this.zip_code = zip_code;
+    }
 
-  public String getNumberOfCases() {
-    return numberOfCases;
-  }
+    public String getNumber_of_cases() {
+        return number_of_cases;
+    }
 
-  public void setNumberOfCases(String numberOfCases) {
-    this.numberOfCases = numberOfCases;
-  }
+    public void setNumber_of_cases(String number_of_cases) {
+        this.number_of_cases = number_of_cases;
+    }
 
-  public String getNumberOfPcrTesting() {
-    return numberOfPcrTesting;
-  }
+    public String getNumber_of_pcr_testing() {
+        return number_of_pcr_testing;
+    }
 
-  public void setNumberOfPcrTesting(String numberOfPcrTesting) {
-    this.numberOfPcrTesting = numberOfPcrTesting;
-  }
+    public void setNumber_of_pcr_testing(String number_of_pcr_testing) {
+        this.number_of_pcr_testing = number_of_pcr_testing;
+    }
 }

@@ -46,6 +46,7 @@ public class Business extends AppCompatActivity {
     });
 
     /** Method calls */
+
     createBusinessList();
     openPopup();
 
@@ -115,7 +116,7 @@ public class Business extends AppCompatActivity {
     bLayoutManager = new LinearLayoutManager(this);
     bRecyclerView.setLayoutManager(bLayoutManager);
 
-    //get Yelp API data
+    //get Yelp API data 
     YelpInterface yelpInt = retrofit.create(YelpInterface.class);
     yelpInt.searchRestaurants("Bearer " + API_KEY, (String) searchQuery, "Richmond").enqueue(new Callback<YelpSearchResult>() {
       @Override

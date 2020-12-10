@@ -4,13 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.AlarmManager;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -22,11 +19,11 @@ import java.text.DateFormat;
 import java.util.Calendar;
 
 public class SettingsActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
-    private TextView mTextView;
     public static final String SHARED_PREFS = "shared";
     public static final String TEXT = "text";
 
     private String text;
+    private TextView mTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +54,7 @@ public class SettingsActivity extends AppCompatActivity implements TimePickerDia
                 cancelAlarm();
             }
         });
+
         loadData();
         updateViews();
     }
@@ -78,6 +76,7 @@ public class SettingsActivity extends AppCompatActivity implements TimePickerDia
         timeText += DateFormat.getTimeInstance(DateFormat.SHORT).format(c.getTime());
         mTextView.setText(timeText);
     }
+
     public void saveData() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -98,7 +97,6 @@ public class SettingsActivity extends AppCompatActivity implements TimePickerDia
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         Intent intent = new Intent(getApplicationContext(), Reminder.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this,1, intent,0);
-        //PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         if(c.before(Calendar.getInstance())){
             c.add(Calendar.DATE, 1);
@@ -108,29 +106,12 @@ public class SettingsActivity extends AppCompatActivity implements TimePickerDia
     }
 
     private void cancelAlarm(){
-
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        //Intent intent = new Intent(getApplicationContext(), Reminder.class);
         Intent intent = new Intent(this, Reminder.class);
-        //PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this,1, intent, 0);
 
         alarmManager.cancel(pendingIntent);
         mTextView.setText("No Reminder Set");
         saveData();
-    }
-
-    //creates the notification channel that reminds users to wear their mask
-    private void createNotificationChannel(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            CharSequence name = "MaskReminderChannel";
-            String description = "Channel to remind people to wear their masks";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("maskNotify", name, importance);
-            channel.setDescription(description);
-
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
     }
 }

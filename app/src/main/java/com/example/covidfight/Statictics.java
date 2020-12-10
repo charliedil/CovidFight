@@ -16,7 +16,6 @@ public class Statictics extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statictics);
-
         /** Button to close activity */
         Button closeButton = findViewById(R.id.btnClose);
         closeButton.setOnClickListener(new View.OnClickListener() {
@@ -26,7 +25,6 @@ public class Statictics extends AppCompatActivity {
                 finish();
             }
         });
-
         VcuImageView=findViewById(R.id.vcuImageView);
         VcuImageView.setOnClickListener(new View.OnClickListener() {
             @Override

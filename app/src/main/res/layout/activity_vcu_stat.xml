@@ -286,18 +286,34 @@
 
     </androidx.cardview.widget.CardView>
 
-   <TextView
-       android:layout_width="match_parent"
-       android:layout_height="25dp"
-       android:id="@+id/vcuStatSource"
-       android:text="Source: VCU Together Dashboard"
-       android:layout_below="@+id/PrevalenceCardView"
-       android:layout_marginTop="7dp"
-       android:padding="3dp"
-       android:background="#F8FC96"
-       android:textColor="#000"
-       android:textAlignment="center"
-       android:gravity="center_horizontal" />
+    <Button
+        android:id="@+id/btnClose"
+        android:layout_width="21dp"
+        android:layout_height="21dp"
+        android:layout_alignBottom="@+id/richmondTextView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/x_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/vcuStatSource"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_below="@+id/PrevalenceCardView"
+        android:layout_marginTop="7dp"
+        android:background="#F8FC96"
+        android:gravity="center_horizontal"
+        android:padding="3dp"
+        android:text="Source: VCU Together Dashboard"
+        android:textAlignment="center"
+        android:textColor="#000" />
 
 
 

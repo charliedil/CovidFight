@@ -9,7 +9,6 @@ import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
 
-
 public class NotificationHelper extends ContextWrapper {
     public static final String channelID = "maskNotify";
     public static final String channelName = "Channel Name";
